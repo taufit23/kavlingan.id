@@ -27,3 +27,4 @@ Route::get('/penjual', [PenjualController::class, 'index'])->name('penjual.index
 Route::get('/penjual/data_tanah', [PenjualController::class, 'data_tanah'])->name('penjual.data_tanah');
 Route::get('/penjual/data_tanah/jual', [PenjualController::class, 'jual'])->name('penjual.data_tanah.jual');
 Route::post('/penjual/data_tanah/jual', [PenjualController::class, 'store'])->name('penjual.data_tanah.jual.store');
+Route::post('/penjual/data_tanah/jual_store', [PenjualController::class, 'jual_store'])->name('penjual.data_tanah.jual_store');

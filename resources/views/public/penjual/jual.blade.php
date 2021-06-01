@@ -9,8 +9,8 @@
             <div class="container">
                 <div class="row d-flex">
                     <div class="col-xl-12 px-md-5 py-5">
-                        <form action="#" class="p-5 bg-white">
-
+                        <form action="{{ route('penjual.data_tanah.jual_store') }}" class="p-5 bg-white" method="POST">
+                            @csrf
                             <h2 class="h4 text-black mb-5">Masukan Data Tanah Dijual</h2>
 
                             <div class="row form-group">
@@ -24,69 +24,192 @@
                                                 {{ $jenis->nama_jenis_surat }}</option>
                                         @endforeach
                                     </select>
+                                    @error('jenis_surat')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="text-black" for="nomor_sertifikat">Nomor Surat</label>
                                     <input type="text" id="nomor_sertifikat" name="nomor_sertifikat" class="form-control">
+                                    @error('nomor_sertifikat')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <label class="text-black" for="nama_pemilik">Nama pemilik</label>
                                     <input type="text" id="nama_pemilik" name="nama_pemilik" class="form-control">
+                                    @error('nama_pemilik')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <label class="text-black" for="luas_tanah">Luas Tanah (Satuan 'Hektar')</label>
                                     <input type="number" id="luas_tanah" name="luas_tanah" class="form-control"
                                         id="bantuan_input" title="Satuan tidak perlu ditulis"
                                         style="input::-webkit-outer-spin-button; input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;">
+                                    @error('luas_tanah')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
-
                             <div class="row form-group">
                                 <div class="col-md-6 mb-3 mb-md-0">
-                                    <label class="text-black" for="province">Provinsi</label>
-                                    <select name="province" id="province" class="form-control">
-                                        <option value="">== Select Province ==</option>
-                                        @foreach ($provinces as $id => $name)
-                                            <option value="{{ $id }}">{{ $name }}</option>
+                                    <label class="text-black" for="fasilitas_tanah">Fasilitas Tanah</label>
+                                    <select name="fasilitas_tanah" id="fasilitas_tanah" class="form-control">
+                                        <option value="">== Select fasilitas_tanah ==</option>
+                                    </select>
+                                    @error('fasilitas_tanah')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="text-black" for="status_tanah">Status tanah dijual</label>
+                                    <select name="status_tanah" id="status_tanah" class="form-control">
+                                        <option value="">== Select status_tanah ==</option>
+                                    </select>
+                                    @error('status_tanah')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label class="text-black" for="harga_tanah">Harga Tanah</label>
+                                    <input class="form-control" type="text" name="harga_tanah" id="harga_tanah">
+                                    @error('harga_tanah')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="text-black" for="harga_booking_tanah">Harga booking</label>
+                                    <input class="form-control" type="text" name="harga_booking_tanah"
+                                        id="harga_booking_tanah">
+                                    @error('harga_booking_tanah')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <h4>Alamat</h4>
+                            <p>Alamat yang didukung saat ini hanya di Kabupaten Kampar, Provinsi Riau</p>
+                            <div class="row form-group">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label class="text-black" for="provinsi">Provinsi</label>
+                                    <select name="provinsi" id="provinsi" class="form-control">
+                                        <option value="">== Select provinsi ==</option>
+                                        @foreach ($provinsi as $id => $name)
+                                            <option value="{{ $name }}">{{ $name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('provinsi')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="text-black" for="city">Kota</label>
-                                    <select name="city" id="city" class="form-control">
-                                        <option value="">== Select City ==</option>
+                                    <label class="text-black" for="kabupaten">Kabupaten / Kota</label>
+                                    <select name="kabupaten" id="kabupaten" class="form-control">
+                                        <option value="">== Select kabupaten ==</option>
+                                        @foreach ($kabupaten as $id => $name)
+                                            <option value="{{ $name }}">{{ $name }}</option>
+                                        @endforeach
                                     </select>
+                                    @error('kabupaten')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
-
                             <div class="row form-group">
                                 <div class="col-md-6 mb-3 mb-md-0">
-                                    <label class="text-black" for="district">Kecamatan / Kota</label>
-                                    <select name="district" id="district" class="form-control">
-                                        <option value="">== Select District ==</option>
+                                    <label class="text-black" for="districts">Kecamatan</label>
+                                    <select name="districts" id="districts" class="form-control">
+                                        <option value="">== Select Districts ==</option>
+                                        @foreach ($districts as $id => $name)
+                                            <option value="{{ $id }}">{{ $name }}
+                                            </option>
+                                        @endforeach
                                     </select>
+                                    @error('districts')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="text-black" for="city">Kota</label>
-                                    <select name="city" id="city" class="form-control">
-                                        <option value="">== Select City ==</option>
+                                    <label class="text-black" for="villages">Desa</label>
+                                    <select name="villages" id="villages" class="form-control">
+                                        <option value="">== Select Villages ==</option>
                                     </select>
+                                    @error('villages')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="row form-group">
                                 <div class="col-md-12">
-                                    <label class="text-black" for="message">Message</label>
-                                    <textarea name="message" id="message" cols="30" rows="7" class="form-control"
-                                        placeholder="Write your notes or questions here..."></textarea>
+                                    <label class="text-black" for="nama_jln">Nama jalan</label>
+                                    <input type="text" id="nama_jln" name="nama_jln" class="form-control">
+                                    <span>Masukan nama jalan yang jelas</span>
+                                    @error('nama_jln')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="row form-group">
-                                <div class="col-md-12">
-                                    <input type="submit" value="Send Message" class="btn btn-primary btn-md text-white">
+                                <div class="col-md-12 text-right">
+                                    <button type="submit" class="btn btn-primary btn-md text-black-50">Tambah</button>
                                 </div>
                             </div>
                         </form>
@@ -94,22 +217,20 @@
                 </div>
             </div>
         </section>
-
-
     @endsection
 
     @push('scripts')
         <script>
             $(function() {
-                $('#province').on('change', function() {
+                $('#districts').on('change', function() {
                     axios.post('{{ route('penjual.data_tanah.jual.store') }}', {
                             id: $(this).val()
                         })
                         .then(function(response) {
-                            $('#city').empty();
+                            $('#villages').empty();
 
                             $.each(response.data, function(id, name) {
-                                $('#city').append(new Option(name, id))
+                                $('#villages').append(new Option(name, id))
                             })
                         });
                 });
