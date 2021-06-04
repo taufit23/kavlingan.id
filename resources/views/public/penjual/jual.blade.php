@@ -75,6 +75,8 @@
                                     <label class="text-black" for="fasilitas_tanah">Fasilitas Tanah</label>
                                     <select name="fasilitas_tanah" id="fasilitas_tanah" class="form-control">
                                         <option value="">== Select fasilitas_tanah ==</option>
+                                        <option value="TANAH_KOSONG">TANAH KOSONG</option>
+                                        <option value="TANAH_DAN_RUMAH">TANAH DAN RUMAH</option>
                                     </select>
                                     @error('fasilitas_tanah')
                                         <span class="invalid-feedback">
@@ -87,7 +89,9 @@
                                 <div class="col-md-6">
                                     <label class="text-black" for="status_tanah">Status tanah dijual</label>
                                     <select name="status_tanah" id="status_tanah" class="form-control">
-                                        <option value="">== Select status_tanah ==</option>
+                                        <option value="">== Select status tanah ==</option>
+                                        <option value="HANYA_JUAL">HANYA JUAL</option>
+                                        <option value="BISA_BOOKING">BISA DIBOOKING</option>
                                     </select>
                                     @error('status_tanah')
                                         <span class="invalid-feedback">
@@ -205,6 +209,12 @@
                                         </span>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="deskripsi_tanah" id="deskripsi_tanah" cols="30" rows="7"
+                                    class="form-control"
+                                    placeholder="Masukan deksipsi penjualan tanah, buat dengan kata kata menjual yang baik dan tepat, agar iklan anda menarik."></textarea><small>Note
+                                    : Deskripsi ini akan dijadikan nama iklan tanah anda</small>
                             </div>
 
                             <div class="row form-group">

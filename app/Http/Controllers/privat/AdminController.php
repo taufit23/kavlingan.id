@@ -24,7 +24,7 @@ class AdminController extends Controller
             $tabel_jenis_surat = Tabel_jenis_surat::orderBy('created_at', 'asc')->paginate(25);
         }
 
-        return view('private.jenis_surat', compact('tabel_jenis_surat'));
+        return view('private.surat-surat.jenis_surat', compact('tabel_jenis_surat'));
     }
     public function tambah_jenis_surat(Request $request)
     {

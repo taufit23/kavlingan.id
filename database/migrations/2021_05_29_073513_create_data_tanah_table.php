@@ -23,6 +23,7 @@ class CreateDataTanahTable extends Migration
             $table->string('luas_tanah');
             $table->string('fasilitas_tanah');
             $table->string('status_tanah');
+            $table->string('harga_tanah');
             $table->string('harga_booking_tanah');
             $table->string('deskripsi_tanah');
             $table->timestamps();

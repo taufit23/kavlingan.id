@@ -50,6 +50,78 @@
     </div>
 </div>
 
+<!-- Modal tambah Role User -->
+<div class="modal fade" id="modal_tambah_role_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Role Users</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <form class="user" action="{{ route('private.users.role_users.tambah') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <input name="nama_role" type="text" value="{{ old('nama_role') }}"
+                                class="form-control  @error('nama_role') is-invalid @enderror" id="nama_role"
+                                placeholder="Masukan nama Role">
+                            @error('nama_role')
+                                <span class="invalid-feedback">
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <textarea name="deskripsi_role" id="deskripsi_role" cols="30" rows="10"
+                                class="form-control  @error('deskripsi_role') is-invalid @enderror">{{ old('deskripsi_role') }}</textarea>
+                            @error('deskripsi_role')
+                                <span class="invalid-feedback">
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                </span>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block my-1">Save</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Detail Role User -->
+<div class="modal fade" id="modal_detail_role" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Role</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">

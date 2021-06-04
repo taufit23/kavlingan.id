@@ -18,7 +18,14 @@ class PenjualController extends Controller
     }
     public function data_tanah()
     {
-        return view('public.penjual.data_tanah');
+        $data_tanah = Data_tanah::orderBy('created_at', 'desc')->get();
+        return view('public.penjual.data_tanah', ['data_tanah' => $data_tanah]);
+    }
+    public function data_tanah_detail($id)
+    {
+        $data = Data_tanah::where('id', $id)->get();
+        // dd($data);
+        return view('public.penjual.data_tanah_detail', ['data' => $data]);
     }
     public function jual()
     {
@@ -50,33 +57,28 @@ class PenjualController extends Controller
             'kabupaten'             => 'required|string',
             'districts'             => 'required|integer',
             'villages'              => 'required|integer',
+            'nama_jln'              => 'required|string',
+            'deskripsi_tanah'       => 'required|string'
         ]);
+
+            $alamat = $request->nama_jln . ', ' . Village::where('id', $request->villages)->value('name') . ', ' . District::where('id', $request->districts)->value('name') . ', ' . $request->kabupaten . ', ' . $request->provinsi;
+            
+            // dd($request);
             Data_tanah::create([
-            'grub'                      => $request->grub,
-            'jenis_paket'               => $request->jenis_paket,
-            'tanggal_keberangkatan'     => $request->tanggal_keberangkatan,
-            'status_pembayaran'         => $request->status_pembayaran,
-            'name'                      => $request->name,
-            'nik'                       => $request->nik,
-            'tempat_lahir'              => $request->tempat_lahir,
-            'tanggal_lahir'             => $request->tanggal_lahir,
-            'sex'                       => $request->sex,
-            'nama_ayah'                 => $request->nama_ayah,
-            'email'                     => $request->email,
-            'no_telp'                   => $request->no_telp,
-            'passpor_name'              => $request->passpor_name,
-            'passpor_no'                => $request->passpor_no,
-            'place_of_isssued_passpor'  => $request->place_of_isssued_passpor,
-            'issued_passpor'            => $request->issued_passpor,
-            'expiried_passpor'          => $request->expiried_passpor,
-            'provinsi'                  => $request->provinsi,
-            'kabupaten_kota'            => $request->kabupaten_kota,
-            'kecamatan'                 => $request->kecamatan,
-            'desa_kelurahan'            => $request->desa_kelurahan,
-            'alamat'                    => $request->alamat,
+                'id_user'           => 1,
+                'id_jenis_surat'    => $request->jenis_surat,
+                'nama_pemilik'      => $request->nama_pemilik,
+                'nomor_surat'       => $request->nomor_sertifikat,
+                'alamat_tanah'      => $alamat,
+                'luas_tanah'        => $request->luas_tanah,
+                'fasilitas_tanah'   => $request->fasilitas_tanah,
+                'status_tanah'      => $request->status_tanah,
+                'harga_tanah'       => $request->harga_tanah,
+                'harga_booking_tanah'=> $request->harga_booking_tanah,
+                'deskripsi_tanah'         => $request->deskripsi_tanah
             ]);
 
-        //  return redirect('dashboard/data_jamaah')->with('sucess', 'Data Jamaah Berhasil DiInput, Lakukan Pengeditan Untuk Input Foto di dalam tombol detail!!!');
+         return redirect('penjual/data_tanah')->with('sucess', 'Data tanah berhasil ditambahkan, Data tanah anda akan kami iklankan.');
     }
     
 }

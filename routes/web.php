@@ -3,6 +3,8 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PenjualController;
 use App\Http\Controllers\privat\AdminController;
+use App\Http\Controllers\privat\UsersController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/private_dashboard', [AdminController::class, 'index'])->name('private.dashboard');
 Route::get('/private_jenis_surat', [AdminController::class, 'jenis_surat'])->name('private.jenis_surat');
 Route::post('/private_jenis_surat', [AdminController::class, 'tambah_jenis_surat'])->name('private.jenis_surat');
+
+Route::get('/private_users', [UsersController::class, 'index'])->name('private.users');
+Route::get('/private_users/role_user', [UsersController::class, 'role'])->name('private.users.role_users');
+Route::post('/private_users/role_user', [UsersController::class, 'tambah_role'])->name('private.users.role_users.tambah');
+
 // Admin
 
 Route::get('/', [HomeController::class, 'index']);
@@ -25,6 +32,11 @@ Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');
 // penjual
 Route::get('/penjual', [PenjualController::class, 'index'])->name('penjual.index');
 Route::get('/penjual/data_tanah', [PenjualController::class, 'data_tanah'])->name('penjual.data_tanah');
+Route::get('/penjual/data_tanah/detail/{id}', [PenjualController::class, 'data_tanah_detail'])->name('penjual.data_tanah.detail');
 Route::get('/penjual/data_tanah/jual', [PenjualController::class, 'jual'])->name('penjual.data_tanah.jual');
 Route::post('/penjual/data_tanah/jual', [PenjualController::class, 'store'])->name('penjual.data_tanah.jual.store');
 Route::post('/penjual/data_tanah/jual_store', [PenjualController::class, 'jual_store'])->name('penjual.data_tanah.jual_store');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
