@@ -10,4 +10,6 @@ class Data_tanah extends Model
     use HasFactory;
     protected $table = 'data_tanah';
     protected $guarded = [];
+
+    
 }

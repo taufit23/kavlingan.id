@@ -8,8 +8,8 @@
         <section class="ftco-section ftco-no-pt ftco-no-pb">
             <div class="container">
                 <div class="row d-flex">
-                    <div class="col-xl-8 px-md-5 py-5">
-                        <a href="{{ route('penjual.data_tanah.jual') }}" class="btn btn-sm btn-block btn-info">Tambah
+                    <div class="col-xl-8 px-md-5 py-5 ">
+                        <a href="{{ route('penjual.data_tanah.jual') }}" class="btn btn-sm btn-block btn-info my-2">Tambah
                             Tanah</a>
                         <div class="row pt-md-4">
                             <div class="col-md-12">
