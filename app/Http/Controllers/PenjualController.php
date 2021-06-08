@@ -18,7 +18,8 @@ class PenjualController extends Controller
     }
     public function data_tanah()
     {
-        $data_tanah = Data_tanah::orderBy('created_at', 'desc')->get();
+        $data_tanah = Data_tanah::where('id_user', auth()->user()->id)->get();
+        
         return view('public.penjual.data_tanah', ['data_tanah' => $data_tanah]);
     }
     public function data_tanah_detail($id)
@@ -65,7 +66,7 @@ class PenjualController extends Controller
             
             // dd($request);
             Data_tanah::create([
-                'id_user'           => 1,
+                'id_user'           => auth()->user()->id,
                 'id_jenis_surat'    => $request->jenis_surat,
                 'nama_pemilik'      => $request->nama_pemilik,
                 'nomor_surat'       => $request->nomor_sertifikat,

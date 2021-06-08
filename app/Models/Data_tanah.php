@@ -11,5 +11,4 @@ class Data_tanah extends Model
     protected $table = 'data_tanah';
     protected $guarded = [];
 
-    
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auths\LoginController;
 use App\Http\Controllers\Auths\RegisterController;
+use App\Http\Controllers\Auths\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PenjualController;
@@ -57,4 +58,5 @@ Route::post('register', [RegisterController::class, 'store']);
 // Route::post('password/reset', [ResetPasswordController::class, 'reset']);
 // Auth
 
-// Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profil');
+Route::PUT('/{id}/profile/upload_avatar', [ProfileController::class, 'upload_avatar']);

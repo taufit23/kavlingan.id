@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('bio')->nullable();
             $table->string('alamat')->nullable();
             $table->string('no_hp')->nullable();
-            $table->string('medsos')->nullable();
+            $table->string('medsos_id')->nullable();
             $table->string('avatar')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
