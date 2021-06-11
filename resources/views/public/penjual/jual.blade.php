@@ -227,24 +227,25 @@
                 </div>
             </div>
         </section>
-    @endsection
+    </div>
+@endsection
 
-    @push('scripts')
-        <script>
-            $(function() {
-                $('#districts').on('change', function() {
-                    axios.post('{{ route('penjual.data_tanah.jual.store') }}', {
-                            id: $(this).val()
+@push('scripts')
+    <script>
+        $(function() {
+            $('#districts').on('change', function() {
+                axios.post('{{ route('penjual.data_tanah.jual.store') }}', {
+                        id: $(this).val()
+                    })
+                    .then(function(response) {
+                        $('#villages').empty();
+
+                        $.each(response.data, function(id, name) {
+                            $('#villages').append(new Option(name, id))
                         })
-                        .then(function(response) {
-                            $('#villages').empty();
-
-                            $.each(response.data, function(id, name) {
-                                $('#villages').append(new Option(name, id))
-                            })
-                        });
-                });
+                    });
             });
+        });
 
-        </script>
-    @endpush
+    </script>
+@endpush

@@ -6,9 +6,9 @@
 @section('content')
     <div id="colorlib-main">
         <section class="ftco-section ftco-no-pt ftco-no-pb">
-            <div class="container">
-                <div class="row d-flex">
-                    <div class="col-xl-8 px-md-5 py-5 ">
+            <div class="col-md-10 my-auto mx-auto">
+                <div class="row my-2">
+                    <div class="col-lg-8 order-lg-2">
                         <a href="{{ route('penjual.data_tanah.jual') }}" class="btn btn-sm btn-block btn-info my-2">Tambah
                             Tanah</a>
                         <div class="row pt-md-4">
@@ -38,7 +38,6 @@
                         </div>
                     </div><!-- END-->
                 </div>
-
             </div>
         </section>
     </div><!-- END COLORLIB-MAIN -->

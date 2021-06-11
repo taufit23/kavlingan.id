@@ -58,5 +58,7 @@ Route::post('register', [RegisterController::class, 'store']);
 // Route::post('password/reset', [ResetPasswordController::class, 'reset']);
 // Auth
 
+// profil
 Route::get('/profile', [ProfileController::class, 'index'])->name('profil');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profil.edit');
 Route::PUT('/{id}/profile/upload_avatar', [ProfileController::class, 'upload_avatar']);

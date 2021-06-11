@@ -58,6 +58,12 @@
                                             </span>
                                         </ul>
                                     </div>
+                                    <div class="col-md-12">
+                                        <a href="{{ route('profil.edit') }}"
+                                            class="mt-3 btn btn-sm btn-outline-primary btn-rounded mx-auto float-lg-right">
+                                            Edit profil
+                                        </a>
+                                    </div>
                                 </div>
 
                                 <!--/row-->
@@ -224,7 +230,7 @@
                                     </span>
                                 @enderror
                             </label>
-                            <button type="submit" class="mt-3 btn btn-sm btn-warning btn-outline-light btn-rounded mx-auto">
+                            <button type="submit" class="mt-3 btn btn-sm btn-outline-dark btn-rounded mx-auto">
                                 Update
                             </button>
                         </form>

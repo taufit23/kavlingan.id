@@ -41,6 +41,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if (auth()->user()->role_id === 4)
+                                        <a class="dropdown-item" href="{{ route('penjual.index') }}">
+                                            {{ __('Dashboard penjual') }}
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('profil') }}">
                                         {{ __('Profil') }}
                                     </a>
