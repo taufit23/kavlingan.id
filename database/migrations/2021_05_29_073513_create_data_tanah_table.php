@@ -25,6 +25,8 @@ class CreateDataTanahTable extends Migration
             $table->string('status_tanah');
             $table->string('harga_tanah');
             $table->string('harga_booking_tanah');
+            $table->string('gambar_surat');
+            $table->string('gambar_bidang_tanah');
             $table->string('deskripsi_tanah');
             $table->timestamps();
         });

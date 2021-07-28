@@ -34,7 +34,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="text-black" for="nomor_sertifikat">Nomor Surat</label>
-                                    <input type="text" id="nomor_sertifikat" name="nomor_sertifikat" class="form-control">
+                                    <input type="text" id="nomor_sertifikat" value="{{ old('nomor_sertifikat') }}"
+                                        name="nomor_sertifikat" class="form-control">
                                     @error('nomor_sertifikat')
                                         <span class="invalid-feedback">
                                             <div class="alert alert-danger">
@@ -47,7 +48,8 @@
                             <div class="row form-group">
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <label class="text-black" for="nama_pemilik">Nama pemilik</label>
-                                    <input type="text" id="nama_pemilik" name="nama_pemilik" class="form-control">
+                                    <input type="text" value="{{ old('nama_pemilik') }}" id="nama_pemilik"
+                                        name="nama_pemilik" class="form-control">
                                     @error('nama_pemilik')
                                         <span class="invalid-feedback">
                                             <div class="alert alert-danger">
@@ -58,8 +60,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="text-black" for="luas_tanah">Luas Tanah (Satuan 'Hektar')</label>
-                                    <input type="number" id="luas_tanah" name="luas_tanah" class="form-control"
-                                        id="bantuan_input" title="Satuan tidak perlu ditulis"
+                                    <input type="number" id="luas_tanah" value="{{ old('luas_tanah') }}" name="luas_tanah"
+                                        class="form-control" id="bantuan_input" title="Satuan tidak perlu ditulis"
                                         style="input::-webkit-outer-spin-button; input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0;">
                                     @error('luas_tanah')
                                         <span class="invalid-feedback">
@@ -105,7 +107,8 @@
                             <div class="row form-group">
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <label class="text-black" for="harga_tanah">Harga Tanah</label>
-                                    <input class="form-control" type="text" name="harga_tanah" id="harga_tanah">
+                                    <input class="form-control" value="{{ old('harga_tanah') }}" type="text"
+                                        name="harga_tanah" id="harga_tanah">
                                     @error('harga_tanah')
                                         <span class="invalid-feedback">
                                             <div class="alert alert-danger">
@@ -116,8 +119,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="text-black" for="harga_booking_tanah">Harga booking</label>
-                                    <input class="form-control" type="text" name="harga_booking_tanah"
-                                        id="harga_booking_tanah">
+                                    <input class="form-control" value="{{ old('harga_booking_tanah') }}" type="text"
+                                        name="harga_booking_tanah" id="harga_booking_tanah">
                                     @error('harga_booking_tanah')
                                         <span class="invalid-feedback">
                                             <div class="alert alert-danger">
@@ -199,7 +202,8 @@
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class="text-black" for="nama_jln">Nama jalan</label>
-                                    <input type="text" id="nama_jln" name="nama_jln" class="form-control">
+                                    <input value="{{ old('nama_jln') }}" type="text" id="nama_jln" name="nama_jln"
+                                        class="form-control">
                                     <span>Masukan nama jalan yang jelas</span>
                                     @error('nama_jln')
                                         <span class="invalid-feedback">
@@ -213,7 +217,7 @@
                             <div class="form-group">
                                 <textarea name="deskripsi_tanah" id="deskripsi_tanah" cols="30" rows="7"
                                     class="form-control"
-                                    placeholder="Masukan deksipsi penjualan tanah, buat dengan kata kata menjual yang baik dan tepat, agar iklan anda menarik."></textarea><small>Note
+                                    placeholder="Masukan deksipsi penjualan tanah, buat dengan kata kata menjual yang baik dan tepat, agar iklan anda menarik.">{{ old('deskripsi_tanah') }}</textarea><small>Note
                                     : Deskripsi ini akan dijadikan nama iklan tanah anda</small>
                             </div>
 

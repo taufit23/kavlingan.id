@@ -41,9 +41,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @if (auth()->user()->role_id === 4)
+                                    @if (auth()->user()->role == 'Penjual')
                                         <a class="dropdown-item" href="{{ route('penjual.index') }}">
                                             {{ __('Dashboard penjual') }}
+                                        </a>
+                                        <a class="dropdown-item" target="blank" href="/messanger">
+                                            {{ __('Chat') }}
                                         </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('profil') }}">
@@ -61,6 +64,7 @@
                                 </div>
                             </li>
                         @endguest
+
 
                         {{-- <li><a href="#" class="nav-link">Login</a></li> --}}
                     </ul>

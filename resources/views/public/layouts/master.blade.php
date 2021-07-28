@@ -62,9 +62,8 @@
     <script src="{{ asset('publik/js/aos.js') }}"></script>
     <script src="{{ asset('publik/js/jquery.fancybox.min.js') }}"></script>
     <script src="{{ asset('publik/js/jquery.sticky.js') }}"></script>
-
-
     <script src="{{ asset('publik/js/main.js') }}"></script>
+    @stack('scripts')
 
 </body>
 

@@ -59,10 +59,20 @@
                                         </ul>
                                     </div>
                                     <div class="col-md-12">
+                                        <a class="mt-3 btn btn-sm btn-outline-danger btn-rounded mx-2 float-lg-right"
+                                            href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
                                         <a href="{{ route('profil.edit') }}"
                                             class="mt-3 btn btn-sm btn-outline-primary btn-rounded mx-auto float-lg-right">
                                             Edit profil
                                         </a>
+
                                     </div>
                                 </div>
 
@@ -204,35 +214,40 @@
                         </div>
                     </div>
                     <div class="col-lg-4 order-lg-1 text-center">
-                        <form class="form-horizontal" role="form" action="/{{ auth()->user()->id }}/profile/upload_avatar"
-                            method="POST" enctype="multipart/form-data">
+                        <form class="form-horizontal" role="form"
+                            action="/{{ auth()->user()->id }}/profile/upload_avatar" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <img src="{{ auth()->user()->getAvatar() }}" class="mx-auto img-fluid img-circle d-block my-2"
-                                alt="{{ auth()->user()->name }}">
+                            <img src="{{ auth()->user()->getAvatar() }}"
+                                class="mx-auto img-fluid img-circle d-block my-2" alt="{{ auth()->user()->name }}">
                             <h6 class="mt-2">
                                 @if (auth()->user()->avatar === null)
-                                    Upload foto diri
+                                    Upload foto profil
+                                    <span class="text-danger">Ingat, foto profil hanya bisa di upload sekali</span>
                                 @else
-                                    {{ auth()->user()->bio }}
+                                    {{ auth()->user()->name }}
                                 @endif
                             </h6>
-                            <label class="custom-file">
+                            @if (auth()->user()->avatar == null)
+                                <label class="custom-file">
+                                    <input type="file" name="avatar" id="avatar"
+                                        class="form-control @error('avatar') is-invalid @enderror">
+                                    <button type="submit" class="btn btn-sm btn-outline-success" hidden>Upload</button>
+                                    @error('avatar')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </label>
+                                <button type="submit" class="mt-3 btn btn-sm btn-outline-dark btn-rounded mx-auto">
+                                    Update
+                                </button>
+                            @endif
+                            {{-- <button onclick="gantifotoFuntion()">Ganti foto</button> --}}
 
-                                <input type="file" name="avatar" id="avatar"
-                                    class="form-control @error('avatar') is-invalid @enderror">
-                                <button type="submit" class="btn btn-sm btn-outline-success" hidden>Upload</button>
-                                @error('avatar')
-                                    <span class="invalid-feedback">
-                                        <div class="alert alert-danger">
-                                            {{ $message }}
-                                        </div>
-                                    </span>
-                                @enderror
-                            </label>
-                            <button type="submit" class="mt-3 btn btn-sm btn-outline-dark btn-rounded mx-auto">
-                                Update
-                            </button>
                         </form>
                     </div>
                 </div>

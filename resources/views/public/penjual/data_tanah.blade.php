@@ -14,9 +14,11 @@
                         <div class="row pt-md-4">
                             <div class="col-md-12">
                                 @foreach ($data_tanah as $tanah)
-                                    <div class="blog-entry-2 ftco-animate">
-                                        <a href="single.html" class="img"
-                                            style="background-image: url({{ url('publik/penjual/images/image_1.jpg') }});"></a>
+                                    <div class="blog-entry-2">
+                                        <a href="{{ route('penjual.data_tanah.detail', $tanah->id) }}"
+                                            class="img-fluid img-thumbnail"><img src="{{ $tanah->getGambartanah() }}"
+                                                alt="" style="weight: 450px; height: 300px;"></a>
+
                                         <div class="text pt-4">
                                             <h3 class="mb-4"><a href="#">{{ $tanah->deskripsi_tanah }}</a></h3>
                                             <div class="author mb-4 d-flex align-items-center">

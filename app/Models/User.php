@@ -43,4 +43,7 @@ class User extends Authenticatable
             return asset('publik/images/default_profil.png');
         }return asset(auth()->user()->avatar);
     }
+    public function data_tanah(){
+        return $this->belongsTo(Data_tanah::class);
+     }
 }

@@ -10,4 +10,9 @@ class Data_gambar_tanah extends Model
     use HasFactory;
     protected $table = 'data_gambar_tanah';
     protected $guarded = [];
+
+    public function tanah_tanah()
+    {
+        return $this->belongsTo(Data_tanah::class);
+    }
 }

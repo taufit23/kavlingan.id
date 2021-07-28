@@ -9,18 +9,21 @@
             <div class="container">
                 <div class="row d-flex">
                     <div class="col-xl-12 px-md-5 py-5">
-                        <form action="{{ route('penjual.data_tanah.jual_store') }}" class="p-5 bg-white" method="POST">
+                        <form action="{{ route('profil.update', auth()->user()->id) }}" class="p-5 bg-white"
+                            method="POST">
+                            @method('PUT')
                             @csrf
-                            <h2 class="h4 text-black mb-5">Masukan Data Tanah Dijual</h2>
+                            <h2 class="h4 text-black mb-5">Edit profile</h2>
 
                             <div class="row form-group">
                                 <div class="col-md-6 mb-3 mb-md-0">
-                                    <label class="text-black" for="role">Jenis Surat</label>
+                                    <label class="text-black" for="role">Sebagai</label>
                                     <select name="role" class="form-control @error('role') is-invalid @enderror"
                                         id="bantuan_input">
-                                        <option value="{{ auth()->user()->role_id }}" selected disabled>
-                                            @if (auth()->user()->role_id == 3) Pembeli
-                                            @elseif (auth()->user()->role_id == 4) Penjual @endif
+                                        <option value="{{ auth()->user()->role }}" selected disabled>
+                                            @if (auth()->user()->role === 'Pembeli')
+                                                Pembeli
+                                            @elseif (auth()->user()->role === 'Penjual') Penjual @endif
                                         </option>
                                     </select>
                                     @error('role')
@@ -75,19 +78,131 @@
                                     @enderror
                                 </div>
                             </div>
-                            <h4>Alamat</h4>
-                            <p>Alamat yang didukung saat ini hanya di Kabupaten Kampar, Provinsi Riau</p>
-
 
                             <div class="row form-group">
+                                <div class="col-md-12 mb-3 mb-md-0">
+                                    <label class="text-black" for="no_hp">No hp</label>
+                                    <input type="text" id="no_hp" name="no_hp"
+                                        class="form-control @error('no_hp') is-invalid @enderror @if (auth()->user()->no_hp == null) is-valid @endif"
+                                    value="{{ old('no_hp') ? old('no_hp') : auth()->user()->no_hp }}"
+                                    placeholder="@if (auth()->user()->no_hp == null) Mohon
+                                        Masukan nomor hp anda @endif">
+                                        @error('no_hp')
+                                            <span class="invalid-feedback">
+                                                <div class="alert alert-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            </span>
+                                        @enderror
+                                </div>
+
+                            </div>
+                            <h4>Alamat : {{ auth()->user()->alamat }}</h4>
+                            <div class="row form-group">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label class="text-black" for="provinces">Provinsi</label>
+                                    <select name="provinces" id="provinces" class="form-control @if (auth()->user()->alamat == null) is-valid @endif"
+                                        aria-label="province">
+                                        <option value="">Provinsi</option>
+                                        @foreach ($provinces as $id => $name)
+                                            <option value="{{ $id }}">{{ $name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('provinces')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="text-black" for="cities">Kabupaten / Kota</label>
+                                    <select name="cities" id="cities" class="form-control @if (auth()->user()->alamat == null) is-valid @endif"
+                                        aria-label="cities">
+                                        <option value="">Kabupaten / Kota</option>
+                                    </select>
+                                    @error('cities')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label class="text-black" for="districts">Kecamatan</label>
+                                    <select name="districts" id="districts" class="form-control @if (auth()->user()->alamat == null) is-valid @endif"
+                                        aria-label="districts">
+                                        <option value="">Kecamatan</option>
+                                    </select>
+                                    @error('districts')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="text-black" for="villages">Desa</label>
+                                    <select name="villages" id="villages" class="form-control @if (auth()->user()->alamat == null) is-valid @endif"
+                                        aria-label="villages">
+                                        <option value="">Desa</option>
+                                    </select>
+                                    @error('villages')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label class="text-black" for="nama_jln">Nama jalan</label>
+                                    <input type="text" id="nama_jln" name="nama_jln" class="form-control @if (auth()->user()->alamat == null) is-valid @endif"
+                                    placeholder="Contoh : Jl. Jend Ahmad Yani">
+                                    <span>Masukan nama jalan yang jelas</span>
+                                    @error('nama_jln')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label class="text-black" for="bio">Biografi diri</label>
+                                    <textarea class="form-control @if (auth()->user()->alamat == null) is-valid @endif" name="bio" id="bio" placeholder="biografi diri anda">{{ old('bio') ? old('bio') : auth()->user()->bio }}</textarea>
+
+                                    @error('bio')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row form-group">
                                 <div class="col-md-12 text-right">
-                                    <button type="submit" class="btn btn-primary btn-md text-black-50">Tambah</button>
+                                    <button type="submit" class="btn btn-primary btn-md text-black-50">Update</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
         </section>
     </div>
 @endsection
+@push('scripts')
+    @include('public.penjual.layouts._includes._script')
+@endpush
