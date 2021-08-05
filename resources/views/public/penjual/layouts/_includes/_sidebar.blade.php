@@ -3,15 +3,20 @@
     <nav id="colorlib-main-menu" role="navigation">
         <ul>
             @if (auth()->user()->role == 'Penjual')
-                <li class="{{ Request::is('penjual') ? 'colorlib-active' : '' }}">
-                    <a href="{{ route('penjual.index') }}">Home</a>
-                </li>
-                <li class="{{ Request::is('penjual/data_tanah') ? 'colorlib-active' : '' }}">
-                    <a href="{{ route('penjual.data_tanah') }}">Data Tanah</a>
-                </li>
+                @if (auth()->user()->status == 1)
+                    <li class="{{ Request::is('penjual') ? 'colorlib-active' : '' }}">
+                        <a href="{{ route('penjual.index') }}">Dashboard</a>
+                    </li>
+                    <li class="{{ Request::is('penjual/data_tanah') ? 'colorlib-active' : '' }}">
+                        <a href="{{ route('penjual.data_tanah') }}">Data Tanah</a>
+                    </li>
+                    <li class="{{ Request::is('/messanger') ? 'colorlib-active' : '' }}">
+                        <a target="blank" href="/messanger">Chat</a>
+                    </li>
+                @endif
             @elseif (auth()->user()->role == 'Pembeli')
             @endif
-            <li>
+            <li class="{{ Request::is('profile') ? 'colorlib-active' : '' }}">
                 <a href="{{ route('profil') }}">Profil</a>
             </li>
         </ul>

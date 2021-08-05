@@ -17,17 +17,17 @@ class CreateDataTanahTable extends Migration
             $table->id();
             $table->integer('id_user');
             $table->integer('id_jenis_surat');
-            $table->string('nama_pemilik');
-            $table->string('nomor_surat');
-            $table->string('alamat_tanah');
-            $table->string('luas_tanah');
+            $table->string('nomor_surat')->nullable();
+            $table->string('nama_pemilik')->nullable();
+            $table->string('panjang_tanah');
+            $table->string('lebar_tanah');
             $table->string('fasilitas_tanah');
-            $table->string('status_tanah');
-            $table->string('harga_tanah');
-            $table->string('harga_booking_tanah');
-            $table->string('gambar_surat');
-            $table->string('gambar_bidang_tanah');
-            $table->string('deskripsi_tanah');
+            $table->string('harga_tanah')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('deskripsi_tanah')->nullable();
+            $table->string('gambar_surat')->nullable();
+            $table->string('gambar_bidang_tanah')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

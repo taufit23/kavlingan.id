@@ -9,17 +9,14 @@
                 <div class="col-md-6 mb-5 mb-lg-0 position-relative">
                     <img src="{{ asset('publik/images/about_1.jpg') }}" class="img-fluid" alt="Image">
                     <div class="experience">
-                        <span class="year">50 years</span>
-                        <span class="caption">of experience</span>
+                        <span class="year">Kavlingan.Id</span>
+                        <p class="text-white">Tempat anda mencari informasi tanah</p>
                     </div>
                 </div>
                 <div class="col-md-5 ml-auto">
-                    <h3 class="section-sub-title">About Us</h3>
-                    <h2 class="section-title mb-3">Welcome To Consula</h2>
-                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui fuga ipsa,
-                        repellat blanditiis nihil, consectetur. Consequuntur eum inventore, rem maxime, nisi
-                        excepturi ipsam libero ratione adipisci alias eius vero vel!</p>
-                    <p><a href="#" class="btn btn-primary btn-black--hover">Learn More</a></p>
+                    <h3 class="section-sub-title">Tentang </h3>
+                    <h2 class="section-title mb-3">Kavlingan.Id</h2>
+                    <p class="mb-4">adalah tempat dimana informasi tanah yang sedang dijual yang berada kabupaten kampar</p>
                 </div>
             </div>
         </div>
@@ -133,7 +130,7 @@
         </div>
     </section>
 
-    <section class="site-section testimonial-wrap" id="testimonials-section">
+    {{-- <section class="site-section testimonial-wrap" id="testimonials-section">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-12 text-center">
@@ -215,9 +212,9 @@
             </div>
 
         </div>
-    </section>
+    </section> --}}
 
-    <section class="site-section" id="about-section">
+    {{-- <section class="site-section" id="about-section">
         <div class="container">
             <div class="row mb-5">
 
@@ -262,9 +259,9 @@
 
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    <section class="site-section" id="blog-section">
+    {{-- <section class="site-section" id="blog-section">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-12 text-center">
@@ -318,7 +315,7 @@
             </div>
 
         </div>
-    </section>
+    </section> --}}
 
 
 

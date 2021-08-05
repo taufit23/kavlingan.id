@@ -3,14 +3,63 @@
 namespace App\Http\Controllers\privat;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ValidasiPenggunaMail;
 use App\Models\Tabel_role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
     public function index()
     {
-        return view('private.users.users');
+        $data_user = User::where('role', '!=', 'Admin' )->orderBy('created_at', 'desc')->take(10)->get();
+        return view('private.users.users', compact('data_user'));
+    }
+    public function validasi_pengguna()
+    {
+        $data_user = User::where('role', '!=', 'Admin')->where('status', 0)->orwhereNull('status', null)->orderBy('created_at', 'desc')->take(10)->get();
+        return view('private.users.validasi_pengguna', compact('data_user'));
+    }
+    public function detail_pengguna($id)
+    {
+        $user = User::find($id);
+        return view('private.users.detail_pengguna', compact(
+            'user'
+        ));
+    }
+    public function aktifkan_pengguna($id)
+    {
+        $pengguna = User::find($id);
+        $pengguna->update(['status' => 1]);
+        if ($pengguna->role == 'Pembeli') {
+            $pesan = 'Silahkan melakukan pembelian secara bijak.';
+        }
+        elseif($pengguna->role == 'Penjual'){
+            $pesan = 'Silahkan menjual tanah yang benar benar sah untuk dijual.';
+        }
+        $details = [
+            'title' => 'Akun : ' . $pengguna->email,
+            'body' => '',
+            'data' => 'telah divalidasi, Silakan melakukan login',
+            'pesan'=> $pesan,
+        ];
+        Mail::to("$pengguna->email")->send(new ValidasiPenggunaMail($details));
+        return redirect()->back()->with('sucess', 'Pengguna berhasil di aktifkan');
+
+    }
+    public function tolak_aktivasi($id)
+    {
+        $pengguna = User::find($id);
+        $pengguna->update(['status' => 0]);
+        $details = [
+            'title' => 'Akun : ' . $pengguna->name,
+            'body' => '',
+            'data' => 'ditolak validasi, Silakan melakukan login & melakukan edit profile',
+            'pesan'=> 'Kemungkian foto diri atau foto ktp anda tidak jelas, sehingga Admin kesulitan memvalidasi akun anda!'
+        ];
+        Mail::to("$pengguna->email")->send(new ValidasiPenggunaMail($details));
+        return redirect()->back()->with('gagal', 'Aktivasi pengguna ditolak');
     }
     public function role(Request $request)
     {

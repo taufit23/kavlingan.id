@@ -8,39 +8,51 @@
         <section class="ftco-section ftco-no-pt ftco-no-pb">
             <div class="col-md-10 my-auto mx-auto">
                 <div class="row my-2">
-                    <div class="col-lg-8 order-lg-2">
-                        <a href="{{ route('penjual.data_tanah.jual') }}" class="btn btn-sm btn-block btn-info my-2">Tambah
-                            Tanah</a>
-                        <div class="row pt-md-4">
-                            <div class="col-md-12">
-                                @foreach ($data_tanah as $tanah)
-                                    <div class="blog-entry-2">
+                    <a href="{{ route('penjual.data_tanah.jual') }}" class="btn btn-sm btn-block btn-info my-2">Tambah
+                        Tanah</a>
+                    @include('vendor.flash_message')
+                    <!-- Gallery item -->
+                    @foreach ($data_tanah as $tanah)
+                        <div class="col-sm-6">
+                            <div class="bg-white rounded shadow-sm"><img src="{{ asset($tanah->gambar_bidang_tanah) }}"
+                                    class="img-fluid card-img-top">
+                                <div class="p-4">
+                                    <h5> <a href="#" class="text-dark">{{ $tanah->deskripsi_tanah }}</a></h5>
+                                    <p>Luas tanah :
+                                        <span class="float-right text-info">
+                                            {{ $tanah->panjang_tanah . ' x ' . $tanah->lebar_tanah }}
+                                            M<sup>2</sup></span>
+                                    </p>
+                                    <p>Harga tanah :
+                                        <span class="float-right text-info">
+                                            Rp. {{ number_format($tanah->harga_tanah), 2 }} </span>
+                                    </p>
+                                    <p>Status :
+                                        @if ($tanah->status == null)
+                                            <span class="float-right text-warning">
+                                                Belum divalidasi
+                                            </span>
+                                        @elseif ($tanah->status == 0)
+                                            <span class="float-right text-danger">
+                                                Validasi ditolak
+                                            </span>
+                                        @elseif ($tanah->status == 1)
+                                            <span class="float-right text-success">
+                                                Telah valid
+                                            </span>
+                                        @endif
+                                    </p>
+                                    <p class="text-right">
                                         <a href="{{ route('penjual.data_tanah.detail', $tanah->id) }}"
-                                            class="img-fluid img-thumbnail"><img src="{{ $tanah->getGambartanah() }}"
-                                                alt="" style="weight: 450px; height: 300px;"></a>
-
-                                        <div class="text pt-4">
-                                            <h3 class="mb-4"><a href="#">{{ $tanah->deskripsi_tanah }}</a></h3>
-                                            <div class="author mb-4 d-flex align-items-center">
-                                                <div class="ml-3 info">
-                                                    <h3><a href="#">Luas Tanah</a>, <span>{{ $tanah->luas_tanah }}
-                                                            H.a</span></h3>
-                                                    <h3><a href="#">Tanggal Posting</a>,
-                                                        <span>{{ date($tanah->created_at) }}</span>
-                                                    </h3>
-                                                </div>
-                                                <a href="{{ route('penjual.data_tanah.detail', $tanah->id) }}"
-                                                    class="btn btn-sm btn-outline-primary mx-1">Detail</a>
-                                                <a id="bantuan_input" title="Iklankan di media sosial sendiri" href="#"
-                                                    class="btn btn-sm btn-outline-warning">Share</a>
-                                            </div>
-                                        </div>
-                                @endforeach
+                                            class="btn btn-sm btn-outline-primary">Detail</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div><!-- END-->
+                    @endforeach
                 </div>
             </div>
+
         </section>
-    </div><!-- END COLORLIB-MAIN -->
+    </div>
 @endsection

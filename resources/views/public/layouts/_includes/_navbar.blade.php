@@ -16,9 +16,9 @@
                         <li><a href="/#home-section" class="nav-link active">Home</a></li>
                         <li><a href="/#beli-section" class="nav-link">Beli</a></li>
                         {{-- <li><a href="{{ route('home.jual') }}" class="nav-link">Jual</a></li> --}}
-                        <li><a href="/#testimonials-section" class="nav-link">Testimoni</a></li>
-                        <li><a href="/#blog-section" class="nav-link">Blog</a></li>
-                        <li><a href="{{ route('home.berita') }}" class="nav-link">Berita</a></li>
+                        {{-- <li><a href="/#testimonials-section" class="nav-link">Testimoni</a></li> --}}
+                        {{-- <li><a href="/#blog-section" class="nav-link">Blog</a></li> --}}
+                        {{-- <li><a href="{{ route('home.berita') }}" class="nav-link">Berita</a></li> --}}
                         <li><a href="#" class="nav-link">Kontak</a></li>
 
                         @guest
@@ -35,20 +35,22 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
+                                <img src="{{ auth()->user()->avatar }}" width="40" height="40" class="rounded-circle">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->username }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
                                     @if (auth()->user()->role == 'Penjual')
                                         <a class="dropdown-item" href="{{ route('penjual.index') }}">
                                             {{ __('Dashboard penjual') }}
                                         </a>
-                                        <a class="dropdown-item" target="blank" href="/messanger">
-                                            {{ __('Chat') }}
-                                        </a>
                                     @endif
+                                    <a class="dropdown-item" target="blank" href="/messanger">
+                                        {{ __('Chat') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('profil') }}">
                                         {{ __('Profil') }}
                                     </a>
@@ -64,9 +66,6 @@
                                 </div>
                             </li>
                         @endguest
-
-
-                        {{-- <li><a href="#" class="nav-link">Login</a></li> --}}
                     </ul>
                 </nav>
             </div>

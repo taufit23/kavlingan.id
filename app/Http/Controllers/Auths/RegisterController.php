@@ -3,17 +3,21 @@
 namespace App\Http\Controllers\Auths;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PendaftaranPenggunaMail;
 use App\Models\Tabel_role;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
 use Laravolt\Indonesia\Models\Village;
+use Symfony\Component\VarDumper\Cloner\Data;
 
+use Intervention\Image\Facades\Image;
 class RegisterController extends Controller
 {
     /**
@@ -37,53 +41,72 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $rules = [
             'name'                  => 'required|min:4|max:35',
             'tempat_lahir'          => 'required|min:4|max:35',
             'tanggal_lahir'         => 'required|min:4|max:35',
-            'role'                  => 'required|',
-            'no_ktp'                => 'required|integer|min:16|unique:users,no_ktp',
-            'nama_ibu'              => 'required|string',
+            'agama'                 => 'required|integer',
+            'jenis_kelamin'         => 'required|string|max:2',
+            'no_ktp'                => 'required|min:16|unique:users,no_ktp',
             'pekerjaan'             => 'required|string',
-            'alamat_tempat_kerja'   => 'required|string',
+            'alamat_kerja'          => 'required|string',
+            'nama_ibu'              => 'required|string',
             'email'                 => 'required|email|unique:users,email',
+            'no_hp'                 => 'required|unique:users,no_hp',
             'password'              => 'required|confirmed',
+            'role'                  => 'required|string',
             'foto_ktp'              => 'required|mimes:jpg,jpeg,png',
+            'avatar'                => 'required|mimes:jpg,jpeg,png',
         ];
-        $messages = [
-            'name.required'         => 'Nama Lengkap wajib diisi',
-            'name.min'              => 'Nama lengkap minimal 4 karakter',
-            'name.max'              => 'Nama lengkap maksimal 35 karakter',
-            'email.required'        => 'Alamat Email wajib diisi',
-            'email.email'           => 'Alamat Email tidak valid',
-            'email.unique'          => 'Alamat Email sudah terdaftar',
-            'password.required'     => 'Password wajib diisi',
-            'password.confirmed'    => 'Password tidak sama dengan konfirmasi password'
-        ];
-  
-        $validator = Validator::make($request->all(), $rules, $messages);
-  
+        $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput($request->all);
         }
         $user                       = new User;
         $user->name                 = ucwords(strtolower($request->name));
-        $user->tempat_tanggal_lahir = ucwords(strtolower($request->tempat_lahir . $request->tanggal_lahir));
-        $user->tanggal_lahir        = ucwords(strtolower($request->tanggal_lahir));
-        $user->role                 = $request->role;
+        $user->tempat_tanggal_lahir = ucwords(strtolower($request->tempat_lahir . ', ' . $request->tanggal_lahir));
+        $user->agama                = $request->agama;
+        $user->jenis_kelamin        = $request->jenis_kelamin;
         $user->no_ktp               = ucwords(strtolower($request->no_ktp));
-        $user->nama_ibu             = ucwords(strtolower($request->nama_ibu));
         $user->pekerjaan            = ucwords(strtolower($request->pekerjaan));
-        $user->alamat_tempat_kerja  = ucwords(strtolower($request->alamat_tempat_kerja));
+        $user->alamat_kerja         = ucwords(strtolower($request->alamat_kerja));
+        $user->nama_ibu             = ucwords(strtolower($request->nama_ibu));
         $user->email                = strtolower($request->email);
+        $user->no_hp                = $request->no_hp;
         $user->password             = Hash::make($request->password);
-
-        $user->email_verified_at    = \Carbon\Carbon::now();
+        $user->role                 = $request->role;
+        
+        if ($request->hasFile('foto_ktp')) {
+            $foto_ktp       = $request->file('foto_ktp');
+    		$filename       = time() . '.' . $foto_ktp->getClientOriginalExtension();
+            $filepath       = public_path('images/ktp_user');
+            $foto_ktp->move($filepath ,$filename);
+    		$user->foto_ktp = '/images/ktp_user/'.$filename;
+            $user->save();
+        }
+        if ($request->hasFile('avatar')) {
+            $avatar         = $request->file('avatar');
+    		$input['imagename'] = time().'.'.$avatar->extension();$avatar->getClientOriginalExtension();
+            $filepath       = public_path('images/user_profil');
+            // memperkecil avatar
+            
+            $img = Image::make($avatar->path());
+            $img->resize(150, 150, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($filepath.'/'.$input['imagename']);
+            $user->avatar = '/images/user_profil/'.$input['imagename'];
+            $user->save();
+        }
         $simpan                     = $user->save();
-  
+        
+        $details = [
+            'title' => 'Akun : ' . $request->name,
+            'body' => '',
+            'data' => 'Akun anda sedang di validasi, Mohon tunggu informasi berikutnya',
+        ];
+        Mail::to("$request->email")->send(new PendaftaranPenggunaMail($details));
         if($simpan){
-            return redirect()->route('login')->with('sucess', 'Anda berhasil mendaftar, silahkan login');
+            return redirect()->route('login')->with('sucess', 'Anda berhasil mendaftar, Mohon tunggu validasi dari admin, pastikan email anda masih bisa menerima pesan.');
         } else {
             return redirect()->route('register')->with('errors', 'Pendaftaran gagal, silahkan ulangi');
         }
