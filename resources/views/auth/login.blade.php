@@ -14,23 +14,9 @@
                         <div class="card-header text-center">{{ __('Login') }}</div>
 
                         <div class="card-body">
-                            @if (session('sucess'))
-                                <div class="my-1 alert alert-success"
-                                    style="margin-top: 25px; margin-bottom: 0px; margin-left: 5px; margin-right: 5px; "
-                                    role="alert">
-                                    {{ session('sucess') }}
-                                </div>
-                            @endif
-                            @if (session('errors'))
-                                <div class="my-1 alert alert-danger"
-                                    style="margin-top: 25px; margin-bottom: 0px; margin-left: 5px; margin-right: 5px; "
-                                    role="alert">
-                                    {{ session('errors') }}
-                                </div>
-                            @endif
+                            @include('vendor.flash_message');
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
-
                                 <div class="form-group row">
                                     <label for="email"
                                         class="col-md-4 col-form-label text-md-right">{{ __('Alamat email') }}</label>
@@ -38,7 +24,7 @@
                                     <div class="col-md-6">
                                         <input id="email" type="email"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            value="{{ old('email') }}" required autocomplete="email">
 
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">

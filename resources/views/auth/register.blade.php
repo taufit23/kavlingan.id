@@ -11,6 +11,13 @@
                         <div class="card-header text-center">{{ __('Pendaftaran Kavlingan.id') }}</div>
 
                         <div class="card-body">
+                            @if (session('errors'))
+                                <div class="alert alert-warning"
+                                    style="margin-top: 25px; margin-bottom: 0px; margin-left: 5px; margin-right: 5px; "
+                                    role="alert">
+                                    {{ session('errors') }}
+                                </div>
+                            @endif
                             <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row">
@@ -62,13 +69,14 @@
                                     <label for="agama"
                                         class="col-md-4 col-form-label text-md-right">{{ __('Agama') }}</label>
                                     <div class="col-md-6">
-                                        <select name="role" class="form-control">
-                                            <option>== Select Agama ==</option>
-                                            <option value="islam">Islam</option>
-                                            <option value="kristen rotestan">Kristen</option>
-                                            <option value="Kristen katolik">Katolik</option>
-                                            <option value="hindu">Hindu</option>
-                                            <option value="budha">Budha</option>
+                                        <select name="agama" class="form-control">
+                                            <option>== Select religion ==</option>
+                                            <option value="1">Islam</option>
+                                            <option value="2">Protestan</option>
+                                            <option value="3">Katolik</option>
+                                            <option value="4">Hindu</option>
+                                            <option value="5">Budha</option>
+                                            <option value="6">Khonghucu</option>
                                         </select>
                                         @error('agama')
                                             <span class="invalid-feedback" role="alert">
@@ -82,8 +90,8 @@
                                         class="col-md-4 col-form-label text-md-right">{{ __('Jenis kelamin') }}</label>
 
                                     <div class="col-md-6">
-                                        <select name="role" class="form-control">
-                                            <option>== Select province ==</option>
+                                        <select name="jenis_kelamin" class="form-control">
+                                            <option>== Select Gender ==</option>
                                             <option value="lk">Laki-laki</option>
                                             <option value="pr">Perempuan</option>
                                         </select>
@@ -101,7 +109,7 @@
                                     <div class="col-md-6">
                                         <input id="no_ktp" type="text"
                                             class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp"
-                                            value="{{ old('no_ktp') }}" required autocomplete="no_ktp">
+                                            value="{{ old('no_ktp') }}" required autocomplete="off" maxlength="16">
 
                                         @error('no_ktp')
                                             <span class="invalid-feedback" role="alert">
@@ -110,11 +118,11 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label for="provinces"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
-
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }} </label>
                                     <div class="col-md-6">
+                                        <span>Alamat masih dikembangkan</span><br>
                                         <label class="text-black" for="provinces">Provinsi</label>
                                         <select name="provinces" id="provinces" class="form-control" aria-label="province">
                                             <option value="">Provinsi</option>
@@ -163,23 +171,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="nama_ibu"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Nama ibu') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="nama_ibu" type="nama_ibu"
-                                            class="form-control @error('nama_ibu') is-invalid @enderror" name="nama_ibu"
-                                            value="{{ old('nama_ibu') }}" required autocomplete="nama_ibu">
-
-                                        @error('nama_ibu')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
+                                </div> --}}
                                 <div class="form-group row">
                                     <label for="pekerjaan"
                                         class="col-md-4 col-form-label text-md-right">{{ __('Pekerjaan') }}</label>
@@ -197,16 +189,32 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="alamat tempat kerja"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('alamat tempat kerja') }}</label>
+                                    <label for="alamat_kerja"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Alamat kerja') }}</label>
 
                                     <div class="col-md-6">
-                                        <input id="alamat tempat kerja" type="alamat tempat kerja"
-                                            class="form-control @error('alamat tempat kerja') is-invalid @enderror"
-                                            name="alamat tempat kerja" value="{{ old('alamat tempat kerja') }}" required
-                                            autocomplete="alamat tempat kerja">
+                                        <input id="alamat_kerja" type="text"
+                                            class="form-control @error('alamat_kerja') is-invalid @enderror"
+                                            name="alamat_kerja" value="{{ old('alamat_kerja') }}" required
+                                            autocomplete="alamat_kerja">
 
-                                        @error('alamat tempat kerja')
+                                        @error('alamat_kerja')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="nama_ibu"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Nama ibu') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="nama_ibu" type="text"
+                                            class="form-control @error('nama_ibu') is-invalid @enderror" name="nama_ibu"
+                                            value="{{ old('nama_ibu') }}" required autocomplete="nama_ibu">
+
+                                        @error('nama_ibu')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -223,6 +231,22 @@
                                             value="{{ old('email') }}" required autocomplete="email">
 
                                         @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="no_hp"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Nomor telepon') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="no_hp" type="text"
+                                            class="form-control @error('no_hp') is-invalid @enderror" name="no_hp"
+                                            value="{{ old('no_hp') }}" required autocomplete="no_hp" maxlength="12">
+
+                                        @error('no_hp')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -285,6 +309,21 @@
                                         <input class="form-control form-control-file" type="file" name="foto_ktp"
                                             id="foto_ktp">
                                         @error('foto_ktp')
+                                            <span class="invalid-feedback">
+                                                <div class="alert alert-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="avatar"
+                                        class="col-md-4 col-form-label text-md-right">{{ __('Foto diri') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input class="form-control form-control-file" type="file" name="avatar" id="avatar">
+                                        @error('avatar')
                                             <span class="invalid-feedback">
                                                 <div class="alert alert-danger">
                                                     {{ $message }}
