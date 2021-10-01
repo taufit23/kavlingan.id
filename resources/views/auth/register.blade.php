@@ -71,12 +71,15 @@
                                     <div class="col-md-6">
                                         <select name="agama" class="form-control">
                                             <option>== Select religion ==</option>
-                                            <option value="1">Islam</option>
-                                            <option value="2">Protestan</option>
-                                            <option value="3">Katolik</option>
-                                            <option value="4">Hindu</option>
-                                            <option value="5">Budha</option>
-                                            <option value="6">Khonghucu</option>
+                                            <option value="1" {{ old('agama') == 1 ? 'selected' : '' }}>
+                                                Islam</option>
+                                            <option value="2" {{ old('agama') == 2 ? 'selected' : '' }}>Protestan
+                                            </option>
+                                            <option value="3" {{ old('agama') == 3 ? 'selected' : '' }}>Katolik</option>
+                                            <option value="4" {{ old('agama') == 4 ? 'selected' : '' }}>Hindu</option>
+                                            <option value="5" {{ old('agama') == 5 ? 'selected' : '' }}>Budha</option>
+                                            <option value="6" {{ old('agama') == 6 ? 'selected' : '' }}>Khonghucu
+                                            </option>
                                         </select>
                                         @error('agama')
                                             <span class="invalid-feedback" role="alert">
@@ -92,8 +95,10 @@
                                     <div class="col-md-6">
                                         <select name="jenis_kelamin" class="form-control">
                                             <option>== Select Gender ==</option>
-                                            <option value="lk">Laki-laki</option>
-                                            <option value="pr">Perempuan</option>
+                                            <option value="lk" {{ old('jenis_kelamin') == 'lk' ? 'selected' : '' }}>
+                                                Laki-laki</option>
+                                            <option value="pr" {{ old('jenis_kelamin') == 'pr' ? 'selected' : '' }}>
+                                                Perempuan</option>
                                         </select>
                                         @error('jenis_kelamin')
                                             <span class="invalid-feedback" role="alert">
@@ -288,7 +293,8 @@
                                         <select name="role" class="form-control" id="bantuan_input">
                                             <option>== Select Role ==</option>
                                             @foreach ($role as $r => $name)
-                                                <option value="{{ $name }}" title="{{ $r }}">
+                                                <option value="{{ $name }}" title="{{ $r }}"
+                                                    {{ old('role') == $name ? 'selected' : '' }}>
                                                     {{ $name }}</option>
                                             @endforeach
                                         </select>

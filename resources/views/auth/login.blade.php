@@ -12,7 +12,6 @@
                 <div class="col-md-6 mb-5 mb-lg-0 position-relative mt-4">
                     <div class="card">
                         <div class="card-header text-center">{{ __('Login') }}</div>
-
                         <div class="card-body">
                             @include('vendor.flash_message');
                             <form method="POST" action="{{ route('login') }}">

@@ -6,10 +6,7 @@ use App\Mail\Pengajuan_beli_cashMail;
 use App\Models\Data_tanah;
 use App\Models\Tabel_jenis_surat;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Pusher\Webhook;
 
 class HomeController extends Controller
 {

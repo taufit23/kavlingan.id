@@ -16,7 +16,9 @@
                 <div class="col-md-5 ml-auto">
                     <h3 class="section-sub-title">Tentang </h3>
                     <h2 class="section-title mb-3">Kavlingan.Id</h2>
-                    <p class="mb-4">adalah tempat dimana informasi tanah yang sedang dijual yang berada kabupaten kampar</p>
+                    <p class="mb-4">Adalah tempat informasi tanah yang sedang dijual pada <strong>Kabupaten
+                            Kampar,
+                            Riau, Indonesia</strong></p>
                 </div>
             </div>
         </div>

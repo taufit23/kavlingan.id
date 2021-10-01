@@ -98,7 +98,6 @@ class RegisterController extends Controller
             $user->save();
         }
         $simpan                     = $user->save();
-        
         $details = [
             'title' => 'Akun : ' . $request->name,
             'body' => '',

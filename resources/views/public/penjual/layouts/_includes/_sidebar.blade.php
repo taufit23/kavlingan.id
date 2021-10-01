@@ -16,7 +16,7 @@
                 @endif
             @elseif (auth()->user()->role == 'Pembeli')
             @endif
-            <li class="{{ Request::is('profile') ? 'colorlib-active' : '' }}">
+            <li class="{{ Request::is('Ndashboard') ? 'colorlib-active' : '' }}">
                 <a href="{{ route('profil') }}">Profil</a>
             </li>
         </ul>

@@ -22,7 +22,6 @@
                                         </select> entries</label></div>
                             </div> --}}
                             <div class="col-sm-12 col-md-6">
-
                                 <form class="navbar-form navbar-right" method="GET" action="/private_jenis_surat">
                                     @csrf
                                     <div class="input-group">
