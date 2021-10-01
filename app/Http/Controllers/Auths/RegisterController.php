@@ -18,6 +18,7 @@ use Laravolt\Indonesia\Models\Village;
 use Symfony\Component\VarDumper\Cloner\Data;
 
 use Intervention\Image\Facades\Image;
+
 class RegisterController extends Controller
 {
     /**
@@ -27,7 +28,7 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        $role = Tabel_role::where('nama_role', '!=', 'Admin' )->pluck('nama_role', 'deskripsi_role');
+        $role = Tabel_role::where('nama_role', '!=', 'Admin')->pluck('nama_role', 'deskripsi_role');
         // dd($role);
         $provinces = Province::pluck('name', 'id');
         return view('auth.register', compact('role', 'provinces'));
@@ -59,7 +60,7 @@ class RegisterController extends Controller
             'avatar'                => 'required|mimes:jpg,jpeg,png',
         ];
         $validator = Validator::make($request->all(), $rules);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->all);
         }
         $user                       = new User;
@@ -75,26 +76,27 @@ class RegisterController extends Controller
         $user->no_hp                = $request->no_hp;
         $user->password             = Hash::make($request->password);
         $user->role                 = $request->role;
-        
+
         if ($request->hasFile('foto_ktp')) {
             $foto_ktp       = $request->file('foto_ktp');
-    		$filename       = time() . '.' . $foto_ktp->getClientOriginalExtension();
+            $filename       = time() . '.' . $foto_ktp->getClientOriginalExtension();
             $filepath       = public_path('images/ktp_user');
-            $foto_ktp->move($filepath ,$filename);
-    		$user->foto_ktp = '/images/ktp_user/'.$filename;
+            $foto_ktp->move($filepath, $filename);
+            $user->foto_ktp = '/images/ktp_user/' . $filename;
             $user->save();
         }
         if ($request->hasFile('avatar')) {
             $avatar         = $request->file('avatar');
-    		$input['imagename'] = time().'.'.$avatar->extension();$avatar->getClientOriginalExtension();
+            $input['imagename'] = time() . '.' . $avatar->extension();
+            $avatar->getClientOriginalExtension();
             $filepath       = public_path('images/user_profil');
             // memperkecil avatar
-            
+
             $img = Image::make($avatar->path());
             $img->resize(150, 150, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save($filepath.'/'.$input['imagename']);
-            $user->avatar = '/images/user_profil/'.$input['imagename'];
+            })->save($filepath . '/' . $input['imagename']);
+            $user->avatar = '/images/user_profil/' . $input['imagename'];
             $user->save();
         }
         $simpan                     = $user->save();
@@ -104,7 +106,7 @@ class RegisterController extends Controller
             'data' => 'Akun anda sedang di validasi, Mohon tunggu informasi berikutnya',
         ];
         Mail::to("$request->email")->send(new PendaftaranPenggunaMail($details));
-        if($simpan){
+        if ($simpan) {
             return redirect()->route('login')->with('sucess', 'Anda berhasil mendaftar, Mohon tunggu validasi dari admin, pastikan email anda masih bisa menerima pesan.');
         } else {
             return redirect()->route('register')->with('errors', 'Pendaftaran gagal, silahkan ulangi');

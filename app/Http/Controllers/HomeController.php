@@ -18,10 +18,10 @@ class HomeController extends Controller
     public function detail_tanah($id)
     {
         $data_tanah = Data_tanah::find($id);
-        $user= User::get();
+        $user = User::get();
         $jenis_surat = Tabel_jenis_surat::get();
-        foreach ($user as $u ) {
-            if($data_tanah->id_user == $u->id){
+        foreach ($user as $u) {
+            if ($data_tanah->id_user == $u->id) {
                 $pengguna = $u;
             }
         }
@@ -49,8 +49,8 @@ class HomeController extends Controller
         $details = [
             'title' => 'Tanah : ' . $tanah->nama_pemilik,
             'body' => 'Tanah anda ditawar oleh' . $pembeli->name, 'Untuk pembayaran cash, Silahkan hubungi melalui pembeli melalui chat',
-            'data' => 'Untuk menuju halaman chat : ' ,
-            'pesan'=> '--'
+            'data' => 'Untuk menuju halaman chat : ',
+            'pesan' => '--'
         ];
         Mail::to("$penjual->email")->send(new Pengajuan_beli_cashMail($details));
         return redirect()->back()->with('sucess', 'Pengajuan pembelian cash anda sudah disampaikan ke penjual, mohon tunggu infomasi berikutnya melalui chat');
@@ -64,11 +64,10 @@ class HomeController extends Controller
         $details = [
             'title' => 'Tanah : ' . $tanah->nama_pemilik,
             'body' => 'Tanah yang dijual oleh : ' . $penjual->name, 'ingin di kredit oleh : ' . $pembeli->name, 'Arahkan ke bank rekomendasi?',
-            'data' => 'Untuk menuju halaman chat : ' ,
-            'pesan'=> '--'
+            'data' => 'Untuk menuju halaman chat : ',
+            'pesan' => '--'
         ];
         Mail::to("$admin->email")->send(new Pengajuan_beli_cashMail($details));
         return redirect()->back()->with('sucess', 'Pengajuan kredit anda sudah disampaikan kepada admin, silahkan menunggu balasan admin melalui chat.');
     }
-
 }
