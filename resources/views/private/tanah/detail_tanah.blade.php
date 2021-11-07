@@ -13,8 +13,7 @@
                     <div class="card-header">Gambar surat tanah</div>
                     <div class="card-body text-center">
                         <a href="{{ $tanah->gambar_surat }}" target="blank">
-                            <img class="img-account-profile img-fluid img-thumbnail mb-2"
-                                src="{{ $tanah->gambar_surat }}">
+                            <img class="img-account-profile img-fluid img-thumbnail mb-2" src="{{ $tanah->gambar_surat }}">
                         </a>
                         <form action="/{{ $tanah->id }}/{{ $pengguna->id }}/tolak_gambar_surat" method="POST"
                             class="float-right mx-1">

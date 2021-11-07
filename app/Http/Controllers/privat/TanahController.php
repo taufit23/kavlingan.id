@@ -17,11 +17,10 @@ class TanahController extends Controller
     {
         if ($request->has('cari')) {
             $tabel_jenis_surat =  Tabel_jenis_surat::select("*")
-            ->where('id', 'LIKE','%'.$request->cari.'%')
-            ->orWhere('nama_jenis_surat', 'LIKE','%'.$request->cari.'%')
-            ->paginate(10000000);
-        }
-        else{
+                ->where('id', 'LIKE', '%' . $request->cari . '%')
+                ->orWhere('nama_jenis_surat', 'LIKE', '%' . $request->cari . '%')
+                ->paginate(10000000);
+        } else {
             $tabel_jenis_surat = Tabel_jenis_surat::orderBy('created_at', 'asc')->paginate(25);
         }
 
@@ -33,12 +32,12 @@ class TanahController extends Controller
             'nama_jenis_surat' => 'required|string',
             'keterangan_jenis_surat' => 'required|string',
         ]);
-            Tabel_jenis_surat::create([
+        Tabel_jenis_surat::create([
             'nama_jenis_surat'          => $request->nama_jenis_surat,
             'keterangan_jenis_surat'    => $request->keterangan_jenis_surat,
-            ]);
+        ]);
 
-         return redirect()->route('private.jenis_surat')->with('sucess', 'Jenis sura ditambahkan!!');
+        return redirect()->route('private.jenis_surat')->with('sucess', 'Jenis sura ditambahkan!!');
     }
     public function data_tanah()
     {
@@ -62,7 +61,7 @@ class TanahController extends Controller
         $jumlah_data_tanah_belum_valid = Data_tanah::where('status', null)->count();
         $jumlah_data_tanah_validasi_ditolak = Data_tanah::where('status', 0)->count();
         $data_tanah_belum_valid = Data_tanah::where('status', 0)->orwhereNull('status')->orderBy('created_at', 'desc')->get();
-        $user= User::get();
+        $user = User::get();
         $jenis_surat = Tabel_jenis_surat::get();
         return view('private.tanah.validasi_tanah', compact(
             'jumlah_data_tanah',
@@ -77,10 +76,10 @@ class TanahController extends Controller
     public function detail_tanah($id)
     {
         $tanah = Data_tanah::find($id);
-        $user= User::get();
+        $user = User::get();
         $jenis_surat = Tabel_jenis_surat::get();
-        foreach ($user as $u ) {
-            if($tanah->id_user == $u->id){
+        foreach ($user as $u) {
+            if ($tanah->id_user == $u->id) {
                 $pengguna = $u;
             }
         }
@@ -100,7 +99,7 @@ class TanahController extends Controller
             'title' => 'Tanah : ' . $tanah->nama_pemilik,
             'body' => '',
             'data' => 'Gambar surat ditolak, silahkan upload ulang melalui halaman edit tanah yang anda miliki',
-            'pesan'=> '--'
+            'pesan' => '--'
         ];
         Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
         return redirect()->back()->with('gagal', 'Gambar surat telah di tolak, pastikan anda menekan tombol tolak validasi untuk mengingatkan penjual');
@@ -114,7 +113,7 @@ class TanahController extends Controller
             'title' => 'Tanah : ' . $tanah->nama_pemilik,
             'body' => '',
             'data' => 'Gambar bidang tanah ditolak, silahkan upload ulang melalui halaman edit tanah yang anda miliki',
-            'pesan'=> '--'
+            'pesan' => '--'
         ];
         Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
         return redirect()->back()->with('gagal', 'Gambar bidang tanah telah di tolak, pastikan anda menekan tombol tolak validasi untuk mengingatkan penjual');
@@ -128,7 +127,7 @@ class TanahController extends Controller
             'title' => 'Tanah : ' . $tanah->nama_pemilik,
             'body' => '',
             'data' => 'Nomor surat tanah ditolak, silahkan masukan ulang melalui halaman edit tanah yang anda miliki',
-            'pesan'=> '--'
+            'pesan' => '--'
         ];
         Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
         return redirect()->back()->with('gagal', 'Nomor surat telah di tolak, pastikan anda menekan tombol tolak validasi untuk mengingatkan penjual');
@@ -142,7 +141,7 @@ class TanahController extends Controller
             'title' => 'Tanah : ' . $tanah->nama_pemilik,
             'body' => '',
             'data' => 'Validasi tanah ditolak',
-            'pesan'=> 'Silahkan lengkapi data tanah yang tidak valid, sudah ditandai oleh admin pada halaman detail tanah anda.'
+            'pesan' => 'Silahkan lengkapi data tanah yang tidak valid, sudah ditandai oleh admin pada halaman detail tanah anda.'
         ];
         Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
         return redirect()->back()->with('gagal', 'Validasi tanah ditolak');
@@ -156,7 +155,7 @@ class TanahController extends Controller
             'title' => 'Tanah : ' . $tanah->nama_pemilik,
             'body' => '',
             'data' => 'Validasi tanah diterima',
-            'pesan'=> 'data tanah anda sudah dikomersialisasikan ke pembeli.'
+            'pesan' => 'data tanah anda sudah dikomersialisasikan ke pembeli.'
         ];
         Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
         return redirect()->back()->with('sucess', 'Validasi diterima');

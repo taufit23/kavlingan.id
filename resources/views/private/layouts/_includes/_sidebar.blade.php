@@ -22,10 +22,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        All data
-    </div>
 
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -33,13 +29,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
             aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Tanah</span>
+            <span>Data Tanah</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('private.jenis_surat') }}">Jenis surat tanah</a>
                 <a class="collapse-item" href="{{ route('private.data_tanah') }}">data tanah</a>
-                <a class="collapse-item" href="{{ route('private.validasi_tanah') }}">validasi tanah</a>
+                {{-- <a class="collapse-item" href="{{ route('private.validasi_tanah') }}">validasi tanah</a> --}}
             </div>
         </div>
     </li>
@@ -48,15 +44,25 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true"
             aria-controls="collapseUsers">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Pengguna</span>
+            <i class="fas fa-fw fa-users"></i>
+            <span>Akun Penjual & Pembeli</span>
         </a>
         <div id="collapseUsers" class="collapse" aria-labelledby="headingusers" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('private.users') }}">Data Pengguna</a>
-                <a class="collapse-item" href="{{ route('private.users.validasi_pengguna') }}">Validasi Pengguna</a>
-                <a class="collapse-item" href="{{ route('private.users.role_users') }}">Role Pengguna</a>
-                <a class="collapse-item" href="users-other.html">Other</a>
+                <a class="collapse-item" href="{{ route('private.users') }}">Data Penjual & Pembeli</a>
+                {{-- <a class="collapse-item" href="{{ route('private.users.validasi_pengguna') }}">Validasi Pengguna</a> --}}
+                {{-- <a class="collapse-item" href="{{ route('private.users.role_users') }}">Role Pengguna</a> --}}
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsebank" aria-expanded="true"
+            aria-controls="collapsebank"><i class="fas fa-search-dollar"></i>
+            <span>Bank</span>
+        </a>
+        <div id="collapsebank" class="collapse" aria-labelledby="headingusers" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('private.data_bank') }}">Data Bank</a>
             </div>
         </div>
     </li>

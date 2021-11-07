@@ -63,7 +63,8 @@
             </div>
             <div class="modal-body">
                 <div class="col-lg-12">
-                    <form class="user" action="{{ route('private.users.role_users.tambah') }}" method="POST">
+                    <form class="user" action="{{ route('private.users.role_users.tambah') }}"
+                        method="POST">
                         @csrf
                         <div class="form-group">
                             <input name="nama_role" type="text" value="{{ old('nama_role') }}"
@@ -145,6 +146,92 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- modal tambah data bank --}}
+<div class="modal fade" id="modal_tambah_bank" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah data bank</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <form class="user" action="{{ route('private.data_bank.tambah') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <input name="nama_bank" type="text" value="{{ old('nama_bank') }}"
+                                class="form-control  @error('nama_bank') is-invalid @enderror" id="nama_bank"
+                                placeholder="Nama bank">
+                            @error('nama_bank')
+                                <span class="invalid-feedback">
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input name="alamat_bank" type="text" value="{{ old('alamat_bank') }}"
+                                class="form-control  @error('alamat_bank') is-invalid @enderror" id="alamat_bank"
+                                placeholder="Alamat bank">
+                            @error('alamat_bank')
+                                <span class="invalid-feedback">
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input name="contact_bank" type="text" value="{{ old('contact_bank') }}"
+                                class="form-control  @error('contact_bank') is-invalid @enderror" id="contact_bank"
+                                placeholder="Contact bank">
+                            @error('contact_bank')
+                                <span class="invalid-feedback">
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input name="link_maps_bank" type="text" value="{{ old('link_maps_bank') }}"
+                                class="form-control  @error('link_maps_bank') is-invalid @enderror" id="link_maps_bank"
+                                placeholder="Link maps bank">
+                            @error('link_maps_bank')
+                                <span class="invalid-feedback">
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input name="logo_bank" type="file" value="{{ old('logo_bank') }}"
+                                class="form-control  @error('logo_bank') is-invalid @enderror" id="logo_bank"
+                                placeholder="Logo bank">
+                            @error('logo_bank')
+                                <span class="invalid-feedback">
+                                    <div class="alert alert-danger">
+                                        {{ $message }}
+                                    </div>
+                                </span>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block my-1">Save</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>

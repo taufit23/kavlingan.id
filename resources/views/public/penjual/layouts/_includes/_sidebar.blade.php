@@ -11,7 +11,7 @@
                         <a href="{{ route('penjual.data_tanah') }}">Data Tanah</a>
                     </li>
                     <li class="{{ Request::is('/messanger') ? 'colorlib-active' : '' }}">
-                        <a target="blank" href="/messanger">Chat</a>
+                        <a target="blank" href="/messanger">Negosiasi & Chat</a>
                     </li>
                 @endif
             @elseif (auth()->user()->role == 'Pembeli')
@@ -19,6 +19,7 @@
             <li class="{{ Request::is('Ndashboard') ? 'colorlib-active' : '' }}">
                 <a href="{{ route('profil') }}">Profil</a>
             </li>
+
         </ul>
     </nav>
 
@@ -28,5 +29,14 @@
                 style="background-image: url(publik/penjual/images/bg_1.jpg); font-size: 350%;"><span>K</span>
             </a>
         </h1>
+        <li>
+            <a href="{{ route('logout') }}" class="btn btn-sm btn-block btn-outline-danger"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </li>
     </div>
 </aside>

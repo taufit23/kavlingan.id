@@ -13,33 +13,44 @@
                 <nav class="site-navigation position-relative text-right" role="navigation">
 
                     <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                        <li><a href="/#home-section" class="nav-link active">Home</a></li>
-                        <li><a href="/#beli-section" class="nav-link">Beli</a></li>
+                        <li><a href="/#home-section" class="nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
+                        </li>
+                        <li>
+                            <a href="/#beli-section"
+                                class="nav-link {{ Request::is('/#beli-section') ? 'active' : '' }}">Data
+                                tanah</a>
+                        </li>
+
                         {{-- <li><a href="{{ route('home.jual') }}" class="nav-link">Jual</a></li> --}}
                         {{-- <li><a href="/#testimonials-section" class="nav-link">Testimoni</a></li> --}}
                         {{-- <li><a href="/#blog-section" class="nav-link">Blog</a></li> --}}
                         {{-- <li><a href="{{ route('home.berita') }}" class="nav-link">Berita</a></li> --}}
-                        <li><a href="#" class="nav-link">Kontak</a></li>
 
                         @guest
                             @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <li class="nav-item ">
+                                    <a class="nav-link {{ Request::is('login') ? 'active' : '' }}"
+                                        href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link {{ Request::is('register') ? 'active' : '' }}"
+                                        href="{{ route('register') }}">{{ __('Pendaftaran') }}</a>
                                 </li>
                             @endif
                         @else
+                            <li>
+                                <a href="{{ route('messanger') }}" class="nav-link"
+                                    target="blank">{{ __('negosiai & Chat') }}</a>
+                            </li>
                             <li class="nav-item dropdown">
-                                <img src="{{ auth()->user()->avatar }}" width="40" height="40" class="rounded-circle">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->username }}
+                                <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
                                 </a>
+                                <img src="{{ auth()->user()->avatar }}" width="40" height="40" class="rounded-circle">
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
@@ -48,9 +59,6 @@
                                             {{ __('Dashboard penjual') }}
                                         </a>
                                     @endif
-                                    <a class="dropdown-item" target="blank" href="/messanger">
-                                        {{ __('Chat') }}
-                                    </a>
                                     <a class="dropdown-item" href="{{ route('profil') }}">
                                         {{ __('Profil') }}
                                     </a>
@@ -59,7 +67,8 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
 

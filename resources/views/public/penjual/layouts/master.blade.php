@@ -5,7 +5,7 @@
     <title>@yield('title') || Kavlingan.Id</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" href="{{ asset('flaticon/favicon.ico') }}" type="image/icon type">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
@@ -24,8 +24,6 @@
     <link rel="stylesheet" href="{{ asset('publik/penjual/css/bootstrap-datepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('publik/penjual/css/jquery.timepicker.css') }}">
 
-
-    <link rel="stylesheet" href="{{ asset('publik/penjual/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('publik/penjual/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('publik/penjual/css/style.css') }}">
 </head>

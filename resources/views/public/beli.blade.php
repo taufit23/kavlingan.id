@@ -1,6 +1,6 @@
 @extends('public.layouts.master')
 @section('title')
-    Beli
+    Data tanah
 @endsection
 @section('content')
     <section class="site-section border-bottom" id="beli-section">
@@ -41,6 +41,9 @@
                     </div>
                 @endforeach
             </div>
+        </div>
+        <div class="">
+            {{ $data_tanah->links('pagination::bootstrap-4') }}
         </div>
     </section>
 @stop

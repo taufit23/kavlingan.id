@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>@yield('title') || Kavlingan.Id</title>
-
+    <link rel="icon" href="{{ asset('flaticon/favicon.ico') }}" type="image/icon type">
     <!-- Custom fonts for this template-->
     <link href="{{ asset('private/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link

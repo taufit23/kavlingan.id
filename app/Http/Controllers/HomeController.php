@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\Pengajuan_beli_cashMail;
 use App\Models\Data_tanah;
+use App\Models\Databank;
 use App\Models\Tabel_jenis_surat;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -12,7 +13,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $data_tanah = Data_tanah::where('status', 1)->orderBy('created_at', 'desc')->take(10)->get();
+        $data_tanah = Data_tanah::where('status', 1)->orderBy('created_at', 'desc')->paginate(10);
         return view('public.index', compact('data_tanah'));
     }
     public function detail_tanah($id)
@@ -25,12 +26,13 @@ class HomeController extends Controller
                 $pengguna = $u;
             }
         }
+        $data_bank = Databank::with('user')->get();
         $jenis_surat = Tabel_jenis_surat::where('id', Data_tanah::where('id', $id)->pluck('id_jenis_surat'))->get();
-        return view('public.detail', compact('data_tanah', 'jenis_surat', 'pengguna'));
+        return view('public.detail', compact('data_tanah', 'jenis_surat', 'pengguna', 'data_bank'));
     }
     public function beli()
     {
-        $data_tanah = Data_tanah::where('status', 1)->orderBy('created_at', 'desc')->take(10)->get();
+        $data_tanah = Data_tanah::where('status', 1)->orderBy('created_at', 'desc')->paginate(1);
         return view('public.beli', compact('data_tanah'));
     }
     public function berita()

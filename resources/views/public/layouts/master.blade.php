@@ -5,7 +5,7 @@
     <title>@yield('title') &mdash; Kavlingan.id</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" href="{{ asset('flaticon/favicon.ico') }}" type="image/icon type">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('publik/fonts/icomoon/style.css') }}">
@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="{{ asset('publik/css/bootstrap-datepicker.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('publik/fonts/flaticon/font/flatico') }}n.css">
+    <link rel="stylesheet" href="{{ asset('publik/fonts/flaticon/font/flaticon.css') }}">
 
     <link rel="stylesheet" href="{{ asset('publik/css/aos.css') }}">
 

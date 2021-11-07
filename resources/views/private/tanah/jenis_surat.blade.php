@@ -11,16 +11,6 @@
                 <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
-                            {{-- <div class="col-sm-12 col-md-6">
-                                <div class="dataTables_length" id="dataTable_length"><label>Show <select
-                                            name="dataTable_length" aria-controls="dataTable"
-                                            class="custom-select custom-select-sm form-control form-control-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select> entries</label></div>
-                            </div> --}}
                             <div class="col-sm-12 col-md-6">
                                 <form class="navbar-form navbar-right" method="GET" action="/private_jenis_surat">
                                     @csrf
@@ -48,8 +38,8 @@
                                     aria-describedby="dataTable_info">
                                     <thead>
                                         <tr role="roe">
-                                            <th class="text-center" tabindex="0" aria-controls="dataTable" aria-rowspan="1"
-                                                aria-colspan="1">Id Jenis
+                                            <th class="text-center" tabindex="0" aria-controls="dataTable"
+                                                aria-rowspan="1" aria-colspan="1">Id Jenis
                                             </th>
                                             <th tabindex="0" aria-controls="dataTable" aria-rowspan="1" aria-colspan="1">
                                                 Jenis Surat
@@ -57,8 +47,8 @@
                                             {{-- <th class="text-center" tabindex="0" aria-controls="dataTable" aria-rowspan="1"
                                                 aria-colspan="1">Id Jenis
                                             </th> --}}
-                                            <th class="text-center" tabindex="0" aria-controls="dataTable" aria-rowspan="1"
-                                                aria-colspan="1">Aksi
+                                            <th class="text-center" tabindex="0" aria-controls="dataTable"
+                                                aria-rowspan="1" aria-colspan="1">Aksi
                                             </th>
                                         </tr>
 
