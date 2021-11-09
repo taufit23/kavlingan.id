@@ -33,7 +33,7 @@
                         <a href="/messanger" target="blank"
                             class="mt-2 float-right btn btn-block btn-outline-info">Negosiasi &
                             chat</a>
-                        @guest
+                        {{-- @guest
                             <a href="{{ route('login') }}"
                                 class="mt-2 mx-1 float-right btn btn-block btn-outline-success">Beli
                                 tanah</a>
@@ -41,7 +41,7 @@
                             <a href="/{{ auth()->user()->id }}/beli_tanah/{{ $pengguna->id }}/{{ $data_tanah->id }}"
                                 class="mt-2 mx-1 float-right btn btn-block btn-outline-success">Beli
                                 tanah</a>
-                        @endguest
+                        @endguest --}}
 
                         <button type="button" class="mt-2 mx-1 float-right btn btn-block btn-outline-secondary"
                             data-toggle="modal" data-target="#exampleModalCenter">
