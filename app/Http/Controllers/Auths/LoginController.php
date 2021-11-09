@@ -30,52 +30,50 @@ class LoginController extends Controller
             'email'                 => 'required|email',
             'password'              => 'required|string'
         ];
-  
+
         $messages = [
             'email.required'        => 'Alamat Email wajib diisi',
             'email.email'           => 'Alamat Email tidak valid',
             'password.required'     => 'Password wajib diisi',
             'password.string'       => 'Password harus berupa string'
         ];
-  
+
         $validator = Validator::make($request->all(), $rules, $messages);
-  
-        if($validator->fails()){
+
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->all);
         }
-  
+
         $data = [
             'email'     => $request->input('email'),
             'password'  => $request->input('password'),
         ];
-  
+
         Auth::attempt($data);
-  
+
         if (Auth::check()) {
             if (Auth::user()->status == null) {
                 Auth::logout();
                 return redirect()->route('login')->with('gagal', 'Akun anda belum divalidasi');
-            }elseif (Auth::user()->status == 0) {
+            } elseif (Auth::user()->status == 0) {
                 return redirect()->route('profil')->with('gagal', 'Validasi akun anda ditolak, silahkan edit akun anda!!!');
-            }else {
+            } else {
                 if (Auth::user()->role == 'Pembeli') {
                     return redirect()->route('home.index');
-                }elseif (Auth::user()->role == 'Penjual') {
+                } elseif (Auth::user()->role == 'Penjual') {
                     return redirect()->route('penjual.index');
-                }elseif (Auth::user()->role == 'Admin') {
+                } elseif (Auth::user()->role == 'Admin') {
                     return redirect()->route('private.dashboard');
-                }else {
+                } else {
                     Auth::logout();
                     return redirect()->route('home.index');
                 }
             }
-        }
-        else { // false
-  
+        } else { // false
+
             //Login Fail
             return redirect()->route('login')->with('gagal', 'Email atau password salah');
         }
-  
     }
     public function logout()
     {
