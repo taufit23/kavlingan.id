@@ -13,7 +13,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $data_user = User::where('role', '!=', 'Admin' )->orderBy('created_at', 'desc')->take(10)->get();
+        $data_user = User::where('role', '!=', 'Admin')->orderBy('created_at', 'desc')->paginate(3);
         return view('private.users.users', compact('data_user'));
     }
     public function validasi_pengguna()
@@ -34,19 +34,17 @@ class UsersController extends Controller
         $pengguna->update(['status' => 1]);
         if ($pengguna->role == 'Pembeli') {
             $pesan = 'Silahkan melakukan pembelian secara bijak.';
-        }
-        elseif($pengguna->role == 'Penjual'){
+        } elseif ($pengguna->role == 'Penjual') {
             $pesan = 'Silahkan menjual tanah yang benar benar sah untuk dijual.';
         }
         $details = [
             'title' => 'Akun : ' . $pengguna->email,
             'body' => '',
             'data' => 'telah divalidasi, Silakan melakukan login',
-            'pesan'=> $pesan,
+            'pesan' => $pesan,
         ];
         Mail::to("$pengguna->email")->send(new ValidasiPenggunaMail($details));
         return redirect()->back()->with('sucess', 'Pengguna berhasil di aktifkan');
-
     }
     public function tolak_aktivasi($id)
     {
@@ -56,7 +54,7 @@ class UsersController extends Controller
             'title' => 'Akun : ' . $pengguna->name,
             'body' => '',
             'data' => 'ditolak validasi, Silakan melakukan login & melakukan edit profile',
-            'pesan'=> 'Kemungkian foto diri atau foto ktp anda tidak jelas, sehingga Admin kesulitan memvalidasi akun anda!'
+            'pesan' => 'Kemungkian foto diri atau foto ktp anda tidak jelas, sehingga Admin kesulitan memvalidasi akun anda!'
         ];
         Mail::to("$pengguna->email")->send(new ValidasiPenggunaMail($details));
         return redirect()->back()->with('gagal', 'Aktivasi pengguna ditolak');
@@ -65,11 +63,10 @@ class UsersController extends Controller
     {
         if ($request->has('cari')) {
             $tabel_role =  Tabel_role::select("*")
-            ->where('id', 'LIKE','%'.$request->cari.'%')
-            ->orWhere('nama_role', 'LIKE','%'.$request->cari.'%')
-            ->paginate(10000000);
-        }
-        else{
+                ->where('id', 'LIKE', '%' . $request->cari . '%')
+                ->orWhere('nama_role', 'LIKE', '%' . $request->cari . '%')
+                ->paginate(10000000);
+        } else {
             $tabel_role = Tabel_role::orderBy('created_at', 'asc')->paginate(25);
         }
         return view('private.users.role', compact('tabel_role'));
@@ -81,11 +78,11 @@ class UsersController extends Controller
             'nama_role' => 'required|string',
             'deskripsi_role' => 'required|string',
         ]);
-            Tabel_role::create([
+        Tabel_role::create([
             'nama_role'          => $request->nama_role,
             'deskripsi_role'    => $request->deskripsi_role,
-            ]);
+        ]);
 
-         return redirect()->route('private.users.role_users')->with('sucess', 'Role ditambahkan!!');
+        return redirect()->route('private.users.role_users')->with('sucess', 'Role ditambahkan!!');
     }
 }

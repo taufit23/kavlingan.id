@@ -19,8 +19,6 @@
                                 <th>No KTP</th>
                                 <th>Email</th>
                                 <th>Status</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -29,8 +27,6 @@
                                 <th>No KTP</th>
                                 <th>Email</th>
                                 <th>Status</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -41,7 +37,8 @@
                                             href="{{ route('private.users.detail_pengguna', [$user->id]) }}">{{ $user->no_ktp }}</a>
                                     </td>
                                     <td>{{ $user->email }}</td>
-                                <td class=" @if ($user->status == 0) text-danger @else
+                                    <td
+                                        class=" @if ($user->status == 0) text-danger @else
                                         text-primary @endif">
                                         @if ($user->status == 0)
                                             Belum Aktif
@@ -52,12 +49,11 @@
 
                                         @endif
                                     </td>
-                                    <td>2011/01/25</td>
-                                    <td>$112,000</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $data_user->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>

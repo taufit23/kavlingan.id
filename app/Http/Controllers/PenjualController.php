@@ -32,7 +32,7 @@ class PenjualController extends Controller
     public function data_tanah()
     {
         $data_tanah = Data_tanah::where('id_user', auth()->user()->id)->get();
-        
+
         return view('public.penjual.data_tanah', ['data_tanah' => $data_tanah]);
     }
     public function data_tanah_detail($id)
@@ -47,7 +47,8 @@ class PenjualController extends Controller
         $provinsi = Province::where('name', 'RIAU')->pluck('name', 'id');
         $kabupaten = City::where('name', 'KABUPATEN KAMPAR')->pluck('name', 'id');
         $districts = District::where('city_id', '1406')->pluck('name', 'id');
-        return view('public.penjual.jual', ['jenis_surat' => $jenis_surat, 'districts' => $districts, 'provinsi' => $provinsi, 'kabupaten' => $kabupaten,
+        return view('public.penjual.jual', [
+            'jenis_surat' => $jenis_surat, 'districts' => $districts, 'provinsi' => $provinsi, 'kabupaten' => $kabupaten,
         ]);
     }
     public function store(Request $request)
@@ -75,10 +76,10 @@ class PenjualController extends Controller
             'gambar_bidang_tanah'   => 'required|mimes:jpg,jped,png'
         ];
         $validator = Validator::make($request->all(), $rules);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->all);
         }
-        
+
         $alamat = $request->nama_jln . ', ' . Village::where('id', $request->villages)->value('name') . ', ' . District::where('id', $request->districts)->value('name') . ', ' . $request->kabupaten . ', ' . $request->provinsi;
         // dd($validator);
         $tanah = new Data_tanah();
@@ -96,16 +97,20 @@ class PenjualController extends Controller
             $gambar_surat           = $request->file('gambar_surat');
             $filename               = time() . '.' . $gambar_surat->getClientOriginalExtension();
             $filepath               = public_path('images/gambar_surat');
-            $gambar_surat->move($filepath ,$filename);
-            $tanah->gambar_surat    = '/images/gambar_surat/'.$filename;
+            if (!file_exists($filepath)) {
+                mkdir($filepath, 666, true);
+                dd($filepath);
+            }
+            $gambar_surat->move($filepath, $filename);
+            $tanah->gambar_surat    = '/images/gambar_surat/' . $filename;
             // $tanah->save();
         }
         if ($request->hasFile('gambar_bidang_tanah')) {
             $gambar_bidang_tanah    = $request->file('gambar_bidang_tanah');
-            $filename               = time() . '.' .$gambar_bidang_tanah->getClientOriginalExtension();
+            $filename               = time() . '.' . $gambar_bidang_tanah->getClientOriginalExtension();
             $filepath               = public_path('images/gambar_tanah');
-            $gambar_bidang_tanah->move($filepath ,$filename);
-            $tanah->gambar_bidang_tanah = '/images/gambar_tanah/'.$filename;
+            $gambar_bidang_tanah->move($filepath, $filename);
+            $tanah->gambar_bidang_tanah = '/images/gambar_tanah/' . $filename;
             // $tanah->save();
         }
         $simpan = $tanah->save();
@@ -116,7 +121,7 @@ class PenjualController extends Controller
             'data' => 'data tanah anda sedang di validasi, Mohon tunggu informasi berikutnya',
         ];
         Mail::to(auth()->user()->email)->send(new TambahtanahMail($details));
-        if($simpan){
+        if ($simpan) {
             return redirect()->route('penjual.data_tanah')->with('sucess', 'Data tanah anda sudah di tambahkan, Sedang di validasi oleh Admin, Mohon tunggu inromasi berikutnya');
         } else {
             return redirect()->route('penjual.data_tanah.jual')->with('errors', 'Pendaftaran gagal, silahkan ulangi');
@@ -129,10 +134,12 @@ class PenjualController extends Controller
         $kabupaten = City::where('name', 'KABUPATEN KAMPAR')->pluck('name', 'id');
         $districts = District::where('city_id', '1406')->pluck('name', 'id');
         $data = Data_tanah::find($id);
-        
+
         $harga_tanah = ($data->harga_tanah);
-        return view('public.penjual.edit_tanah',
-        compact('jenis_surat', 'provinsi', 'kabupaten', 'districts', 'data'));
+        return view(
+            'public.penjual.edit_tanah',
+            compact('jenis_surat', 'provinsi', 'kabupaten', 'districts', 'data')
+        );
     }
     public function edit_store(Request $request, $id)
     {
@@ -155,7 +162,7 @@ class PenjualController extends Controller
             'gambar_bidang_tanah_new'   => 'required_if:data_tanah:gambar_bidang_tanah, null|mimes:jpg,jpeg,png'
         ];
         $validator = Validator::make($request->all(), $rules);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->all);
         }
         $tanah->update([
@@ -174,21 +181,20 @@ class PenjualController extends Controller
             $gambar_surat           = $request->file('gambar_surat_new');
             $filename               = time() . '.' . $gambar_surat->getClientOriginalExtension();
             $filepath               = public_path('images/gambar_surat');
-            $gambar_surat->move($filepath ,$filename);
-            $tanah->gambar_surat    = '/images/gambar_surat/'.$filename;
+            $gambar_surat->move($filepath, $filename);
+            $tanah->gambar_surat    = '/images/gambar_surat/' . $filename;
             $tanah->save();
         }
         if ($request->hasFile('gambar_bidang_tanah_new')) {
             $gambar_bidang_tanah    = $request->file('gambar_bidang_tanah_new');
-            $filename               = time() . '.' .$gambar_bidang_tanah->getClientOriginalExtension();
+            $filename               = time() . '.' . $gambar_bidang_tanah->getClientOriginalExtension();
             $filepath               = public_path('images/gambar_tanah');
-            $gambar_bidang_tanah->move($filepath ,$filename);
-            $tanah->gambar_bidang_tanah = '/images/gambar_tanah/'.$filename;
+            $gambar_bidang_tanah->move($filepath, $filename);
+            $tanah->gambar_bidang_tanah = '/images/gambar_tanah/' . $filename;
             $tanah->save();
         }
-        
+
         return redirect()->route('penjual.data_tanah')->with('sucess', 'data tanah anda berhasil di edit, silahkan tunggu infomasi berikutnya');
-        
     }
     public function upload_gambar(Request $request, $id)
     {
@@ -199,31 +205,30 @@ class PenjualController extends Controller
             'gambar_bidang_tanah.required'      => 'wajib diisi jika ingin mengganti',
             'gambar_bidang_tanah.mimes'         => 'harus berupa gambar, (jpg,jpeg,png)',
         ];
-  
+
         $validator = Validator::make($request->all(), $rules, $messages);
-  
-        if($validator->fails()){
+
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->all);
         }
-        
+
         $tanah = Data_tanah::find($id);
-        
+
         if ($tanah->gambar_bidang_tanah === null) {
             $gambar = $request->file('gambar_bidang_tanah');
-    		$filename = time() . '.' . $gambar->getClientOriginalExtension();
+            $filename = time() . '.' . $gambar->getClientOriginalExtension();
             $filepath = public_path('/images/gambar_tanah');
-            $gambar->move($filepath ,$filename);
-    		$tanah->gambar_bidang_tanah = '/images/gambar_tanah/'.$filename;
+            $gambar->move($filepath, $filename);
+            $tanah->gambar_bidang_tanah = '/images/gambar_tanah/' . $filename;
             $tanah->save();
             return redirect()->back()->with('sucess', 'Gambar berhasil di update');
-        }
-        elseif ($tanah->whereNotNull('gambar_bidang_tanah')) {
+        } elseif ($tanah->whereNotNull('gambar_bidang_tanah')) {
             unlink(public_path($tanah->gambar_bidang_tanah));
             $gambar = $request->file('gambar_bidang_tanah');
-    		$filename = time() . '.' . $gambar->getClientOriginalExtension();
+            $filename = time() . '.' . $gambar->getClientOriginalExtension();
             $filepath = public_path('/images/user_profil');
-            $gambar->move($filepath ,$filename);
-    		$tanah->gambar_bidang_tanah = '/images/gambar_tanah/'.$filename;
+            $gambar->move($filepath, $filename);
+            $tanah->gambar_bidang_tanah = '/images/gambar_tanah/' . $filename;
             $tanah->save();
             return redirect()->back()->with('sucess', 'Gambar berhasil di update');
         }
@@ -237,24 +242,23 @@ class PenjualController extends Controller
             'gambar_surat.required'      => 'wajib diisi jika ingin mengganti',
             'gambar_surat.mimes'         => 'harus berupa gambar, (jpg,jpeg,png)',
         ];
-  
+
         $validator = Validator::make($request->all(), $rules, $messages);
-  
-        if($validator->fails()){
+
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->all);
         }
-        
+
         $tanah = Data_tanah::find($id);
         // dd($request->all(), $tanah);
         if ($tanah->gambar_surat === null) {
             $gambar = $request->file('gambar_surat');
-    		$filename = time() . '.' . $gambar->getClientOriginalExtension();
+            $filename = time() . '.' . $gambar->getClientOriginalExtension();
             $filepath = public_path('/images/gambar_surat');
-            $gambar->move($filepath ,$filename);
-    		$tanah->gambar_surat = '/images/gambar_surat/'.$filename;
+            $gambar->move($filepath, $filename);
+            $tanah->gambar_surat = '/images/gambar_surat/' . $filename;
             $tanah->save();
             return redirect()->back()->with('sucess', 'Gambar berhasil di update');
         }
     }
-    
 }

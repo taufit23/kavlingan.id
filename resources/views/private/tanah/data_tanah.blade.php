@@ -129,6 +129,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    {{ $data_tanah->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>

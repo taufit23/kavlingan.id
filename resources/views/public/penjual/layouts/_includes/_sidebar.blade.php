@@ -29,14 +29,12 @@
                 style="background-image: url(publik/penjual/images/bg_1.jpg); font-size: 350%;"><span>K</span>
             </a>
         </h1>
-        <li>
-            <a href="{{ route('logout') }}" class="btn btn-sm btn-block btn-outline-danger"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                {{ __('Logout') }}
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
-        </li>
+        <a href="{{ route('logout') }}" class="btn btn-sm btn-block btn-outline-danger"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            {{ __('Logout') }}
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
     </div>
 </aside>
