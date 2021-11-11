@@ -31,8 +31,7 @@ class PenjualController extends Controller
     }
     public function data_tanah()
     {
-        $data_tanah = Data_tanah::where('id_user', auth()->user()->id)->get();
-
+        $data_tanah = Data_tanah::where('id_user', auth()->user()->id)->orderBy('status', 'desc')->paginate(20);
         return view('public.penjual.data_tanah', ['data_tanah' => $data_tanah]);
     }
     public function data_tanah_detail($id)
@@ -143,6 +142,7 @@ class PenjualController extends Controller
     }
     public function edit_store(Request $request, $id)
     {
+
         $tanah = Data_tanah::find($id);
         $rules = [
             'jenis_surat'           => 'integer',
@@ -165,6 +165,7 @@ class PenjualController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->all);
         }
+        $alamat = $request->nama_jln . ', ' . Village::where('id', $request->villages)->value('name') . ', ' . District::where('id', $request->districts)->value('name') . ', ' . $request->kabupaten . ', ' . $request->provinsi;
         $tanah->update([
             'id_jenis_surat'    => $request->jenis_surat,
             'nomor_surat'       => $request->nomor_sertifikat,
@@ -173,7 +174,7 @@ class PenjualController extends Controller
             'lebar_tanah'       => $request->lebar_tanah,
             'fasilitas_tanah'   => $request->fasilitas_tanah,
             'harga_tanah'       => $request->harga_tanah,
-            'alamat'            => $request->alamat,
+            'alamat'            => $alamat,
             'deskripsi_tanah'   => $request->deskripsi_tanah,
             'status'            => null,
         ]);

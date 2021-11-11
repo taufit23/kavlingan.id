@@ -51,6 +51,7 @@
                         </div>
                     @endforeach
                 </div>
+                {{ $data_tanah->links('pagination::bootstrap-4') }}
             </div>
 
         </section>

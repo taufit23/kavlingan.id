@@ -26,7 +26,41 @@
 
     <section class="site-section border-bottom" id="beli-section">
         <div class="container px-4 px-lg-5 mt-5">
+            <div class="row my-1">
+                <div class="col-md-6">
+                    <form class="navbar-form navbar-right" method="GET" action="{{ route('home.index') }}">
+                        @csrf
+                        <div class="input-group">
+                            <input type="text" name="cari" id="search" class="form-control"
+                                placeholder="Cari berdasarkan kabupaten/kota, desa">
+                            <span class="input-group-btn"><button type="submit"
+                                    class="btn btn-primary mx-1">Cari</button></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    {{-- <div class="dropdown">
+                        <a id="navbarDropdown" class="dropdown-toggle btn btn-sm btn-outline-primary" href="#" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Filter data kecamatan/Kota
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <form class="navbar-form navbar-right" method="GET" action="{{ route('home.index') }}">
+                                @csrf
+                                <div class="input-group">
+                                    <input type="hidden" name="cari" id="search" class="form-control"
+                                        placeholder="Cari jenis surat">
+                                    <span class="input-group-btn"><button type="submit"
+                                            class="dropdown-item">a</button></span>
+                                </div>
+                            </form>
+                            <a href="" class="dropdown-toggle-split select2-dropdown--below">aa</a>
+                        </div>
+                    </div> --}}
+                </div>
+            </div>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                @include('vendor.flash_message')
                 @foreach ($data_tanah as $tanah)
                     <div class="col-md-4 mb-3">
                         <div class="card h-100">

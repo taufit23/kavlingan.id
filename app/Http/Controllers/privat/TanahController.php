@@ -41,7 +41,7 @@ class TanahController extends Controller
     }
     public function data_tanah()
     {
-        $data_tanah = Data_tanah::orderBy('created_at', 'asc')->paginate(3);
+        $data_tanah = Data_tanah::orderBy('created_at', 'asc')->paginate(50);
         $jumlah_data_tanah = Data_tanah::count();
         $jumlah_data_tanah_tervalidasi = Data_tanah::where('status', 1)->count();
         $jumlah_data_tanah_belum_valid = Data_tanah::where('status', null)->count();

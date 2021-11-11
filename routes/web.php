@@ -13,6 +13,12 @@ use App\Http\Controllers\privat\UsersController;
 use Illuminate\Support\Facades\Route;
 
 
+// public / pembeli
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/#beli-section', [HomeController::class, 'index']);
+Route::get('/beli-section', [HomeController::class, 'beli'])->name('home.beli');
+Route::get('/detail_tanah/{id}', [HomeController::class, 'detail_tanah'])->name('home.detail_tanah');
+
 // Admin
 Route::group(['middleware' => ['auth', 'checkRole:Admin']], function () {
     Route::get('/private_dashboard', [AdminController::class, 'index'])->name('private.dashboard');
@@ -37,13 +43,7 @@ Route::group(['middleware' => ['auth', 'checkRole:Admin']], function () {
     Route::post('/private_bank/data_bank/tambah', [BankController::class, 'tambah_bank'])->name('private.data_bank.tambah');
     Route::get('/private_bank/{id}/data_bank_detail', [BankController::class, 'bank_detail'])->name('private.data_bank.detail');
 });
-// Admin
-
-// public / pembeli
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::get('/#beli-section', [HomeController::class, 'index']);
-Route::get('/beli-section', [HomeController::class, 'beli'])->name('home.beli');
-Route::get('/detail_tanah/{id}', [HomeController::class, 'detail_tanah'])->name('home.detail_tanah');
+// Admin end
 
 Route::group(['middleware' => ['auth', 'checkRole:Pembeli']], function () {
     Route::get('/{id_pembeli}/beli_tanah/{id_penjual}/{id_tanah}', [HomeController::class, 'ajukan_beli_cash']);

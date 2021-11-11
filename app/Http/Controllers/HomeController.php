@@ -7,13 +7,22 @@ use App\Models\Data_tanah;
 use App\Models\Databank;
 use App\Models\Tabel_jenis_surat;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data_tanah = Data_tanah::where('status', 1)->orderBy('created_at', 'desc')->paginate(10);
+        // dd($request);
+        if ($request->has('cari')) {
+            $data_tanah =  Data_tanah::select("*")
+                ->where('status', 1)
+                ->where('alamat', 'LIKE', '%' . $request->cari . '%')
+                ->paginate(10000000);
+        } else {
+            $data_tanah = Data_tanah::where('status', 1)->orderBy('created_at', 'desc')->paginate(10);
+        }
         return view('public.index', compact('data_tanah'));
     }
     public function detail_tanah($id)
