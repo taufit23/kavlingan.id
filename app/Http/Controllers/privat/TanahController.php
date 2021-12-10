@@ -39,13 +39,22 @@ class TanahController extends Controller
 
         return redirect()->route('private.jenis_surat')->with('sucess', 'Jenis sura ditambahkan!!');
     }
-    public function data_tanah()
+    public function data_tanah(Request $request)
     {
-        $data_tanah = Data_tanah::orderBy('created_at', 'asc')->paginate(50);
-        $jumlah_data_tanah = Data_tanah::count();
-        $jumlah_data_tanah_tervalidasi = Data_tanah::where('status', 1)->count();
-        $jumlah_data_tanah_belum_valid = Data_tanah::where('status', null)->count();
-        $jumlah_data_tanah_validasi_ditolak = Data_tanah::where('status', 0)->count();
+        if ($request->has('cari')) {
+            // $data_tanah = Data_tanah::select("*")->where('alamat', 'LIKE', '%' . $request->cari)->orderBy('created_at', 'desc')->paginate(50);
+            $data_tanah = Data_tanah::select("*")->where('alamat', 'LIKE', '%' . $request->cari)->paginate(1000000000);
+            $jumlah_data_tanah = Data_tanah::count();
+            $jumlah_data_tanah_tervalidasi = Data_tanah::where('status', 1)->count();
+            $jumlah_data_tanah_belum_valid = Data_tanah::where('status', null)->count();
+            $jumlah_data_tanah_validasi_ditolak = Data_tanah::where('status', 0)->count();
+        } else {
+            $data_tanah = Data_tanah::orderBy('created_at', 'desc')->paginate(50);
+            $jumlah_data_tanah = Data_tanah::count();
+            $jumlah_data_tanah_tervalidasi = Data_tanah::where('status', 1)->count();
+            $jumlah_data_tanah_belum_valid = Data_tanah::where('status', null)->count();
+            $jumlah_data_tanah_validasi_ditolak = Data_tanah::where('status', 0)->count();
+        }
         return view('private.tanah.data_tanah', compact(
             'data_tanah',
             'jumlah_data_tanah',

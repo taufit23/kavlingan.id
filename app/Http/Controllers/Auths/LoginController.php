@@ -53,8 +53,7 @@ class LoginController extends Controller
 
         if (Auth::check()) {
             if (Auth::user()->status == null) {
-                Auth::logout();
-                return redirect()->route('login')->with('gagal', 'Akun anda belum divalidasi');
+                return redirect()->route('profil')->with('success', 'Silahkan lengkapi data anda');
             } elseif (Auth::user()->status == 0) {
                 return redirect()->route('profil')->with('gagal', 'Validasi akun anda ditolak, silahkan edit akun anda!!!');
             } else {

@@ -26,6 +26,7 @@
 
     <link rel="stylesheet" href="{{ asset('publik/css/style.css') }}">
 
+    @stack('css')
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">

@@ -1,4 +1,11 @@
 @extends('public.layouts.master')
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('auth/css/opensans-font.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('auth/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css') }}">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" href="{{ asset('auth/css/style.css') }}" />
+@endpush
 @section('title')
     Daftar
 @endsection
@@ -6,347 +13,210 @@
     <div class="site-section" id="login-section">
         <div class="container">
             <div class="row align-items-lg-center justify-content-center">
-                <div class="col-md-8 mb-5 mb-lg-0 position-relative mt-4">
-                    <div class="card">
-                        <div class="card-header text-center">{{ __('Pendaftaran Kavlingan.id') }}</div>
-
-                        <div class="card-body">
-                            @if (session('errors'))
-                                <div class="alert alert-warning"
-                                    style="margin-top: 25px; margin-bottom: 0px; margin-left: 5px; margin-right: 5px; "
-                                    role="alert">
-                                    {{ session('errors') }}
-                                </div>
-                            @endif
-                            <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group row">
-                                    <label for="name"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Nama lengkap') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="name" type="text"
-                                            class="form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name') }}" required autocomplete="name">
-
-                                        @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                <div class="form-v1-content">
+                    <div class="wizard-form">
+                        <form class="form-register" method="POST" action="{{ route('register') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div id="form-total">
+                                @if (session('errors'))
+                                    <div class="alert alert-warning"
+                                        style="margin-top: 25px; margin-bottom: 0px; margin-left: 5px; margin-right: 5px; "
+                                        role="alert">
+                                        {{ session('errors') }}
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="tempat_lahir"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Tempat / Taggal Lahir') }}</label>
+                                @endif
+                                <!-- SECTION 1 -->
+                                <h2>
+                                    <span class="step-text">Informasi personal <strong class="text-danger">
+                                            *</strong></span>
+                                </h2>
+                                <section>
+                                    <div class="inner">
+                                        <div class="wizard-header">
+                                            <h3 class="heading">Informasi personal<strong class="text-danger">
+                                                    *</strong></h3>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-holder form-holder-2">
+                                                <fieldset>
+                                                    <legend>{{ __('Nama lengkap') }}</legend>
+                                                    <input id="name" type="text"
+                                                        class="form-control @error('name') is-invalid @enderror" name="name"
+                                                        value="{{ old('name') }}" required autocomplete="name"
+                                                        placeholder="{{ __('Contoh : Taufit hidayat') }}">
+                                                    @error('name')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-holder">
+                                                <fieldset>
+                                                    <legend>Tempat lahir</legend>
+                                                    <input id="tempat_lahir" type="text"
+                                                        class="form-control @error('tempat_lahir') is-invalid @enderror"
+                                                        name="tempat_lahir" value="{{ old('tempat_lahir') }}" required
+                                                        autocomplete="tempat_lahir" placeholder="desa tempat lahir">
+                                                    @error('tempat_lahir')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </fieldset>
+                                            </div>
+                                            <div class="form-holder">
+                                                <fieldset>
+                                                    <legend>Tanggal lahir</legend>
+                                                    <input id="tanggal_lahir" type="date"
+                                                        class="form-control @error('tanggal_lahir') is-invalid @enderror"
+                                                        name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required
+                                                        autocomplete="tanggal_lahir" max="{{ $max_date_lahir }}">
 
-                                    <div class="col-md-3">
-                                        <input id="tempat_lahir" type="text"
-                                            class="form-control @error('tempat_lahir') is-invalid @enderror"
-                                            name="tempat_lahir" value="{{ old('tempat_lahir') }}" required
-                                            autocomplete="tempat_lahir" placeholder="Tempat lahir">
+                                                    @error('tanggal_lahir')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-holder form-holder-2">
+                                                <fieldset>
+                                                    <legend>{{ __('Jenis kelamin') }}</legend>
+                                                    <select name="jenis_kelamin"
+                                                        style="font-size: unset !important; color: unset !important; font-weight: unset !important; background:unset !important; background-position: unset !important; z-index: unset !important; cursor: unset !important; position: unset !important; border: unset !important; padding: unset !important;">
+                                                        <option value="lk"
+                                                            {{ old('jenis_kelamin') == 'lk' ? 'selected' : '' }}>
+                                                            Laki-laki</option>
+                                                        <option value="pr"
+                                                            {{ old('jenis_kelamin') == 'pr' ? 'selected' : '' }}>
+                                                            Perempuan</option>
+                                                    </select>
+                                                    @error('jenis_kelamin')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-holder form-holder-2">
+                                                <fieldset>
+                                                    <legend>{{ __('Nomor ktp') }}</legend>
+                                                    <input id="no_ktp" type="text"
+                                                        class="form-control @error('no_ktp') is-invalid @enderror"
+                                                        name="no_ktp" value="{{ old('no_ktp') }}" required
+                                                        autocomplete="off" maxlength="16"
+                                                        placeholder="Contoh : 3576447103910003">
 
-                                        @error('tempat_lahir')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                                    @error('no_ktp')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-holder form-holder-2">
+                                                <fieldset>
+                                                    <legend>{{ __('Foto ktp') }}</legend>
+                                                    <input class="form-control form-control-file" type="file"
+                                                        name="foto_ktp" id="foto_ktp">
+                                                    @error('foto_ktp')
+                                                        <span class="invalid-feedback">
+                                                            <div class="alert alert-danger">
+                                                                {{ $message }}
+                                                            </div>
+                                                        </span>
+                                                    @enderror
+                                                </fieldset>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <input id="tanggal_lahir" type="date"
-                                            class="form-control @error('tanggal_lahir') is-invalid @enderror"
-                                            name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required
-                                            autocomplete="tanggal_lahir" placeholder="tanggal lahir">
+                                </section>
+                                <h2>
+                                    <span class="step-text">Informasi akun <strong class="text-danger">
+                                            *</strong></span>
+                                </h2>
+                                <!-- SECTION 2 -->
+                                <section>
+                                    <div class="inner">
+                                        <div class="wizard-header">
+                                            <h3 class="heading">Informasi akun <strong class="text-danger">
+                                                    *</strong></h3>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-holder form-holder-2">
+                                                <fieldset>
+                                                    <legend>{{ __('Alamat email') }}</legend>
+                                                    <input id="email" type="email"
+                                                        class="form-control @error('email') is-invalid @enderror"
+                                                        name="email" value="{{ old('email') }}" required
+                                                        autocomplete="email" placeholder="Contoh : Taufit@gmail.com">
+                                                    @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </fieldset>
+                                                <fieldset>
+                                                    <legend>{{ __('Nomor Handphone') }}</legend>
+                                                    <input id="no_hp" type="text"
+                                                        class="form-control @error('no_hp') is-invalid @enderror"
+                                                        name="no_hp" value="{{ old('no_hp') }}" required
+                                                        autocomplete="no_hp" maxlength="12"
+                                                        placeholder="Contoh : 082251323323">
 
-                                        @error('tanggal_lahir')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                                    @error('no_hp')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </fieldset>
+                                                <fieldset>
+                                                    <legend>{{ __('Foto diri') }}</legend>
+                                                    <input class="form-control form-control-file" type="file" name="avatar"
+                                                        id="avatar">
+                                                    @error('avatar')
+                                                        <span class="invalid-feedback">
+                                                            <div class="alert alert-danger">
+                                                                {{ $message }}
+                                                            </div>
+                                                        </span>
+                                                    @enderror
+                                                </fieldset>
+                                                <fieldset>
+                                                    <legend>{{ __('Kata sandi') }}</legend>
+                                                    <input id="password" type="password"
+                                                        class="form-control @error('password') is-invalid @enderror"
+                                                        name="password" required autocomplete="new-password"
+                                                        placeholder="Password (Min : 8 karakter)">
+                                                    @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </fieldset>
+                                                <fieldset>
+                                                    <legend>{{ __('Konfirmasi kata sandi') }}</legend>
+                                                    <input id="password-confirm" type="password" class="form-control"
+                                                        name="password_confirmation" required autocomplete="new-password"
+                                                        placeholder="Harus sama dengan kata sandi">
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="float-right btn btn-success btn-sm">Daftar</button>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="agama"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Agama') }}</label>
-                                    <div class="col-md-6">
-                                        <select name="agama" class="form-control">
-                                            <option>== Select religion ==</option>
-                                            <option value="1" {{ old('agama') == 1 ? 'selected' : '' }}>
-                                                Islam</option>
-                                            <option value="2" {{ old('agama') == 2 ? 'selected' : '' }}>Protestan
-                                            </option>
-                                            <option value="3" {{ old('agama') == 3 ? 'selected' : '' }}>Katolik</option>
-                                            <option value="4" {{ old('agama') == 4 ? 'selected' : '' }}>Hindu</option>
-                                            <option value="5" {{ old('agama') == 5 ? 'selected' : '' }}>Budha</option>
-                                            <option value="6" {{ old('agama') == 6 ? 'selected' : '' }}>Khonghucu
-                                            </option>
-                                        </select>
-                                        @error('agama')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="jenis_kelamin"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Jenis kelamin') }}</label>
-
-                                    <div class="col-md-6">
-                                        <select name="jenis_kelamin" class="form-control">
-                                            <option>== Select Gender ==</option>
-                                            <option value="lk" {{ old('jenis_kelamin') == 'lk' ? 'selected' : '' }}>
-                                                Laki-laki</option>
-                                            <option value="pr" {{ old('jenis_kelamin') == 'pr' ? 'selected' : '' }}>
-                                                Perempuan</option>
-                                        </select>
-                                        @error('jenis_kelamin')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="no_ktp"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('No KTP') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="no_ktp" type="text"
-                                            class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp"
-                                            value="{{ old('no_ktp') }}" required autocomplete="off" maxlength="16">
-
-                                        @error('no_ktp')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                {{-- <div class="form-group row">
-                                    <label for="provinces"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }} </label>
-                                    <div class="col-md-6">
-                                        <span>Alamat masih dikembangkan</span><br>
-                                        <label class="text-black" for="provinces">Provinsi</label>
-                                        <select name="provinces" id="provinces" class="form-control" aria-label="province">
-                                            <option value="">Provinsi</option>
-                                            @foreach ($provinces as $id => $name)
-                                                <option value="{{ $id }}">{{ $name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('provinces')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
-                                        <label class="text-black" for="cities">Kabupaten / Kota</label>
-                                        <select name="cities" id="cities" class="form-control" aria-label="cities">
-                                            <option value="">Kabupaten / Kota</option>
-                                        </select>
-                                        @error('cities')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
-                                        <label class="text-black" for="districts">Kecamatan</label>
-                                        <select name="districts" id="districts" class="form-control" aria-label="districts">
-                                            <option value="">Kecamatan</option>
-                                        </select>
-                                        @error('districts')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
-                                        <label class="text-black" for="villages">Desa</label>
-                                        <select name="villages" id="villages" class="form-control" aria-label="villages">
-                                            <option value="">Desa</option>
-                                        </select>
-                                        @error('villages')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div> --}}
-                                <div class="form-group row">
-                                    <label for="pekerjaan"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Pekerjaan') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="pekerjaan" type="pekerjaan"
-                                            class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan"
-                                            value="{{ old('pekerjaan') }}" required autocomplete="pekerjaan">
-
-                                        @error('pekerjaan')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="alamat_kerja"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Alamat kerja') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="alamat_kerja" type="text"
-                                            class="form-control @error('alamat_kerja') is-invalid @enderror"
-                                            name="alamat_kerja" value="{{ old('alamat_kerja') }}" required
-                                            autocomplete="alamat_kerja">
-
-                                        @error('alamat_kerja')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="nama_ibu"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Nama ibu') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="nama_ibu" type="text"
-                                            class="form-control @error('nama_ibu') is-invalid @enderror" name="nama_ibu"
-                                            value="{{ old('nama_ibu') }}" required autocomplete="nama_ibu">
-
-                                        @error('nama_ibu')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="email"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Alamat email') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" required autocomplete="email">
-
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="no_hp"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Nomor telepon') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="no_hp" type="text"
-                                            class="form-control @error('no_hp') is-invalid @enderror" name="no_hp"
-                                            value="{{ old('no_hp') }}" required autocomplete="no_hp" maxlength="12">
-
-                                        @error('no_hp')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="password"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Kata sandi') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="password" type="password"
-                                            class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="new-password">
-
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label for="password-confirm"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Konfirmasi kata sandi') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="password-confirm" type="password" class="form-control"
-                                            name="password_confirmation" required autocomplete="new-password">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="role"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Daftar sebagai') }}</label>
-
-                                    <div class="col-md-6">
-                                        <select name="role" class="form-control" id="bantuan_input">
-                                            <option>== Select Role ==</option>
-                                            @foreach ($role as $r => $name)
-                                                <option value="{{ $name }}" title="{{ $r }}"
-                                                    {{ old('role') == $name ? 'selected' : '' }}>
-                                                    {{ $name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('role')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="foto_ktp"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Foto KTP') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input class="form-control form-control-file" type="file" name="foto_ktp"
-                                            id="foto_ktp">
-                                        @error('foto_ktp')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="avatar"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Foto diri') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input class="form-control form-control-file" type="file" name="avatar" id="avatar">
-                                        @error('avatar')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-0 text-right">
-                                    <div class="col-md-6 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            {{ __('Register') }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                                </section>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -355,4 +225,7 @@
 @endsection
 @push('scripts')
     @include('public.penjual.layouts._includes._script')
+    <script src="{{ asset('auth/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('auth/js/jquery.steps.js') }}"></script>
+    <script src="{{ asset('auth/js/main.js') }}"></script>
 @endpush

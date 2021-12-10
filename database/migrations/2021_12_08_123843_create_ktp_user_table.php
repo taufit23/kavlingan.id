@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDataGambarTanahTable extends Migration
+class CreateKtpUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateDataGambarTanahTable extends Migration
      */
     public function up()
     {
-        Schema::create('data_gambar_tanah', function (Blueprint $table) {
+        Schema::create('ktp_user', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_data_tanah');
-            $table->string('gambar_denah_tanah');
-            $table->string('gambar_sertifikat_tanah');
+            $table->string('nama_lengkap');
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+            $table->string('jenis_kelamin');
+            $table->bigInteger('no_ktp');
+            $table->string('foto_ktp');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateDataGambarTanahTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_gambar_tanah');
+        Schema::dropIfExists('ktp_user');
     }
 }

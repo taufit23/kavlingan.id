@@ -28,8 +28,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-success shadow h-100 py-2">
                             <div class="card-body">
@@ -78,6 +76,17 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-6 col-sm-12 my-2">
+                    <form class="navbar-form navbar-right" method="GET" action="{{ route('private.data_tanah') }}">
+                        @csrf
+                        <div class="input-group">
+                            <input type="text" name="cari" id="search" class="form-control"
+                                placeholder="Cari berdasarkan alamat">
+                            <span class="input-group-btn"><button type="submit" class="btn btn-primary mx-1"><i
+                                        class="fas fa-search"></i></button></span>
+                        </div>
+                    </form>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

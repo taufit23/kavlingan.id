@@ -53,4 +53,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Databank::class);
     }
+    public function ktp_user()
+    {
+        return $this->belongsTo(Ktp_user::class, 'id_ktp_user');
+    }
+    public function alamat_user()
+    {
+        return $this->belongsTo(Alamat_user::class, 'id_ktp_alamat');
+    }
 }

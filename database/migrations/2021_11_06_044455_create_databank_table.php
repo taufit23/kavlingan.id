@@ -15,7 +15,7 @@ class CreateDatabankTable extends Migration
     {
         Schema::create('databank', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->bigInteger('user_id');
             $table->string('nama_bank');
             $table->string('alamat_bank');
             $table->string('contact_bank');

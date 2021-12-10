@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlamatUserController;
 use App\Http\Controllers\Auths\LoginController;
 use App\Http\Controllers\Auths\RegisterController;
 use App\Http\Controllers\Auths\ProfileController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\PenjualController;
 use App\Http\Controllers\privat\AdminController;
 use App\Http\Controllers\privat\TanahController;
 use App\Http\Controllers\privat\UsersController;
+use App\Models\Alamat_user;
 use Illuminate\Support\Facades\Route;
 
 
@@ -74,17 +76,17 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 // Registration Routes...
 Route::get('register', [RegisterController::class, 'create'])->name('register');
 Route::post('register', [RegisterController::class, 'store']);
-
+//LOCATION DEPENDENT DROPDOWN AXIOS ROUTES
+Route::get('/getCities/{id}', [LocationController::class, 'getCities'])->name('city');
+Route::get('/getDistricts/{id}', [LocationController::class, 'getDistricts'])->name('district');
+Route::get('/getVillages/{id}', [LocationController::class, 'getVillages'])->name('village');
 
 Route::group(['middleware' => 'auth'], function () {
     // profil
     Route::get('/profile', [ProfileController::class, 'index'])->name('profil');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profil.edit');
+    Route::get('/profile/addalamat', [ProfileController::class, 'addalamat'])->name('profil.addalamat');
     Route::PUT('/profile/edit{id}', [ProfileController::class, 'update'])->name('profil.update');
     Route::PUT('/{id}/profile/upload_avatar', [ProfileController::class, 'upload_avatar']);
     Route::PUT('/{id}/profile/upload_ktp', [ProfileController::class, 'upload_ktp']);
 });
-//LOCATION DEPENDENT DROPDOWN AXIOS ROUTES
-Route::get('/getCities/{id}', [LocationController::class, 'getCities'])->name('city');
-Route::get('/getDistricts/{id}', [LocationController::class, 'getDistricts'])->name('district');
-Route::get('/getVillages/{id}', [LocationController::class, 'getVillages'])->name('village');
