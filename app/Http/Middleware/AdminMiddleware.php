@@ -17,12 +17,12 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role != 'Admin'){
-            /* 
-            silahkan modifikasi pada bagian ini
-            apa yang ingin kamu lakukan jika rolenya tidak sesuai
-            */
-            return redirect()->to('logout');
+        if (Auth::user()->role != 0) {
+            if (Auth::user()->status == null) {
+                return redirect()->to('profile');
+            } elseif (Auth::user()->status != null) {
+                return redirect()->route('home.index');
+            }
         }
         return $next($request);
     }

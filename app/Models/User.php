@@ -59,6 +59,10 @@ class User extends Authenticatable
     }
     public function alamat_user()
     {
-        return $this->belongsTo(Alamat_user::class, 'id_ktp_alamat');
+        return $this->belongsTo(Alamat_user::class, 'id_alamat_user');
+    }
+    public function pekerjaan_user()
+    {
+        return $this->belongsTo(Pekerjaan_user::class, 'id_pekerjaan_user');
     }
 }

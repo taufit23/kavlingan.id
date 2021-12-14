@@ -16,7 +16,6 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data_ktp = Ktp_user::latest()->pluck('id');
-        dd($data_ktp);
         if ($request->has('cari')) {
             $data_tanah =  Data_tanah::select("*")
                 ->where('status', 1)

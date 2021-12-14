@@ -41,10 +41,13 @@
                                 </li>
                             @endif
                         @else
-                            <li>
-                                <a href="{{ route('messanger') }}" class="nav-link"
-                                    target="blank">{{ __('negosiai & Chat') }}</a>
-                            </li>
+                            @if (auth()->user()->status != null)
+                                <li>
+                                    <a href="{{ route('messanger') }}" class="nav-link"
+                                        target="blank">{{ __('negosiai & Chat') }}</a>
+                                </li>
+                            @endif
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false" v-pre>
@@ -54,10 +57,12 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                                    @if (auth()->user()->role == 'Penjual')
-                                        <a class="dropdown-item" href="{{ route('penjual.index') }}">
-                                            {{ __('Dashboard penjual') }}
-                                        </a>
+                                    @if (auth()->user()->role == 1)
+                                        @if (auth()->user()->status != null)
+                                            <a class="dropdown-item" href="{{ route('penjual.index') }}">
+                                                {{ __('Jual tanah') }}
+                                            </a>
+                                        @endif
                                     @endif
                                     <a class="dropdown-item" href="{{ route('profil') }}">
                                         {{ __('Profil') }}

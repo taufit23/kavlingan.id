@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auths;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alamat_user;
+use App\Models\Pekerjaan_user;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -22,7 +25,25 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('public.profile');
+        if (auth()->user()->id_alamat_user != null) {
+            $provinsi = Province::where('id', auth()->user()->alamat_user->provinsi)->pluck('name');
+            $kota = City::where('id', auth()->user()->alamat_user->kota_kabupaten)->pluck('name');
+            $kecamatan = District::where('id', auth()->user()->alamat_user->kecamatan)->pluck('name');
+        } else {
+            $provinsi = null;
+            $kota = null;
+            $kecamatan = null;
+        }
+        if (auth()->user()->id_pekerjaan_user != null) {
+            $provinsikerja = Province::where('id', auth()->user()->pekerjaan_user->provinsi)->pluck('name');
+            $kotakerja = City::where('id', auth()->user()->pekerjaan_user->kota_kabupaten)->pluck('name');
+            $kecamatankerja = District::where('id', auth()->user()->pekerjaan_user->kecamatan)->pluck('name');
+        } else {
+            $provinsikerja = null;
+            $kotakerja = null;
+            $kecamatankerja = null;
+        }
+        return view('public.profile.profile', compact('provinsi', 'kota', 'kecamatan', 'provinsikerja', 'kotakerja', 'kecamatankerja'));
     }
     public function upload_avatar(Request $request, $id)
     {
@@ -91,8 +112,75 @@ class ProfileController extends Controller
     }
     public function addalamat()
     {
-        $provinces = Province::pluck('name', 'id');
-        return view('public.addalamat', ['provinces' => $provinces]);
+        $provinces = Cache::remember('provinces', 120, function () {
+            return Province::pluck('name', 'id');
+        });
+        $cityes = Cache::remember('cityes', 10000, function () {
+            return City::pluck('name', 'id');
+        });
+        $district = Cache::remember('district', 10000, function () {
+            return District::pluck('name', 'id');
+        });
+        $villages = Cache::remember('villages', 10000, function () {
+            return Village::pluck('name', 'id');
+        });
+        return view('public.profile.addalamat', compact('provinces', 'cityes', 'district', 'villages'));
+    }
+    public function addalamat_store(Request $request)
+    {
+        // dd($request);
+        $rules = [
+            'desa_kelurahan' => 'required|min:4',
+            'no_rt' => 'required|min:1',
+            'no_rw' => 'required|min:1',
+            'jalan' => 'required|min:5',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->with('gagal', $validator->errors())->withInput($request->all);
+        }
+        $alamat = new Alamat_user;
+        $alamat->jalan = $request->jalan;
+        $alamat->no_rt = $request->no_rt;
+        $alamat->no_rw = $request->no_rw;
+        $alamat->desa_kelurahan = $request->desa_kelurahan;
+        $alamat->kecamatan = $request->kecamatan;
+        $alamat->kota_kabupaten = $request->kota_kabupaten;
+        $alamat->provinsi = $request->provinsi;
+        $alamat->save();
+        $user =  User::find(auth()->user()->id);
+        $user->update(['id_alamat_user' => $alamat->id]);
+        return redirect()->route('profil');
+    }
+    public function addpekerjaan()
+    {
+        $provinces = Cache::remember('provinces', 120, function () {
+            return Province::pluck('name', 'id');
+        });
+        $cityes = Cache::remember('cityes', 10000, function () {
+            return City::pluck('name', 'id');
+        });
+        $district = Cache::remember('district', 10000, function () {
+            return District::pluck('name', 'id');
+        });
+        $villages = Cache::remember('villages', 10000, function () {
+            return Village::pluck('name', 'id');
+        });
+        return view('public.profile.addpekerjaan', compact('provinces', 'cityes', 'district', 'villages'));
+    }
+    public function addpekerjaan_store(Request $request)
+    {
+        $pekerjaan = new Pekerjaan_user;
+        $pekerjaan->nama_pekerjaan = $request->nama_pekerjaan;
+        $pekerjaan->jalan = $request->jalan;
+        $pekerjaan->desa_kelurahan = $request->desa;
+        $pekerjaan->kecamatan = $request->kecamatan;
+        $pekerjaan->kota_kabupaten = $request->kota_kabupaten;
+        $pekerjaan->provinsi = $request->provinsi;
+        $pekerjaan->save();
+        $user =  User::find(auth()->user()->id);
+        $user->update(['id_pekerjaan_user' => $pekerjaan->id]);
+        return redirect()->route('profil');
     }
     public function edit()
     {

@@ -11,7 +11,6 @@ use App\Http\Controllers\PenjualController;
 use App\Http\Controllers\privat\AdminController;
 use App\Http\Controllers\privat\TanahController;
 use App\Http\Controllers\privat\UsersController;
-use App\Models\Alamat_user;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,7 +21,7 @@ Route::get('/beli-section', [HomeController::class, 'beli'])->name('home.beli');
 Route::get('/detail_tanah/{id}', [HomeController::class, 'detail_tanah'])->name('home.detail_tanah');
 
 // Admin
-Route::group(['middleware' => ['auth', 'checkRole:Admin']], function () {
+Route::group(['middleware' => ['auth', 'admin: 0']], function () {
     Route::get('/private_dashboard', [AdminController::class, 'index'])->name('private.dashboard');
     Route::get('/private_data_tanah', [TanahController::class, 'data_tanah'])->name('private.data_tanah');
     Route::get('/private_validasi_data_tanah', [TanahController::class, 'validasi_tanah'])->name('private.validasi_tanah');
@@ -47,14 +46,13 @@ Route::group(['middleware' => ['auth', 'checkRole:Admin']], function () {
 });
 // Admin end
 
-Route::group(['middleware' => ['auth', 'checkRole:Pembeli']], function () {
+Route::group(['middleware' => 'auth'], function () {
+    // pembeli
     Route::get('/{id_pembeli}/beli_tanah/{id_penjual}/{id_tanah}', [HomeController::class, 'ajukan_beli_cash']);
     Route::get('/{id_pembeli}/ajukan_kredit_tanah/{id_penjual}/{id_tanah}', [HomeController::class, 'ajukan_kredit_tanah']);
     Route::get('/berita', [HomeController::class, 'berita'])->name('home.berita');
     Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');
-});
-// penjual
-Route::group(['middleware' => ['auth', 'checkRole:Penjual']], function () {
+    // penjual
     Route::get('/penjual', [PenjualController::class, 'index'])->name('penjual.index');
     Route::get('/penjual/data_tanah', [PenjualController::class, 'data_tanah'])->name('penjual.data_tanah');
     Route::get('/penjual/data_tanah/detail/{id}', [PenjualController::class, 'data_tanah_detail'])->name('penjual.data_tanah.detail');
@@ -66,7 +64,6 @@ Route::group(['middleware' => ['auth', 'checkRole:Penjual']], function () {
     Route::post('/penjual/data_tanah/jual', [PenjualController::class, 'store'])->name('penjual.data_tanah.jual.store');
     Route::post('/penjual/data_tanah/jual_store', [PenjualController::class, 'jual_store'])->name('penjual.data_tanah.jual_store');
 });
-
 // Auth
 // Authentication Routes...
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -84,8 +81,15 @@ Route::get('/getVillages/{id}', [LocationController::class, 'getVillages'])->nam
 Route::group(['middleware' => 'auth'], function () {
     // profil
     Route::get('/profile', [ProfileController::class, 'index'])->name('profil');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profil.edit');
+    // Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profil.edit');
+    // add alamat
     Route::get('/profile/addalamat', [ProfileController::class, 'addalamat'])->name('profil.addalamat');
+    Route::post('/profile/addtalamat/store', [ProfileController::class, 'addalamat_store'])->name('profil.addalamat.store');
+    // pekerjaan
+    Route::get('/profile/addpekerjaan', [ProfileController::class, 'addpekerjaan'])->name('profil.addpekerjaan');
+    Route::post('/profile/addpekerjaan/store', [ProfileController::class, 'addpekerjaan_store'])->name('profil.addpekerjaan.store');
+
+    Route::get('/profile/addalamat/provinces', [ProfileController::class, 'provincessearcha']);
     Route::PUT('/profile/edit{id}', [ProfileController::class, 'update'])->name('profil.update');
     Route::PUT('/{id}/profile/upload_avatar', [ProfileController::class, 'upload_avatar']);
     Route::PUT('/{id}/profile/upload_ktp', [ProfileController::class, 'upload_ktp']);

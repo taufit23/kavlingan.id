@@ -84,7 +84,7 @@ class RegisterController extends Controller
         $user->id_pekerjaan_user    = null;
         $user->email                = strtolower($request->email);
         $user->no_hp                = $request->no_hp;
-        $user->role                 = null;
+        $user->role                 = 1;
         $user->status               = null;
         $user->password             = Hash::make($request->password);
         if ($request->hasFile('avatar')) {

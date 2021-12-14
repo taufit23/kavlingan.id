@@ -2,7 +2,7 @@
 <aside id="colorlib-aside" role="complementary" class="js-fullheight">
     <nav id="colorlib-main-menu" role="navigation">
         <ul>
-            @if (auth()->user()->role == 'Penjual')
+            @if (auth()->user()->role == 1)
                 @if (auth()->user()->status == 1)
                     <li class="{{ Request::is('penjual') ? 'colorlib-active' : '' }}">
                         <a href="{{ route('penjual.index') }}">Dashboard</a>

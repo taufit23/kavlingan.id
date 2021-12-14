@@ -116,5 +116,21 @@
     </div>
 @endsection
 @push('scripts')
-    @include('public.penjual.layouts._includes._script')
+    <script>
+        $(function() {
+            $('#provinces').on('change', function() {
+                axios.post('{{ route('penjual.data_tanah.jual.store') }}', {
+                        id: $(this).val()
+                    })
+                    .then(function(response) {
+                        $('#cities').empty();
+
+                        $.each(response.data, function(id, name) {
+                            $('#cities').append(new Option(name, id))
+                        })
+                    });
+            });
+        });
+    </script>
+    {{-- @include('public.penjual.layouts._includes._script') --}}
 @endpush

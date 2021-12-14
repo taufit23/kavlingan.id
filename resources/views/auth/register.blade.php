@@ -173,7 +173,6 @@
                                                         name="no_hp" value="{{ old('no_hp') }}" required
                                                         autocomplete="no_hp" maxlength="12"
                                                         placeholder="Contoh : 082251323323">
-
                                                     @error('no_hp')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

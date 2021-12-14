@@ -57,15 +57,13 @@ class LoginController extends Controller
             } elseif (Auth::user()->status == 0) {
                 return redirect()->route('profil')->with('gagal', 'Validasi akun anda ditolak, silahkan edit akun anda!!!');
             } else {
-                if (Auth::user()->role == 'Pembeli') {
-                    return redirect()->route('home.index');
-                } elseif (Auth::user()->role == 'Penjual') {
-                    return redirect()->route('penjual.index');
-                } elseif (Auth::user()->role == 'Admin') {
+                if (Auth::user()->role == 1) {
+                    return redirect()->route('home.index')->with('success', 'Login berhasil');
+                } elseif (Auth::user()->role == 0) {
                     return redirect()->route('private.dashboard');
                 } else {
                     Auth::logout();
-                    return redirect()->route('home.index');
+                    return redirect()->route('login');
                 }
             }
         } else { // false
@@ -77,6 +75,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout(); // menghapus session yang aktif
-        return redirect()->route('home.index');
+        return redirect()->route('login');
     }
 }

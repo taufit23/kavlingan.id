@@ -17,13 +17,12 @@ class PenjualMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role != 'Penjual'){
-            /* 
-            silahkan modifikasi pada bagian ini
-            apa yang ingin kamu lakukan jika rolenya tidak sesuai
-            */
-            dd(auth()->user()->role);
-            return redirect()->to(route('home.index'));
+        if (Auth::user()->role != 1) {
+            if (Auth::user()->status == null) {
+                return redirect()->to('profile');
+            } elseif (Auth::user()->status != null) {
+                return redirect()->route('home.index');
+            }
         }
         return $next($request);
     }

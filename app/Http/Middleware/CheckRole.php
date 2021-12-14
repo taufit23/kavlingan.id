@@ -16,7 +16,11 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (in_array($request->user()->role,$roles)) {
+        if (in_array($request->user()->role, $roles)) {
+            dd(auth()->user()->status);
+            if (auth()->user()->status == null) {
+                return redirect()->to('profile');
+            }
             return $next($request);
         }
         return redirect('/');
