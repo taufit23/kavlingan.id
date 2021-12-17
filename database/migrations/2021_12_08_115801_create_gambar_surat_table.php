@@ -15,6 +15,7 @@ class CreateGambarSuratTable extends Migration
     {
         Schema::create('gambar_surat', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_data_tanah');
             $table->string('gambar_surat');
             $table->timestamps();
         });

@@ -15,7 +15,8 @@ class CreateGambarBidangTanahTable extends Migration
     {
         Schema::create('gambar_bidang_tanah', function (Blueprint $table) {
             $table->id();
-            $table->string('gambar_bindang_tanah');
+            $table->bigInteger('id_data_tanah');
+            $table->string('gambar_bidang_tanah');
             $table->timestamps();
         });
     }

@@ -19,8 +19,6 @@ class CreateDataTanahTable extends Migration
             $table->bigInteger('id_jenis_surat');
             $table->bigInteger('id_surat_tanah');
             $table->bigInteger('id_alamat_tanah');
-            $table->bigInteger('id_gambar_surat');
-            $table->bigInteger('id_gambar_bidang_tanah');
 
             $table->string('fasilitas_tanah');
             $table->string('harga_tanah')->nullable();

@@ -7,10 +7,8 @@ use App\Models\Alamat_user;
 use App\Models\Pekerjaan_user;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
-
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
@@ -112,18 +110,14 @@ class ProfileController extends Controller
     }
     public function addalamat()
     {
-        $provinces = Cache::remember('provinces', 120, function () {
-            return Province::pluck('name', 'id');
-        });
-        $cityes = Cache::remember('cityes', 10000, function () {
-            return City::pluck('name', 'id');
-        });
-        $district = Cache::remember('district', 10000, function () {
-            return District::pluck('name', 'id');
-        });
-        $villages = Cache::remember('villages', 10000, function () {
-            return Village::pluck('name', 'id');
-        });
+        $provinces =
+            Province::pluck('name', 'id');
+        $cityes =
+            City::pluck('name', 'id');
+        $district =
+            District::pluck('name', 'id');
+        $villages =
+            Village::pluck('name', 'id');
         return view('public.profile.addalamat', compact('provinces', 'cityes', 'district', 'villages'));
     }
     public function addalamat_store(Request $request)
@@ -154,18 +148,14 @@ class ProfileController extends Controller
     }
     public function addpekerjaan()
     {
-        $provinces = Cache::remember('provinces', 120, function () {
-            return Province::pluck('name', 'id');
-        });
-        $cityes = Cache::remember('cityes', 10000, function () {
-            return City::pluck('name', 'id');
-        });
-        $district = Cache::remember('district', 10000, function () {
-            return District::pluck('name', 'id');
-        });
-        $villages = Cache::remember('villages', 10000, function () {
-            return Village::pluck('name', 'id');
-        });
+        $provinces =
+            Province::pluck('name', 'id');
+        $cityes =
+            City::pluck('name', 'id');
+        $district =
+            District::pluck('name', 'id');
+        $villages =
+            Village::pluck('name', 'id');
         return view('public.profile.addpekerjaan', compact('provinces', 'cityes', 'district', 'villages'));
     }
     public function addpekerjaan_store(Request $request)

@@ -20,7 +20,7 @@
                             enctype="multipart/form-data">
                             @csrf
                             <h2 class="h4 text-black mb-5">Masukan Data Tanah Dijual</h2>
-
+                            {{-- terkait surat tanah --}}
                             <div class="row form-group">
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <label class="text-black" for="jenis_surat">Jenis Surat</label>
@@ -98,40 +98,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row form-group">
-                                <div class="col-md-6 mb-3 mb-md-0">
-                                    <label class="text-black" for="fasilitas_tanah">Fasilitas Tanah</label>
-                                    <select name="fasilitas_tanah" id="fasilitas_tanah" class="form-control">
-                                        <option value="">== Select fasilitas_tanah ==</option>
-                                        <option value="TANAH_KOSONG">TANAH KOSONG</option>
-                                        <option value="TANAH_DAN_KEBUN">TANAH DAN KEBUN</option>
-                                        <option value="TANAH_DAN_RUMAH">TANAH DAN RUMAH</option>
-                                    </select>
-                                    @error('fasilitas_tanah')
-                                        <span class="invalid-feedback">
-                                            <div class="alert alert-danger">
-                                                {{ $message }}
-                                            </div>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6 mb-3 mb-md-0">
-                                    <label class="text-black" for="harga_tanah">Harga Tanah</label>
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Rp. </span>
-                                        <input class="form-control" value="{{ old('harga_tanah') }}" type="text"
-                                            name="harga_tanah" id="harga_tanah">
-                                        @error('harga_tanah')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-
+                            {{-- terkait alamat tanah --}}
                             <h4>Alamat</h4>
                             <p>Alamat yang didukung saat ini hanya di Kabupaten Kampar, Provinsi Riau</p>
                             <div class="row form-group">
@@ -140,7 +107,7 @@
                                     <select name="provinsi" id="provinsi" class="form-control">
                                         <option value="">== Select provinsi ==</option>
                                         @foreach ($provinsi as $id => $name)
-                                            <option value="{{ $name }}">{{ $name }}</option>
+                                            <option value="{{ $id }}">{{ $name }}</option>
                                         @endforeach
                                     </select>
                                     @error('provinsi')
@@ -156,7 +123,7 @@
                                     <select name="kabupaten" id="kabupaten" class="form-control">
                                         <option value="">== Select kabupaten ==</option>
                                         @foreach ($kabupaten as $id => $name)
-                                            <option value="{{ $name }}">{{ $name }}</option>
+                                            <option value="{{ $id }}">{{ $name }}</option>
                                         @endforeach
                                     </select>
                                     @error('kabupaten')
@@ -201,7 +168,7 @@
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col-md-12">
+                                <div class="col-md-6 mb-3 mb-md-0">
                                     <label class="text-black" for="nama_jln">Nama jalan</label>
                                     <input value="{{ old('nama_jln') }}" type="text" id="nama_jln" name="nama_jln"
                                         class="form-control">
@@ -214,6 +181,63 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <div class="col-md-6">
+                                    <label class="text-black" for="no_rt">Rt/Rw : </label>
+                                    <div class="input-group-prepend">
+                                        <input value="{{ old('no_rt') }}" type="number" id="no_rt" name="no_rt"
+                                            class="form-control" placeholder="Rt">
+                                        @error('no_rt')
+                                            <span class="invalid-feedback">
+                                                <div class="alert alert-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            </span>
+                                        @enderror
+                                        <input value="{{ old('no_rw') }}" type="number" id="no_rw" name="no_rw"
+                                            class="form-control" placeholder="Rw">
+                                        @error('no_rw')
+                                            <span class="invalid-feedback">
+                                                <div class="alert alert-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label class="text-black" for="fasilitas_tanah">Fasilitas Tanah</label>
+                                    <select name="fasilitas_tanah" id="fasilitas_tanah" class="form-control">
+                                        <option value="">== Select fasilitas_tanah ==</option>
+                                        <option value="TANAH_KOSONG">TANAH KOSONG</option>
+                                        <option value="TANAH_DAN_KEBUN">TANAH DAN KEBUN</option>
+                                        <option value="TANAH_DAN_RUMAH">TANAH DAN RUMAH</option>
+                                    </select>
+                                    @error('fasilitas_tanah')
+                                        <span class="invalid-feedback">
+                                            <div class="alert alert-danger">
+                                                {{ $message }}
+                                            </div>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label class="text-black" for="harga_tanah">Harga Tanah</label>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Rp. </span>
+                                        <input class="form-control" value="{{ old('harga_tanah') }}" type="text"
+                                            name="harga_tanah" id="harga_tanah">
+                                        @error('harga_tanah')
+                                            <span class="invalid-feedback">
+                                                <div class="alert alert-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <textarea name="deskripsi_tanah" id="deskripsi_tanah" cols="30" rows="7"
@@ -225,8 +249,8 @@
                             <div class="row form-group">
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <label class="text-black" for="gambar_surat">Foto surat tanah</label>
-                                    <input type="file" name="gambar_surat" id="gambar_surat"
-                                        class="form-control form-control-file">
+                                    <input type="file" name="gambar_surat[]" id="gambar_surat"
+                                        class="form-control form-control-file" multiple>
                                     @error('gambar_surat')
                                         <span class="invalid-feedback">
                                             <div class="alert alert-danger">
@@ -234,11 +258,17 @@
                                             </div>
                                         </span>
                                     @enderror
+                                    <div class="col-md-12">
+                                        <div class="mt-1 text-center">
+                                            <div class="gambar_surat"> </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 mb-3 mb-md-0">
-                                    <label class="text-black" for="gambar_bidang_tanah">Foto bagian bidang tanah</label>
-                                    <input type="file" name="gambar_bidang_tanah" id="gambar_bidang_tanah"
-                                        class="form-control form-control-file">
+                                    <label class="text-black" for="gambar_bidang_tanah">Foto bidang
+                                        tanah</label>
+                                    <input type="file" name="gambar_bidang_tanah[]" id="gambar_bidang_tanah"
+                                        class="form-control form-control-file" multiple placeholder="Minimal 5 gambar">
                                     @error('gambar_bidang_tanah')
                                         <span class="invalid-feedback">
                                             <div class="alert alert-danger">
@@ -246,6 +276,11 @@
                                             </div>
                                         </span>
                                     @enderror
+                                    <div class="col-md-12">
+                                        <div class="mt-1 text-center">
+                                            <div class="gambar_bidang_tanah"> </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -261,6 +296,34 @@
             </div>
         </section>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function() {
+            // Multiple images preview with JavaScript
+            var previewImages = function(input, imgPreviewPlaceholder) {
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            $($.parseHTML('<img class="img img-thumbnail img-fluid" width="200">')).attr(
+                                'src', event
+                                .target
+                                .result).appendTo(
+                                imgPreviewPlaceholder);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
+            $('#gambar_bidang_tanah').on('change', function() {
+                previewImages(this, 'div.gambar_bidang_tanah');
+            });
+            $('#gambar_surat').on('change', function() {
+                previewImages(this, 'div.gambar_surat');
+            });
+        });
+    </script>
 @endsection
 
 @push('scripts')

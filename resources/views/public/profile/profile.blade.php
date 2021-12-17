@@ -95,7 +95,6 @@
                                         @else
                                             @foreach ($provinsi as $prov)
                                                 {{ $prov }}
-
                                             @endforeach
                                         @endif
                                     </span>
