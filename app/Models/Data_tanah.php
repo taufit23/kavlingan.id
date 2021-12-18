@@ -27,7 +27,7 @@ class Data_tanah extends Model
     }
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'id');
     }
     public function Alamat_tanah()
     {
@@ -47,6 +47,6 @@ class Data_tanah extends Model
     }
     public function Tabel_jenis_surat()
     {
-        return $this->belongsTo(Tabel_jenis_surat::class, 'id_jenis_surat');
+        return $this->belongsTo(Tabel_jenis_surat::class, 'id');
     }
 }

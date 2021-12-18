@@ -82,7 +82,7 @@
                         @csrf
                         <div class="input-group">
                             <input type="text" name="cari" id="search" class="form-control"
-                                placeholder="Cari berdasarkan alamat">
+                                placeholder="Cari berdasarkan alamat" value="{{ request()->input('cari') }}">
                             <span class="input-group-btn"><button type="submit" class="btn btn-primary mx-1"><i
                                         class="fas fa-search"></i></button></span>
                         </div>
@@ -96,7 +96,6 @@
                                 <th>Deskripsi tanah</th>
                                 <th>Nama pemilik</th>
                                 <th>Nomor surat</th>
-                                <th>Alamat tanah</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -106,7 +105,6 @@
                                 <th>Deskripsi tanah</th>
                                 <th>Nama pemilik</th>
                                 <th>Jenis surat</th>
-                                <th>Alamat tanah</th>
                                 <th>Aksi</th>
                             </tr>
                         </tfoot>
@@ -127,9 +125,8 @@
                                         </td>
                                     @endif
                                     <td>{{ $tanah->deskripsi_tanah }}</td>
-                                    <td>{{ $tanah->nama_pemilik }}</td>
-                                    <td>{{ $tanah->nomor_surat }}</td>
-                                    <td>{{ $tanah->alamat }}</td>
+                                    <td>{{ $tanah->surat_tanah->nama_pemilik }}</td>
+                                    <td>{{ $tanah->surat_tanah->nomor_surat }}</td>
                                     <td>
                                         <a href="{{ route('private.detail_tanah', [$tanah->id]) }}"
                                             class="btn btn-sm btn-outline-info">Detail</a>

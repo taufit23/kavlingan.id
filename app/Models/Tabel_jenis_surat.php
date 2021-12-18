@@ -12,6 +12,6 @@ class Tabel_jenis_surat extends Model
     protected $guarded = [];
     public function Data_tanah()
     {
-        return $this->hasOne(Data_tanah::class);
+        return $this->hasOne(Data_tanah::class, 'id_jenis_surat');
     }
 }
