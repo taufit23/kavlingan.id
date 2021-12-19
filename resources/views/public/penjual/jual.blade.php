@@ -283,8 +283,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="row form-group">
                                 <div class="col-md-12 text-right">
                                     <button type="submit" class="btn btn-primary btn-md text-black-50">Tambah</button>

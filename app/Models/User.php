@@ -47,7 +47,7 @@ class User extends Authenticatable
     }
     public function data_tanah()
     {
-        return $this->belongsTo(Data_tanah::class, 'id_user');
+        return $this->hasMany(Data_tanah::class, 'id');
     }
     public function databank()
     {

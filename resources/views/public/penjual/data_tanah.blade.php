@@ -15,7 +15,8 @@
                     @foreach ($data_tanah as $tanah)
                         <div class="col-sm-6">
                             <div class="p-4">
-                                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+                                <div id="gambartanah{{ $tanah->id }}" class="carousel slide carousel-fade"
+                                    data-ride="carousel">
                                     <div class="carousel-inner">
                                         @foreach ($tanah->Gambarbidangtanah as $key => $gambartanah)
                                             <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
@@ -24,12 +25,12 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleFade" role="button"
+                                    <a class="carousel-control-prev" href="#gambartanah{{ $tanah->id }}" role="button"
                                         data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span>
                                     </a>
-                                    <a class="carousel-control-next" href="#carouselExampleFade" role="button"
+                                    <a class="carousel-control-next" href="#gambartanah{{ $tanah->id }}" role="button"
                                         data-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="sr-only">Next</span>

@@ -113,24 +113,16 @@
                                         {{ $data_tanah->Alamat_tanah->no_rw }},
                                     </span>
                                     <span>
-                                        @foreach ($desa as $des)
-                                            {{ $des }},
-                                        @endforeach
+                                        {{ $data_tanah->Alamat_tanah->desa_kelurahan }},
                                     </span>
                                     <span>
-                                        @foreach ($kecamatan as $kec)
-                                            {{ $kec }},
-                                        @endforeach
+                                        {{ $data_tanah->Alamat_tanah->kecamatan }},
                                     </span>
                                     <span>
-                                        @foreach ($kabupaten as $kab)
-                                            {{ $kab }}
-                                        @endforeach
+                                        {{ $data_tanah->Alamat_tanah->kabupaten_kota }},
                                     </span>
                                     <span>
-                                        @foreach ($provinsi as $prov)
-                                            {{ $prov }},
-                                        @endforeach
+                                        {{ $data_tanah->Alamat_tanah->provinsi }},
                                     </span>
 
                                 </b>

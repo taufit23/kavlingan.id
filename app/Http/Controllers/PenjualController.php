@@ -101,14 +101,18 @@ class PenjualController extends Controller
         $surat_tanah->save();
 
         // alamat tanah
+        $villages = Village::where('id', $request->villages)->value('name');
+        $districts = District::where('id', $request->districts)->value('name');
+        $kabupaten = City::where('id', $request->kabupaten)->value('name');
+        $provinsi = Province::where('id', $request->provinsi)->value('name');
         $alamat_tanah = new Alamat_tanah();
         $alamat_tanah->jalan = $request->nama_jln;
         $alamat_tanah->no_rt = $request->no_rt;
         $alamat_tanah->no_rw = $request->no_rw;
-        $alamat_tanah->desa_kelurahan = $request->villages;
-        $alamat_tanah->kecamatan = $request->districts;
-        $alamat_tanah->kota_kabupaten = $request->kabupaten;
-        $alamat_tanah->provinsi = $request->provinsi;
+        $alamat_tanah->desa_kelurahan = $villages;
+        $alamat_tanah->kecamatan = $districts;
+        $alamat_tanah->kota_kabupaten = $kabupaten;
+        $alamat_tanah->provinsi = $provinsi;
         $alamat_tanah->save();
 
         // data tanah

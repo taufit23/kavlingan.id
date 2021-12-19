@@ -9,55 +9,63 @@
         <div class="row">
             @foreach ($tanah as $tana)
                 <div class="col-xl-4">
-                    <!-- Profile picture card-->
                     <div class="card mb-4 mb-xl-0">
-                        <div class="card-header">Gambar surat tanah</div>
+                        <div class="card-header">Gambar bidang tanah</div>
                         <div class="card-body text-center">
-                            @foreach ($tana->Gambarsurat as $gambarsurat)
-                                <a href="{{ $gambarsurat->gambar_surat }}" target="blank">
-                                    <img class="img-account-profile img-fluid img-thumbnail mb-2"
-                                        src="{{ $gambarsurat->gambar_surat }}">
+                            <div id="gambartanah{{ $tana->id }}" class="carousel slide carousel-fade"
+                                data-ride="carousel">
+                                <div class="carousel-inner">
+                                    @foreach ($tana->Gambarbidangtanah as $key => $gambartanah)
+                                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                            <img src="{{ asset($gambartanah->gambar_bidang_tanah) }}"
+                                                class="d-block w-100" alt="...">
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <a class="carousel-control-prev" href="#gambartanah{{ $tana->id }}" role="button"
+                                    data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
                                 </a>
-                            @endforeach
-                            @foreach ($tana->user as $userpemilik)
-                                <form action="/{{ $tana->id }}/{{ $userpemilik->id }}/tolak_gambar_surat"
-                                    method="POST" class="float-right mx-1">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-danger"
-                                        onclick="return confirm('Anda akan menghapus gambar surat yang dimasukan penjual, Yakin?');">Tolak
-                                        gambar surat</button>
-                                </form>
-                            @endforeach
+                                <a class="carousel-control-next" href="#gambartanah{{ $tana->id }}" role="button"
+                                    data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="card mb-4 mb-xl-0 mt-2">
-                        <div class="card-header">Gambar bidang tanah</div>
+                        <div class="card-header">Gambar surat tanah</div>
                         <div class="card-body text-center">
-                            @foreach ($tana->Gambarbidangtanah as $gambartanah)
-
-                            @endforeach
-                            <a href="{{ $gambartanah->gambar_bidang_tanah }}" target="blank">
-                                <img class="img-account-profile img-fluid img-thumbnail mb-2"
-                                    src="{{ $gambartanah->gambar_bidang_tanah }}">
-                            </a>
-                            @foreach ($tana->user as $userpemilik)
-                                <form action="/{{ $tana->id }}/{{ $userpemilik->id }}/tolak_gambar_bidang_tanah"
-                                    method="POST" class="float-right mx-1">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-danger"
-                                        onclick="return confirm('Anda akan menghapus gambar bidang tanah yang dimasukan penjual, Yakin?');">Tolak
-                                        gambar bidang tanah</button>
-                                </form>
-                            @endforeach
+                            <div id="gambarsurat{{ $tana->id }}" class="carousel slide carousel-fade"
+                                data-ride="carousel">
+                                <div class="carousel-inner">
+                                    @foreach ($tana->Gambarsurat as $key => $gambarsurat)
+                                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                            <img src="{{ asset($gambarsurat->gambar_surat) }}" class="d-block w-100"
+                                                alt="...">
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <a class="carousel-control-prev" href="#gambarsurat{{ $tana->id }}" role="button"
+                                    data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#gambarsurat{{ $tana->id }}" role="button"
+                                    data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-8">
                     <div class="card mb-4">
                         <div class="card-header">Nama penjual :
-                            @foreach ($tana->user as $userpemilik)
-                                {{ $userpemilik->name }}
-                            @endforeach
+                            {{ $tana->user->name }}
                         </div>
                         <table class="table table-light table-hover table-sm">
                             <thead class="thead-dark">
@@ -70,8 +78,8 @@
                                 <tr>
                                     <th class="text-light">Nomor surat :</th>
                                     <td class="bg-gradient-light text-primary">
-                                        {{ $tana->nomor_surat }}
-                                        <form action="/{{ $tanah->id }}/{{ $pengguna->id }}/tolak_nomor_surat"
+                                        {{ $tana->Surat_tanah->nomor_surat }}
+                                        <form action="/{{ $tana->id }}/{{ $tana->user->id }}/tolak_nomor_surat"
                                             method="POST" class="float-right mx-1">
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-outline-danger"
@@ -83,44 +91,57 @@
                                 <tr>
                                     <th class="text-light">Nama pemilik : </th>
                                     <td class="bg-gradient-light text-primary">
-                                        {{ $tanah->nama_pemilik }}
+                                        {{ $tana->Surat_tanah->nama_pemilik }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="text-light">Luas tanah :</th>
                                     <td class="bg-gradient-light text-primary">
-                                        {{ $tanah->panjang_tanah . ' x ' . $tanah->lebar_tanah }}
+                                        {{ $tana->Surat_tanah->panjang_tanah . ' x ' . $tana->Surat_tanah->lebar_tanah }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="text-light">Fasilitas tanah: </th>
-                                    <td class="bg-gradient-light text-primary">{{ $tanah->fasilitas_tanah }}</td>
+                                    <td class="bg-gradient-light text-primary">{{ $tana->fasilitas_tanah }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-light">Harga tanah: </th>
                                     <td class="bg-gradient-light text-primary">Rp.
-                                        {{ number_format($tanah->harga_tanah) }}
+                                        {{ number_format($tana->harga_tanah) }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="text-light">Alamat : </th>
-                                    <td class="bg-gradient-light text-primary">{{ $tanah->alamat }}</td>
+                                    <td class="bg-gradient-light text-primary">
+                                        <strong>Jalan : </strong><span>{{ $tana->Alamat_tanah->jalan }}</span><br>
+                                        <strong>RT : </strong><span>{{ $tana->Alamat_tanah->no_rw }}</span><br>
+                                        <strong>RW : </strong><span>{{ $tana->Alamat_tanah->no_rw }}</span><br>
+                                        <strong>Desa/Kelurahan :
+                                        </strong><span>{{ $tana->Alamat_tanah->desa_kelurahan }}</span><br>
+                                        <strong>Kecamatan :
+                                        </strong><span>{{ $tana->Alamat_tanah->kecamatan }}</span><br>
+                                        <strong>Kabupaten/Kota :
+                                        </strong><span>{{ $tana->Alamat_tanah->kota_kabupaten }}</span><br>
+                                        <strong>Provinsi :
+                                        </strong><span>{{ $tana->Alamat_tanah->provinsi }}</span><br>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th class="text-light">Deskripsi tanah: </th>
-                                    <td class="bg-gradient-light text-primary">{{ $tanah->deskripsi_tanah }}</td>
+                                    <td class="bg-gradient-light text-primary">{{ $tana->deskripsi_tanah }}</td>
                                 </tr>
                                 <tr>
                                     <th class="text-light">Status tanah: </th>
-                                    @if ($tanah->status == null)
+                                    @if ($tana->status == null)
                                         <td class="bg-gradient-light text-warning">
                                             <div class="row">
                                                 <div class="col">
                                                     Tanah belum di validasi
                                                 </div>
                                                 <div class="col">
+
                                                     <form
-                                                        action="/{{ $tanah->id }}/{{ $pengguna->id }}/terima_validasi_tanah"
+                                                        action="/{{ $tana->id }}/{{ $tana->user->id }}/terima_validasi_tanah"
                                                         method="POST" class="float-right mx-1">
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-outline-success"
@@ -128,7 +149,7 @@
                                                             validasi</button>
                                                     </form>
                                                     <form
-                                                        action="/{{ $tanah->id }}/{{ $pengguna->id }}/tolak_validasi_tanah"
+                                                        action="/{{ $tana->id }}/{{ $tana->user->id }}/tolak_validasi_tanah"
                                                         method="POST" class="float-right mx-1">
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-outline-danger"
@@ -138,7 +159,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                    @elseif ($tanah->status == 0)
+                                    @elseif ($tana->status == 0)
                                         <td class="bg-gradient-light text-danger">
                                             <div class="row">
                                                 <div class="col">
@@ -146,7 +167,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <form
-                                                        action="/{{ $tanah->id }}/{{ $pengguna->id }}/terima_validasi_tanah"
+                                                        action="/{{ $tana->id }}/{{ $tana->user->id }}/terima_validasi_tanah"
                                                         method="POST" class="float-right mx-1">
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-outline-success"
@@ -154,7 +175,7 @@
                                                             validasi</button>
                                                     </form>
                                                     <form
-                                                        action="/{{ $tanah->id }}/{{ $pengguna->id }}/tolak_validasi_tanah"
+                                                        action="/{{ $tana->id }}/{{ $tana->user->id }}/tolak_validasi_tanah"
                                                         method="POST" class="float-right mx-1">
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-outline-danger"
@@ -164,7 +185,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                    @elseif ($tanah->status == 1)
+                                    @elseif ($tana->status == 1)
                                         <td class=" bg-gradient-light text-success">
                                             <div class="row">
                                                 <div class="col">
@@ -172,7 +193,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <form
-                                                        action="/{{ $tanah->id }}/{{ $pengguna->id }}/tolak_validasi_tanah"
+                                                        action="/{{ $tana->id }}/{{ $tana->user->id }}/tolak_validasi_tanah"
                                                         method="POST" class="float-right mx-1">
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-outline-danger"
@@ -181,7 +202,6 @@
                                                     </form>
                                                 </div>
                                             </div>
-
                                         </td>
                                     @endif
                                 </tr>
