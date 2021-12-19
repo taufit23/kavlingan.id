@@ -139,7 +139,6 @@
                                                     Tanah belum di validasi
                                                 </div>
                                                 <div class="col">
-
                                                     <form
                                                         action="/{{ $tana->id }}/{{ $tana->user->id }}/terima_validasi_tanah"
                                                         method="POST" class="float-right mx-1">

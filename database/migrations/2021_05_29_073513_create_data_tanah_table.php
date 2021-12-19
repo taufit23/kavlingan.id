@@ -16,9 +16,9 @@ class CreateDataTanahTable extends Migration
         Schema::create('data_tanah', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_user');
-            $table->bigInteger('id_jenis_surat');
-            $table->bigInteger('id_surat_tanah');
-            $table->bigInteger('id_alamat_tanah');
+            $table->bigInteger('id_jenis_surat')->nullable();
+            $table->bigInteger('id_surat_tanah')->nullable();
+            $table->bigInteger('id_alamat_tanah')->nullable();
 
             $table->string('fasilitas_tanah');
             $table->string('harga_tanah')->nullable();

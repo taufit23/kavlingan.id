@@ -5,6 +5,7 @@ namespace App\Http\Controllers\privat;
 use App\Http\Controllers\Controller;
 use App\Mail\Validasi_tanah;
 use App\Mail\Validasi_tanahMail;
+use App\Models\Alamat_tanah;
 use App\Models\Data_tanah;
 use App\Models\Tabel_jenis_surat;
 use App\Models\User;
@@ -17,15 +18,6 @@ class TanahController extends Controller
 {
     public function jenis_surat(Request $request)
     {
-        if ($request->has('cari')) {
-            $tabel_jenis_surat =  Tabel_jenis_surat::select("*")
-                ->where('id', 'LIKE', '%' . $request->cari . '%')
-                ->orWhere('nama_jenis_surat', 'LIKE', '%' . $request->cari . '%')
-                ->paginate(10000000);
-        } else {
-            $tabel_jenis_surat = Tabel_jenis_surat::orderBy('created_at', 'asc')->paginate(25);
-        }
-
         return view('private.tanah.jenis_surat', compact('tabel_jenis_surat'));
     }
     public function tambah_jenis_surat(Request $request)
@@ -40,40 +32,19 @@ class TanahController extends Controller
         ]);
         return redirect()->route('private.jenis_surat')->with('sucess', 'Jenis sura ditambahkan!!');
     }
-    public function data_tanah(Request $request)
+    public function data_tanah()
     {
-        if ($request->has('cari')) {
-            $keyword = $request->cari;
-            $data = District::where('name', $keyword)->pluck('id');
-            $data_tanah = Data_tanah::orderBy('created_at', 'desc')->with(
-                'tabel_jenis_surat',
-                'surat_tanah',
-                'alamat_tanah',
-                'Gambarsurat',
-                'Gambarbidangtanah'
-            )->get();
-            foreach ($data_tanah as $tanah) {
-                // dd($tanah->alamat_tanah->desa_kelurahan);
-                echo $tanah;
-            }
-            dd($data_tanah);
-            $jumlah_data_tanah = Data_tanah::count();
-            $jumlah_data_tanah_tervalidasi = Data_tanah::where('status', 1)->count();
-            $jumlah_data_tanah_belum_valid = Data_tanah::where('status', null)->count();
-            $jumlah_data_tanah_validasi_ditolak = Data_tanah::where('status', 0)->count();
-        } else {
-            $data_tanah = Data_tanah::orderBy('created_at', 'desc')->with(
-                'tabel_jenis_surat',
-                'surat_tanah',
-                'alamat_tanah',
-                'Gambarsurat',
-                'Gambarbidangtanah'
-            )->paginate(25);
-            $jumlah_data_tanah = Data_tanah::count();
-            $jumlah_data_tanah_tervalidasi = Data_tanah::where('status', 1)->count();
-            $jumlah_data_tanah_belum_valid = Data_tanah::where('status', null)->count();
-            $jumlah_data_tanah_validasi_ditolak = Data_tanah::where('status', 0)->count();
-        }
+        $data_tanah = Data_tanah::orderBy('created_at', 'desc')->with(
+            'tabel_jenis_surat',
+            'surat_tanah',
+            'alamat_tanah',
+            'Gambarsurat',
+            'Gambarbidangtanah'
+        )->paginate(25);
+        $jumlah_data_tanah = Data_tanah::count();
+        $jumlah_data_tanah_tervalidasi = Data_tanah::where('status', 1)->count();
+        $jumlah_data_tanah_belum_valid = Data_tanah::where('status', null)->count();
+        $jumlah_data_tanah_validasi_ditolak = Data_tanah::where('status', 0)->count();
         return view('private.tanah.data_tanah', compact(
             'data_tanah',
             'jumlah_data_tanah',
@@ -148,7 +119,7 @@ class TanahController extends Controller
     {
         $tanah = Data_tanah::find($id);
         $pengguna = User::find($id_pengguna);
-        $tanah->update(['nomor_surat' => null]);
+        $tanah->update(['id_surat_tanah' => null]);
         $details = [
             'title' => 'Tanah : ' . $tanah->nama_pemilik,
             'body' => '',

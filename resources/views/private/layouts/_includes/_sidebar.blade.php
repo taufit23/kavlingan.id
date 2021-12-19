@@ -33,7 +33,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('private.jenis_surat') }}">Jenis surat tanah</a>
+                {{-- <a class="collapse-item" href="{{ route('private.jenis_surat') }}">Jenis surat tanah</a> --}}
                 <a class="collapse-item" href="{{ route('private.data_tanah') }}">Data tanah</a>
                 {{-- <a class="collapse-item" href="{{ route('private.validasi_tanah') }}">validasi tanah</a> --}}
             </div>
