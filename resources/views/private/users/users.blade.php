@@ -34,7 +34,7 @@
                                 <tr>
                                     <td>{{ $user->name }}</td>
                                     <td><a
-                                            href="{{ route('private.users.detail_pengguna', [$user->id]) }}">{{ $user->no_ktp }}</a>
+                                            href="{{ route('private.users.detail_pengguna', [$user->id]) }}">{{ $user->ktp_user->no_ktp }}</a>
                                     </td>
                                     <td>{{ $user->email }}</td>
                                     <td

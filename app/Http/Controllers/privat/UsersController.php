@@ -13,30 +13,26 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $data_user = User::where('role', '!=', 'Admin')->orderBy('created_at', 'desc')->paginate(3);
+        $data_user = User::where('role', '!=', 'Admin')->orderBy('created_at', 'desc')->with('ktp_user')->paginate(10);
         return view('private.users.users', compact('data_user'));
+    }
+    public function detail_pengguna($id)
+    {
+        $user = User::where('id', $id)->with('alamat_user', 'ktp_user', 'pekerjaan_user')->get();
+        return view('private.users.detail_pengguna', compact(
+            'user'
+        ));
     }
     public function validasi_pengguna()
     {
         $data_user = User::where('role', '!=', 'Admin')->where('status', 0)->orwhereNull('status', null)->orderBy('created_at', 'desc')->take(10)->get();
         return view('private.users.validasi_pengguna', compact('data_user'));
     }
-    public function detail_pengguna($id)
-    {
-        $user = User::find($id);
-        return view('private.users.detail_pengguna', compact(
-            'user'
-        ));
-    }
     public function aktifkan_pengguna($id)
     {
         $pengguna = User::find($id);
         $pengguna->update(['status' => 1]);
-        if ($pengguna->role == 'Pembeli') {
-            $pesan = 'Silahkan melakukan pembelian secara bijak.';
-        } elseif ($pengguna->role == 'Penjual') {
-            $pesan = 'Silahkan menjual tanah yang benar benar sah untuk dijual.';
-        }
+        $pesan = 'Silahkan melakukan pembelian secara bijak.';
         $details = [
             'title' => 'Akun : ' . $pengguna->email,
             'body' => '',
