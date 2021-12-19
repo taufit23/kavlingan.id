@@ -78,7 +78,10 @@
                                 <tr>
                                     <th class="text-light">Nomor surat :</th>
                                     <td class="bg-gradient-light text-primary">
-                                        {{ $tana->Surat_tanah->nomor_surat }}
+                                        @if ($tana->id_surat_tanah != null)
+                                            {{ $tana->Surat_tanah->nomor_surat }}
+                                        @else Null
+                                        @endif
                                         <form action="/{{ $tana->id }}/{{ $tana->user->id }}/tolak_nomor_surat"
                                             method="POST" class="float-right mx-1">
                                             @csrf
@@ -91,13 +94,21 @@
                                 <tr>
                                     <th class="text-light">Nama pemilik : </th>
                                     <td class="bg-gradient-light text-primary">
-                                        {{ $tana->Surat_tanah->nama_pemilik }}
+                                        @if ($tana->id_surat_tanah != null)
+                                            {{ $tana->Surat_tanah->nama_pemilik }}
+                                        @else
+                                            Null
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <th class="text-light">Luas tanah :</th>
                                     <td class="bg-gradient-light text-primary">
-                                        {{ $tana->Surat_tanah->panjang_tanah . ' x ' . $tana->Surat_tanah->lebar_tanah }}
+                                        @if ($tana->id_surat_tanah != null)
+                                            {{ $tana->Surat_tanah->panjang_tanah . ' x ' . $tana->Surat_tanah->lebar_tanah }}
+                                        @else
+                                            Null
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
@@ -113,17 +124,19 @@
                                 <tr>
                                     <th class="text-light">Alamat : </th>
                                     <td class="bg-gradient-light text-primary">
-                                        <strong>Jalan : </strong><span>{{ $tana->Alamat_tanah->jalan }}</span><br>
-                                        <strong>RT : </strong><span>{{ $tana->Alamat_tanah->no_rw }}</span><br>
-                                        <strong>RW : </strong><span>{{ $tana->Alamat_tanah->no_rw }}</span><br>
-                                        <strong>Desa/Kelurahan :
-                                        </strong><span>{{ $tana->Alamat_tanah->desa_kelurahan }}</span><br>
-                                        <strong>Kecamatan :
-                                        </strong><span>{{ $tana->Alamat_tanah->kecamatan }}</span><br>
-                                        <strong>Kabupaten/Kota :
-                                        </strong><span>{{ $tana->Alamat_tanah->kota_kabupaten }}</span><br>
-                                        <strong>Provinsi :
-                                        </strong><span>{{ $tana->Alamat_tanah->provinsi }}</span><br>
+                                        @if ($tana->id_alamat_tanah != null)
+                                            <strong>Jalan : </strong><span>{{ $tana->Alamat_tanah->jalan }}</span><br>
+                                            <strong>RT : </strong><span>{{ $tana->Alamat_tanah->no_rw }}</span><br>
+                                            <strong>RW : </strong><span>{{ $tana->Alamat_tanah->no_rw }}</span><br>
+                                            <strong>Desa/Kelurahan :
+                                            </strong><span>{{ $tana->Alamat_tanah->desa_kelurahan }}</span><br>
+                                            <strong>Kecamatan :
+                                            </strong><span>{{ $tana->Alamat_tanah->kecamatan }}</span><br>
+                                            <strong>Kabupaten/Kota :
+                                            </strong><span>{{ $tana->Alamat_tanah->kota_kabupaten }}</span><br>
+                                            <strong>Provinsi :
+                                            </strong><span>{{ $tana->Alamat_tanah->provinsi }}</span><br>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>

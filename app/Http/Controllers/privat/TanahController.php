@@ -63,6 +63,9 @@ class TanahController extends Controller
             'Alamat_tanah',
             'user'
         )->get();
+        // foreach ($tanah as $tana) {
+        //     dd($tana->Gambarsurat);
+        // }
         return view('private.tanah.detail_tanah', compact(
             'tanah'
         ));
@@ -119,6 +122,10 @@ class TanahController extends Controller
     {
         $tanah = Data_tanah::find($id);
         $pengguna = User::find($id_pengguna);
+        foreach ($tanah->Gambarsurat as $key => $gambarsurat) {
+            unlink(public_path($gambarsurat->gambar_surat));
+        }
+        $tanah->Surat_tanah->delete();
         $tanah->update(['id_surat_tanah' => null]);
         $details = [
             'title' => 'Tanah : ' . $tanah->nama_pemilik,
