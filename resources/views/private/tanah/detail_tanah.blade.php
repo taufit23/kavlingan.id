@@ -33,6 +33,17 @@
                                     <span class="sr-only">Next</span>
                                 </a>
                             </div>
+                            <div class="row justify-content-center mt-2">
+                                @if ($tana->status == null)
+                                    <form action="/{{ $tana->id }}/{{ $tana->user->id }}/tolak_gambar_bidang_tanah"
+                                        method="POST" class="float-right mx-1">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('Anda akan menghapus gambar didang tanah yang dimasukan penjual, Yakin?');">Tolak
+                                            Gambar bidang tanah</button>
+                                    </form>
+                                @endif
+                            </div>
                         </div>
                     </div>
                     <div class="card mb-4 mb-xl-0 mt-2">
@@ -82,13 +93,15 @@
                                             {{ $tana->Surat_tanah->nomor_surat }}
                                         @else Null
                                         @endif
-                                        <form action="/{{ $tana->id }}/{{ $tana->user->id }}/tolak_nomor_surat"
-                                            method="POST" class="float-right mx-1">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-outline-danger"
-                                                onclick="return confirm('Anda akan menghapus nomor surat tanah yang dimasukan penjual, Yakin?');">Tolak
-                                                nomor surat</button>
-                                        </form>
+                                        @if ($tana->status == null)
+                                            <form action="/{{ $tana->id }}/{{ $tana->user->id }}/tolak_nomor_surat"
+                                                method="POST" class="float-right mx-1">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                    onclick="return confirm('Anda akan menghapus nomor surat tanah yang dimasukan penjual, Yakin?');">Tolak
+                                                    nomor surat</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
@@ -160,14 +173,6 @@
                                                             onclick="return confirm('Yakin untuk menyatakan data tanah ini valid?');">Terima
                                                             validasi</button>
                                                     </form>
-                                                    <form
-                                                        action="/{{ $tana->id }}/{{ $tana->user->id }}/tolak_validasi_tanah"
-                                                        method="POST" class="float-right mx-1">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger"
-                                                            onclick="return confirm('Sudahkah anda menghapus variabel yang ditolak dari data tanah ini?');">Tolak
-                                                            validasi</button>
-                                                    </form>
                                                 </div>
                                             </div>
                                         </td>
@@ -176,24 +181,6 @@
                                             <div class="row">
                                                 <div class="col">
                                                     Validasi tanah ditolak
-                                                </div>
-                                                <div class="col">
-                                                    <form
-                                                        action="/{{ $tana->id }}/{{ $tana->user->id }}/terima_validasi_tanah"
-                                                        method="POST" class="float-right mx-1">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-sm btn-outline-success"
-                                                            onclick="return confirm('Yakin untuk menyatakan data tanah ini valid?');">Terima
-                                                            validasi</button>
-                                                    </form>
-                                                    <form
-                                                        action="/{{ $tana->id }}/{{ $tana->user->id }}/tolak_validasi_tanah"
-                                                        method="POST" class="float-right mx-1">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger"
-                                                            onclick="return confirm('Sudahkah anda menghapus variabel yang ditolak dari data tanah ini?');">Tolak
-                                                            validasi</button>
-                                                    </form>
                                                 </div>
                                             </div>
                                         </td>

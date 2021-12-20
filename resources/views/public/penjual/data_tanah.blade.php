@@ -39,8 +39,11 @@
                                 <h5> <a href="#" class="text-dark">{{ $tanah->deskripsi_tanah }}</a></h5>
                                 <p>Luas tanah :
                                     <span class="float-right text-info">
-                                        {{ $tanah->Surat_tanah->panjang_tanah . ' x ' . $tanah->Surat_tanah->lebar_tanah }}
-                                        M<sup>2</sup></span>
+                                        @if ($tanah->id_surat_tanah != null)
+                                            {{ $tanah->Surat_tanah->panjang_tanah . ' x ' . $tanah->Surat_tanah->lebar_tanah }}
+                                        @endif
+                                        M<sup>2</sup>
+                                    </span>
                                 </p>
                                 <p>Harga tanah :
                                     <span class="float-right text-info">

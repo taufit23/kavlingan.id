@@ -24,15 +24,21 @@ Route::get('/detail_tanah/{id}', [HomeController::class, 'detail_tanah'])->name(
 Route::group(['middleware' => ['auth', 'admin: 0']], function () {
     Route::get('/private_dashboard', [AdminController::class, 'index'])->name('private.dashboard');
     Route::get('/private_data_tanah', [TanahController::class, 'data_tanah'])->name('private.data_tanah');
-    Route::get('/private_validasi_data_tanah', [TanahController::class, 'validasi_tanah'])->name('private.validasi_tanah');
     Route::get('/{id}/private_detail_tanah', [TanahController::class, 'detail_tanah'])->name('private.detail_tanah');
+
+    // validasi
+    Route::get('/private_validasi_data_tanah', [TanahController::class, 'validasi_tanah'])->name('private.validasi_tanah');
     Route::post('/{id}/{id_pengguna}/tolak_gambar_surat', [TanahController::class, 'tolak_gambar_surat']);
     Route::post('/{id}/{id_pengguna}/tolak_gambar_bidang_tanah', [TanahController::class, 'tolak_gambar_bidang_tanah']);
     Route::post('/{id}/{id_pengguna}/tolak_nomor_surat', [TanahController::class, 'tolak_nomor_surat']);
     Route::post('/{id}/{id_pengguna}/tolak_validasi_tanah', [TanahController::class, 'tolak_validasi_tanah']);
     Route::post('/{id}/{id_pengguna}/terima_validasi_tanah', [TanahController::class, 'terima_validasi_tanah']);
+
+    // jenis surat
     Route::get('/private_jenis_surat', [TanahController::class, 'jenis_surat'])->name('private.jenis_surat');
     Route::post('/private_jenis_surat', [TanahController::class, 'tambah_jenis_surat'])->name('private.jenis_surat');
+
+    // users
     Route::get('/private_users', [UsersController::class, 'index'])->name('private.users');
     Route::get('/private_users/validasi_pengguna', [UsersController::class, 'validasi_pengguna'])->name('private.users.validasi_pengguna');
     Route::get('/private_users/{id}/detail', [UsersController::class, 'detail_pengguna'])->name('private.users.detail_pengguna');
@@ -52,14 +58,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/{id_pembeli}/ajukan_kredit_tanah/{id_penjual}/{id_tanah}', [HomeController::class, 'ajukan_kredit_tanah']);
     Route::get('/berita', [HomeController::class, 'berita'])->name('home.berita');
     Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');
-    // penjual
+    // penjual dashboard
     Route::get('/penjual', [PenjualController::class, 'index'])->name('penjual.index');
+    // penjual data tanah
     Route::get('/penjual/data_tanah', [PenjualController::class, 'data_tanah'])->name('penjual.data_tanah');
     Route::get('/penjual/data_tanah/detail/{id}', [PenjualController::class, 'data_tanah_detail'])->name('penjual.data_tanah.detail');
+    // penjual edit tanah
     Route::get('/penjual/data_tanah/edit/{id}', [PenjualController::class, 'data_tanah_edit'])->name('penjual.data_tanah.edit');
     Route::post('/penjual/data_tanah/edit/{id}', [PenjualController::class, 'edit_store'])->name('penjual.data_tanah.edit_store');
     Route::PUT('/{id}/penjual/data_tanah/detail/upload_gambar', [PenjualController::class, 'upload_gambar']);
     Route::PUT('/{id}/penjual/data_tanah/detail/upload_gambar_surat', [PenjualController::class, 'upload_gambar_surat']);
+    // penjual input tanah
     Route::get('/penjual/data_tanah/jual', [PenjualController::class, 'jual'])->name('penjual.data_tanah.jual');
     Route::post('/penjual/data_tanah/jual', [PenjualController::class, 'store'])->name('penjual.data_tanah.jual.store');
     Route::post('/penjual/data_tanah/jual_store', [PenjualController::class, 'jual_store'])->name('penjual.data_tanah.jual_store');

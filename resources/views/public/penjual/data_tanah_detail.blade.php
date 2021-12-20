@@ -2,13 +2,15 @@
 @section('title')
     Nomor Surat
     @foreach ($data as $datatanah)
-        {{ $datatanah->surat_tanah->nomor_surat }}
+        @if ($datatanah->id_surat_tanah != null)
+            {{ $datatanah->surat_tanah->nomor_surat }}
+        @else
+            Tanah ditolak
+        @endif
     @endforeach
 @endsection
 @section('content')
-
     @foreach ($data as $data_tanah)
-
         <div id="colorlib-main">
             <div class="container-fluid">
                 <div class="row my-2 justify-content-center">
@@ -84,15 +86,31 @@
                                     class="float-right">{{ $data_tanah->tabel_jenis_surat->nama_jenis_surat }}</b>
                             </p>
                             <hr>
-                            <p>Nomor surat: <b class="float-right">{{ $data_tanah->surat_tanah->nomor_surat }}</b></p>
+                            <p>Nomor surat: <b class="float-right">
+                                    @if ($datatanah->id_surat_tanah != null)
+                                        {{ $data_tanah->surat_tanah->nomor_surat }}
+                                    @else
+                                        Variabel ini ditolak
+                                    @endif
+                                </b></p>
                             <hr>
-                            <p>Nama pemilik: <b class="float-right">{{ $data_tanah->surat_tanah->nama_pemilik }}</b>
+                            <p>Nama pemilik: <b class="float-right">
+                                    @if ($datatanah->id_surat_tanah != null)
+                                        {{ $data_tanah->surat_tanah->nama_pemilik }}
+                                    @else
+                                        Variabel ini ditolak
+                                    @endif
+                                </b>
                             </p>
                             <hr>
                             <p>Luas tanah:
                                 <b class="float-right">
-                                    {{ $data_tanah->surat_tanah->panjang_tanah . ' x ' . $data_tanah->surat_tanah->lebar_tanah }}
-                                    M<sup>2</sup>
+                                    @if ($datatanah->id_surat_tanah != null)
+                                        {{ $data_tanah->surat_tanah->panjang_tanah . ' x ' . $data_tanah->surat_tanah->lebar_tanah }}
+                                        M<sup>2</sup>
+                                    @else
+                                        Variabel ini ditolak
+                                    @endif
                                 </b>
                             </p>
                             <hr>
@@ -130,9 +148,12 @@
                             <hr>
                             <div class="row justify-content-end">
                                 <a href="" class="btn btn-sm btn-outline-danger mx-2">Tandai terjual</a>
-                                @if ($data_tanah->status == '0')
+                                @if ($data_tanah->status == '0' and $data_tanah->id_surat_tanah == null)
                                     <a href="{{ route('penjual.data_tanah.edit', [$data_tanah->id]) }}"
-                                        class="btn btn-sm btn-outline-primary">Edit</a>
+                                        class="btn btn-sm btn-outline-primary">Edit surat tanah</a>
+                                @elseif ($data_tanah->status == '0' and $data_tanah->id_surat_tanah != null)
+                                    <a href="{{ route('penjual.data_tanah.edit', [$data_tanah->id]) }}"
+                                        class="btn btn-sm btn-outline-primary">Edit foto bidang tanah</a>
                                 @endif
                             </div>
                         </div>
@@ -153,38 +174,11 @@
                         </button>
                     </div>
                     <div class="modal-body text-center">
-                        @if ($data_tanah->gambar_surat == null)
+                        @if ($data_tanah->Gambarsurat == null)
                             <span>Segera upload gambar sertifikat anda!</span>
                         @endif
                         <img class="btn p-0 card-img3 image-small" @if ($data_tanah->gambar_surat == null) style="height: 200px" @endif
                             src="{{ $data_tanah->getGambarsurat() }}">
-                        <form class="form-horizontal" role="form"
-                            action="/{{ $data_tanah->id }}/penjual/data_tanah/detail/upload_gambar_surat" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <h6 class="mt-2">
-                                @if ($data_tanah->gambar_surat == null)
-                                    <span class="text-danger">Ingat, gambar surat hanya dapat diupload sekali</span>
-                                @endif
-                            </h6>
-                            @if ($data_tanah->gambar_surat == null)
-                                <label class="custom-file">
-                                    <input type="file" name="gambar_surat" id="gambar_surat"
-                                        class="form-control @error('gambar_surat') is-invalid @enderror">
-                                    @error('gambar_surat')
-                                        <span class="invalid-feedback">
-                                            <div class="alert alert-danger">
-                                                {{ $message }}
-                                            </div>
-                                        </span>
-                                    @enderror
-                                    <button type="submit" class="my-2 btn btn-sm btn-outline-success">Upload</button>
-                                </label>
-
-                            @endif
-
-                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

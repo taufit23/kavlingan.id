@@ -63,6 +63,12 @@
                                                 {{ __('Jual tanah') }}
                                             </a>
                                         @endif
+                                    @elseif (auth()->user()->role == 0)
+                                        @if (auth()->user()->status != null)
+                                            <a class="dropdown-item" href="{{ route('private.dashboard') }}">
+                                                {{ __('Dashboard admin') }}
+                                            </a>
+                                        @endif
                                     @endif
                                     <a class="dropdown-item" href="{{ route('profil') }}">
                                         {{ __('Profil') }}
