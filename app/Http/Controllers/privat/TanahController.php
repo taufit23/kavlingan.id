@@ -124,54 +124,54 @@ class TanahController extends Controller
 
 
 
-    public function validasi_tanah()
-    {
-        $jumlah_data_tanah = Data_tanah::count();
-        $jumlah_data_tanah_tervalidasi = Data_tanah::where('status', 1)->count();
-        $jumlah_data_tanah_belum_valid = Data_tanah::where('status', null)->count();
-        $jumlah_data_tanah_validasi_ditolak = Data_tanah::where('status', 0)->count();
-        $data_tanah_belum_valid = Data_tanah::where('status', 0)->orwhereNull('status')->orderBy('created_at', 'desc')->get();
-        $user = User::get();
-        $jenis_surat = Tabel_jenis_surat::get();
-        return view('private.tanah.validasi_tanah', compact(
-            'jumlah_data_tanah',
-            'jumlah_data_tanah_tervalidasi',
-            'jumlah_data_tanah_belum_valid',
-            'jumlah_data_tanah_validasi_ditolak',
-            'data_tanah_belum_valid',
-            'user',
-            'jenis_surat'
-        ));
-    }
+    // public function validasi_tanah()
+    // {
+    //     $jumlah_data_tanah = Data_tanah::count();
+    //     $jumlah_data_tanah_tervalidasi = Data_tanah::where('status', 1)->count();
+    //     $jumlah_data_tanah_belum_valid = Data_tanah::where('status', null)->count();
+    //     $jumlah_data_tanah_validasi_ditolak = Data_tanah::where('status', 0)->count();
+    //     $data_tanah_belum_valid = Data_tanah::where('status', 0)->orwhereNull('status')->orderBy('created_at', 'desc')->get();
+    //     $user = User::get();
+    //     $jenis_surat = Tabel_jenis_surat::get();
+    //     return view('private.tanah.validasi_tanah', compact(
+    //         'jumlah_data_tanah',
+    //         'jumlah_data_tanah_tervalidasi',
+    //         'jumlah_data_tanah_belum_valid',
+    //         'jumlah_data_tanah_validasi_ditolak',
+    //         'data_tanah_belum_valid',
+    //         'user',
+    //         'jenis_surat'
+    //     ));
+    // }
 
-    public function tolak_gambar_surat($id, $id_pengguna)
-    {
-        $tanah = Data_tanah::find($id);
-        $pengguna = User::find($id_pengguna);
-        $tanah->update(['gambar_surat' => null]);
-        $details = [
-            'title' => 'Tanah : ' . $tanah->nama_pemilik,
-            'body' => '',
-            'data' => 'Gambar surat ditolak, silahkan upload ulang melalui halaman edit tanah yang anda miliki',
-            'pesan' => '--'
-        ];
-        Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
-        return redirect()->back()->with('gagal', 'Gambar surat telah di tolak, pastikan anda menekan tombol tolak validasi untuk mengingatkan penjual');
-    }
+    // public function tolak_gambar_surat($id, $id_pengguna)
+    // {
+    //     $tanah = Data_tanah::find($id);
+    //     $pengguna = User::find($id_pengguna);
+    //     $tanah->update(['gambar_surat' => null]);
+    //     $details = [
+    //         'title' => 'Tanah : ' . $tanah->nama_pemilik,
+    //         'body' => '',
+    //         'data' => 'Gambar surat ditolak, silahkan upload ulang melalui halaman edit tanah yang anda miliki',
+    //         'pesan' => '--'
+    //     ];
+    //     Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
+    //     return redirect()->back()->with('gagal', 'Gambar surat telah di tolak, pastikan anda menekan tombol tolak validasi untuk mengingatkan penjual');
+    // }
 
 
-    public function tolak_validasi_tanah($id, $id_pengguna)
-    {
-        $tanah = Data_tanah::find($id);
-        $pengguna = User::find($id_pengguna);
-        $tanah->update(['status' => 0]);
-        $details = [
-            'title' => 'Tanah : ' . $tanah->nama_pemilik,
-            'body' => '',
-            'data' => 'Validasi tanah ditolak',
-            'pesan' => 'Silahkan lengkapi data tanah yang tidak valid, sudah ditandai oleh admin pada halaman detail tanah anda.'
-        ];
-        Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
-        return redirect()->back()->with('gagal', 'Validasi tanah ditolak');
-    }
+    // public function tolak_validasi_tanah($id, $id_pengguna)
+    // {
+    //     $tanah = Data_tanah::find($id);
+    //     $pengguna = User::find($id_pengguna);
+    //     $tanah->update(['status' => 0]);
+    //     $details = [
+    //         'title' => 'Tanah : ' . $tanah->nama_pemilik,
+    //         'body' => '',
+    //         'data' => 'Validasi tanah ditolak',
+    //         'pesan' => 'Silahkan lengkapi data tanah yang tidak valid, sudah ditandai oleh admin pada halaman detail tanah anda.'
+    //     ];
+    //     Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
+    //     return redirect()->back()->with('gagal', 'Validasi tanah ditolak');
+    // }
 }
