@@ -42,17 +42,15 @@ class HomeController extends Controller
     }
     public function detail_tanah($id)
     {
-        $data_tanah = Data_tanah::find($id);
-        $user = User::get();
-        $jenis_surat = Tabel_jenis_surat::get();
-        foreach ($user as $u) {
-            if ($data_tanah->id_user == $u->id) {
-                $pengguna = $u;
-            }
-        }
+        $data_tanah = Data_tanah::where('id', $id)->with(
+            'tabel_jenis_surat',
+            'surat_tanah',
+            'alamat_tanah',
+            'Gambarsurat',
+            'Gambarbidangtanah'
+        )->get();
         $data_bank = Databank::with('user')->get();
-        $jenis_surat = Tabel_jenis_surat::where('id', Data_tanah::where('id', $id)->pluck('id_jenis_surat'))->get();
-        return view('public.detail', compact('data_tanah', 'jenis_surat', 'pengguna', 'data_bank'));
+        return view('public.detail', compact('data_tanah', 'data_bank'));
     }
     public function beli()
     {
