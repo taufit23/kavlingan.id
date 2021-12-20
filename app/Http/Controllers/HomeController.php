@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Pengajuan_beli_cashMail;
+use App\Models\Alamat_tanah;
 use App\Models\Data_tanah;
 use App\Models\Databank;
 use App\Models\Ktp_user;
 use App\Models\Tabel_jenis_surat;
 use App\Models\User;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -15,14 +17,26 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $data_ktp = Ktp_user::latest()->pluck('id');
         if ($request->has('cari')) {
-            $data_tanah =  Data_tanah::select("*")
-                ->where('status', 1)
-                ->where('alamat', 'LIKE', '%' . $request->cari . '%')
-                ->paginate(10000000);
+            $data_tanah = Data_tanah::where('status', 1)
+                ->whereRelation('Alamat_tanah', 'kecamatan', 'LIKE', '%' . $request->cari . '%')
+                ->orwhereRelation('Alamat_tanah', 'jalan', 'LIKE', '%' . $request->cari . '%')
+                ->orwhereRelation('Alamat_tanah', 'kota_kabupaten', 'LIKE', '%' . $request->cari . '%')
+                ->with(
+                    'tabel_jenis_surat',
+                    'surat_tanah',
+                    'alamat_tanah',
+                    'Gambarsurat',
+                    'Gambarbidangtanah'
+                )->paginate(100);
         } else {
-            $data_tanah = Data_tanah::where('status', 1)->orderBy('created_at', 'desc')->paginate(6);
+            $data_tanah = Data_tanah::where('status', 1)->with(
+                'tabel_jenis_surat',
+                'surat_tanah',
+                'alamat_tanah',
+                'Gambarsurat',
+                'Gambarbidangtanah'
+            )->orderBy('created_at', 'desc')->paginate(6);
         }
         return view('public.index', compact('data_tanah'));
     }

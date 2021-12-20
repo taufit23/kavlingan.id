@@ -68,26 +68,34 @@
                                     <td class="bg-gradient-light text-primary">{{ $pengguna->ktp_user->no_ktp }}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th class="text-light">Pekerjaan: </th>
+                                @if ($pengguna->id_pekerjaan_user != null)
+                                    <tr>
+                                        <th class="text-light">Pekerjaan: </th>
+                                        <td class="bg-gradient-light text-primary">
+                                            {{ $pengguna->pekerjaan_user->nama_pekerjaan }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-light">Alamat kerja: </th>
+                                        <td class="bg-gradient-light text-primary">
+                                            <strong>Jalan : </strong>
+                                            <span>{{ $pengguna->pekerjaan_user->jalan }}</span><br>
+                                            <strong>Desa/Kelurahan : </strong>
+                                            <span>{{ $pengguna->pekerjaan_user->desa_kelurahan }}</span><br>
+                                            <strong>Kecamatan : </strong>
+                                            <span>{{ $pengguna->pekerjaan_user->keecamatan }}</span><br>
+                                            <strong>Kabupaten/Kota : </strong>
+                                            <span>{{ $pengguna->pekerjaan_user->kota_kabupaten }}</span><br>
+                                            <strong>Provinsi : </strong>
+                                            <span>{{ $pengguna->pekerjaan_user->provinsi }}</span><br>
+                                        </td>
+                                    </tr>
+                                @else
+                                    <th class="text-light">Pekerjaan</th>
                                     <td class="bg-gradient-light text-primary">
-                                        {{ $pengguna->pekerjaan_user->nama_pekerjaan }}
+                                        <strong>Informasi pekerjaan belum diisi</strong>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <th class="text-light">Alamat kerja: </th>
-                                    <td class="bg-gradient-light text-primary">
-                                        <strong>Jalan : </strong> <span>{{ $pengguna->pekerjaan_user->jalan }}</span><br>
-                                        <strong>Desa/Kelurahan : </strong>
-                                        <span>{{ $pengguna->pekerjaan_user->desa_kelurahan }}</span><br>
-                                        <strong>Kecamatan : </strong>
-                                        <span>{{ $pengguna->pekerjaan_user->keecamatan }}</span><br>
-                                        <strong>Kabupaten/Kota : </strong>
-                                        <span>{{ $pengguna->pekerjaan_user->kota_kabupaten }}</span><br>
-                                        <strong>Provinsi : </strong>
-                                        <span>{{ $pengguna->pekerjaan_user->provinsi }}</span><br>
-                                    </td>
-                                </tr>
+                                @endif
                                 <tr>
                                     <th class="text-light">Alamat email : </th>
                                     <td class="bg-gradient-light text-primary">{{ $pengguna->email }}</td>
@@ -98,22 +106,28 @@
                                 </tr>
                                 <tr>
                                     <th class="text-light">Alamat lengap : </th>
-                                    <td class="bg-gradient-light text-primary">
-                                        <strong>Jalan : </strong>
-                                        <span>{{ $pengguna->alamat_user->jalan }}</span><br>
-                                        <strong>RT : </strong>
-                                        <span>{{ $pengguna->alamat_user->no_rt }}</span><br>
-                                        <strong>RW : </strong>
-                                        <span>{{ $pengguna->alamat_user->no_rw }}</span><br>
-                                        <strong>Desa/Kelurahan : </strong>
-                                        <span>{{ $pengguna->alamat_user->desa_kelurahan }}</span><br>
-                                        <strong>Kecamatan : </strong>
-                                        <span>{{ $pengguna->alamat_user->keecamatan }}</span><br>
-                                        <strong>Kabupaten/Kota : </strong>
-                                        <span>{{ $pengguna->alamat_user->kota_kabupaten }}</span><br>
-                                        <strong>Provinsi : </strong>
-                                        <span>{{ $pengguna->alamat_user->provinsi }}</span><br>
-                                    </td>
+                                    @if ($pengguna->id_alamat_user != null)
+                                        <td class="bg-gradient-light text-primary">
+                                            <strong>Jalan : </strong>
+                                            <span>{{ $pengguna->alamat_user->jalan }}</span><br>
+                                            <strong>RT : </strong>
+                                            <span>{{ $pengguna->alamat_user->no_rt }}</span><br>
+                                            <strong>RW : </strong>
+                                            <span>{{ $pengguna->alamat_user->no_rw }}</span><br>
+                                            <strong>Desa/Kelurahan : </strong>
+                                            <span>{{ $pengguna->alamat_user->desa_kelurahan }}</span><br>
+                                            <strong>Kecamatan : </strong>
+                                            <span>{{ $pengguna->alamat_user->keecamatan }}</span><br>
+                                            <strong>Kabupaten/Kota : </strong>
+                                            <span>{{ $pengguna->alamat_user->kota_kabupaten }}</span><br>
+                                            <strong>Provinsi : </strong>
+                                            <span>{{ $pengguna->alamat_user->provinsi }}</span><br>
+                                        </td>
+                                    @else
+                                        <td class="bg-gradient-light text-primary">
+                                            <strong>Alamat belum diisi</strong>
+                                        </td>
+                                    @endif
                                 </tr>
                                 <tr>
                                     <th class="text-light">Status pengguna : </th>

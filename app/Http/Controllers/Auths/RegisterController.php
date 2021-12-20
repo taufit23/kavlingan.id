@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'no_hp'                 => 'required|unique:users,no_hp',
             'foto_ktp'              => 'required|mimes:jpg,jpeg,png',
             'avatar'                => 'required|mimes:jpg,jpeg,png',
-            'password'              => 'required|confirmed',
+            'password'              => 'required|min:8|confirmed',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {

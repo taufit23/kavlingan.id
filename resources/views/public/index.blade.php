@@ -26,7 +26,7 @@
 
     <section class="site-section border-bottom" id="beli-section">
         <div class="container px-4 px-lg-5 mt-5">
-            <div class="row my-1">
+            <div class="row my-1 justify-content-center">
                 <div class="col-md-6">
                     <form class="navbar-form navbar-right" method="GET" action="{{ route('home.index') }}">
                         @csrf
@@ -38,8 +38,8 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6">
-                    {{-- <div class="dropdown">
+                {{-- <div class="col-md-6">
+                    <div class="dropdown">
                         <a id="navbarDropdown" class="dropdown-toggle btn btn-sm btn-outline-primary" href="#" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             Filter data kecamatan/Kota
@@ -56,8 +56,8 @@
                             </form>
                             <a href="" class="dropdown-toggle-split select2-dropdown--below">aa</a>
                         </div>
-                    </div> --}}
-                </div>
+                    </div>
+                </div> --}}
             </div>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 @include('vendor.flash_message')
@@ -65,23 +65,40 @@
                     <div class="col-md-4 mb-3">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="{{ $tanah->getGambartanah() }}"
-                                style="height: 300px; weight: 450px;" alt="{{ $tanah->deskripsi_tanah }}" />
+                            <div id="gambartanah{{ $tanah->id }}" class="carousel slide carousel-fade card-img-top"
+                                data-ride="carousel">
+                                <div class="carousel-inner">
+                                    @foreach ($tanah->Gambarbidangtanah as $key => $gambartanah)
+                                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                            <img src="{{ asset($gambartanah->gambar_bidang_tanah) }}"
+                                                class="d-block w-100" alt="...">
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <a class="carousel-control-prev" href="#gambartanah{{ $tanah->id }}" role="button"
+                                    data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#gambartanah{{ $tanah->id }}" role="button"
+                                    data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
                             <!-- Product details-->
                             <div class="card-body p-3">
                                 <div class="text-center">
                                     <!-- Product name-->
                                     <h5 class="fw-bolder text-small">{{ $tanah->deskripsi_tanah }}</h5>
-                                    {{-- <h5 class="fw-bolder">Nama Penjual : {{ $tanah->user() }}</h5> --}}
+                                    <h5 class="fw-bolder">Nama Penjual : {{ $tanah->user->name }}</h5>
                                     <!-- Product price-->
                                     Harga jual : <span class="text-warning">Rp.
                                         {{ number_format($tanah->harga_tanah), 2 }}</span>
                                     <br>
-                                    @if ($tanah->status_tanah == 'BISA_BOOKING')
-                                        Harga Booking : <span class="text-warning">Rp.
-                                            {{ number_format($tanah->harga_tanah), 2 }}</span>
-                                    @endif
-                                    {{-- <p>diposting pada : {{  }}</p> --}}
+                                    Alamat tanah : <span class="text-black">
+                                        {{ $tanah->alamat_tanah->jalan }}, {{ $tanah->alamat_tanah->kecamatan }}
+                                    </span>
                                 </div>
                             </div>
                             <!-- Product actions-->
