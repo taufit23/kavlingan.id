@@ -20,12 +20,6 @@
                                 class="nav-link {{ Request::is('/#beli-section') ? 'active' : '' }}">Data
                                 tanah</a>
                         </li>
-
-                        {{-- <li><a href="{{ route('home.jual') }}" class="nav-link">Jual</a></li> --}}
-                        {{-- <li><a href="/#testimonials-section" class="nav-link">Testimoni</a></li> --}}
-                        {{-- <li><a href="/#blog-section" class="nav-link">Blog</a></li> --}}
-                        {{-- <li><a href="{{ route('home.berita') }}" class="nav-link">Berita</a></li> --}}
-
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item ">
@@ -43,7 +37,7 @@
                         @else
                             @if (auth()->user()->status != null)
                                 <li>
-                                    <a href="{{ route('messanger') }}" class="nav-link"
+                                    <a href="{{ route('nego-chat') }}" class="nav-link"
                                         target="blank">{{ __('negosiai & Chat') }}</a>
                                 </li>
                             @endif

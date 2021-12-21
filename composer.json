@@ -18,7 +18,7 @@
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
         "laravolt/indonesia": "^0.29.0",
-        "munafio/chatify": "^1.2",
+        "munafio/chatify": "^1.3",
         "pusher/pusher-php-server": "^7.0",
         "qcod/laravel-imageup": "^1.1"
     },

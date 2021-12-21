@@ -7,7 +7,7 @@ return [
     | Messenger display name
     |-------------------------------------
     */
-    'name' => env('CHATIFY_NAME', 'Messanger'),
+    'name' => env('CHATIFY_NAME', 'Negosiasi & Chat'),
 
     /*
     |-------------------------------------
@@ -15,9 +15,14 @@ return [
     |-------------------------------------
     */
     'routes' => [
-        'prefix' => env('CHATIFY_ROUTES_PREFIX', 'messanger'),
-        'middleware' => env('CHATIFY_ROUTES_MIDDLEWARE', ['web','auth']),
+        'prefix' => env('CHATIFY_ROUTES_PREFIX', 'nego-chat'),
+        'middleware' => env('CHATIFY_ROUTES_MIDDLEWARE', ['web', 'auth']),
         'namespace' => env('CHATIFY_ROUTES_NAMESPACE', 'Chatify\Http\Controllers'),
+    ],
+    'api_routes' => [
+        'prefix' => env('CHATIFY_API_ROUTES_PREFIX', 'chatify/api'),
+        'middleware' => env('CHATIFY_API_ROUTES_MIDDLEWARE', ['api']),
+        'namespace' => env('CHATIFY_API_ROUTES_NAMESPACE', 'Chatify\Http\Controllers\Api'),
     ],
 
     /*
@@ -29,9 +34,9 @@ return [
         'key' => env('PUSHER_APP_KEY'),
         'secret' => env('PUSHER_APP_SECRET'),
         'app_id' => env('PUSHER_APP_ID'),
-        'options' => (array) [
+        'options' => [
             'cluster' => env('PUSHER_APP_CLUSTER'),
-            'useTLS' => env('PUSHER_APP_USETLS'),
+            'encrypted' => false,
         ],
     ],
 
@@ -41,7 +46,7 @@ return [
     |-------------------------------------
     */
     'user_avatar' => [
-        'folder' => '../../',
+        'folder' => '../',
         'default' => 'avatar.png',
     ],
 
@@ -53,7 +58,7 @@ return [
     'attachments' => [
         'folder' => 'attachments',
         'download_route_name' => 'attachments.download',
-        'allowed_images' => (array) ['png','jpg','jpeg','gif'],
-        'allowed_files' => (array) ['zip','rar','txt'],
+        'allowed_images' => (array) ['png', 'jpg', 'jpeg', 'gif'],
+        'allowed_files' => (array) ['zip', 'rar', 'txt'],
     ],
 ];
