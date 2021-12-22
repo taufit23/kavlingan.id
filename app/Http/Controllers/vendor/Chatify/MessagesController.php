@@ -49,9 +49,9 @@ class MessagesController extends Controller
      * @param int $id
      * @return void
      */
-    public function index( $id = null)
+    public function index($id = null)
     {
-        $routeName= FacadesRequest::route()->getName();
+        $routeName = FacadesRequest::route()->getName();
         $route = (in_array($routeName, ['user', config('chatify.routes.prefix')]))
             ? 'user'
             : $routeName;
@@ -65,7 +65,7 @@ class MessagesController extends Controller
         ]);
     }
 
-    
+
 
     /**
      * Fetch data by id for (user/group)
@@ -436,7 +436,7 @@ class MessagesController extends Controller
                     if (Auth::user()->avatar != config('chatify.user_avatar.default')) {
                         $path = storage_path('app/public/' . config('chatify.user_avatar.folder') . '/' . Auth::user()->avatar);
                         if (file_exists($path)) {
-@unlink($path);
+                            @unlink($path);
                         }
                     }
                     // upload
