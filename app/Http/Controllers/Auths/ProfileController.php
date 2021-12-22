@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auths;
 use App\Http\Controllers\Controller;
 use App\Models\Alamat_user;
 use App\Models\Pekerjaan_user;
+use App\Models\Rekening;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -170,6 +171,21 @@ class ProfileController extends Controller
         $pekerjaan->save();
         $user =  User::find(auth()->user()->id);
         $user->update(['id_pekerjaan_user' => $pekerjaan->id]);
+        return redirect()->route('profil');
+    }
+    public function addrekening()
+    {
+        return view('public.profile.addrekening');
+    }
+    public function addrekening_store(Request $request)
+    {
+        $rekening = new Rekening();
+        $rekening->nama_bank = $request->nama_bank;
+        $rekening->nama_rekening = $request->nama_rekening;
+        $rekening->nomor_rekening = $request->nomor_rekening;
+        $rekening->save();
+        $user =  User::find(auth()->user()->id);
+        $user->update(['id_rekening' => $rekening->id]);
         return redirect()->route('profil');
     }
     public function edit()

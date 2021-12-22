@@ -16,8 +16,16 @@
                             @else
                                 @if (auth()->user()->status == null)
                                     <strong class="text-warning">* Mohon tunggu validasi dari admin</strong>
+                                    @if (auth()->user()->id_rekening == null)
+                                        <small class="text-warning"> Jika ingin menjual tanah, maka informasi rekening
+                                            harus diisi</small>
+                                    @endif
                                 @else
                                     <strong class="text-success"> lengkap dan status valid</strong>
+                                    @if (auth()->user()->id_rekening == null)
+                                        <small class="text-warning"> Jika ingin menjual tanah, maka informasi rekening
+                                            harus diisi</small>
+                                    @endif
                                 @endif
                             @endif
                         </h2>
@@ -35,10 +43,12 @@
                                 </a>
                                 <h4 class="m-t-10">{{ auth()->user()->ktp_user->nama_lengkap }}</h4>
                                 @if (auth()->user()->id_alamat_user == null)
-                                @elseif (auth()->user()->id_pekerjaan_user == null)
                                 @else
                                     <a href="{{ route('home.index') }}" class="btn btn-sm btn-outline-success">Kembali ke
                                         home</a>
+                                    <a href="{{ route('penjual.index') }}" class="btn btn-sm btn-outline-success">Kembali
+                                        ke
+                                        dashboard penjual</a>
                                 @endif
                                 <a class="btn btn-sm btn-outline-danger" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -216,6 +226,43 @@
                                         <a href="{{ route('profil.addpekerjaan') }}"
                                             class="btn btn-sm btn-outline-warning">
                                             Tambahkan pekerjaan
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <strong>Informasi Rekening </strong>
+                            <div class="body">
+                                <li class="list-unstyled">Nama bank : <span class="float-sm-right">
+                                        @if (auth()->user()->id_rekening == null)
+                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                        @else
+                                            {{ auth()->user()->rekening->nama_bank }}
+                                        @endif
+                                    </span>
+                                </li>
+                                <li class="list-unstyled">Nama di rekening : <span class="float-sm-right">
+                                        @if (auth()->user()->id_rekening == null)
+                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                        @else
+                                            {{ auth()->user()->rekening->nama_rekening }}
+                                        @endif
+                                    </span>
+                                </li>
+                                <li class="list-unstyled">Nomor rekening : <span class="float-sm-right">
+                                        @if (auth()->user()->id_rekening == null)
+                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                        @else
+                                            {{ auth()->user()->rekening->nomor_rekening }}
+                                        @endif
+                                    </span>
+                                </li>
+                                <div class="col-12 text-right">
+                                    @if (auth()->user()->id_rekening == null)
+                                        <a href="{{ route('profil.addrekening') }}"
+                                            class="btn btn-sm btn-outline-warning">
+                                            Tambahkan rekening
                                         </a>
                                     @endif
                                 </div>

@@ -10,8 +10,8 @@
                     <li class="{{ Request::is('penjual/data_tanah') ? 'colorlib-active' : '' }}">
                         <a href="{{ route('penjual.data_tanah') }}">Data Tanah</a>
                     </li>
-                    <li class="{{ Request::is('/messanger') ? 'colorlib-active' : '' }}">
-                        <a target="blank" href="/messanger">Negosiasi & Chat</a>
+                    <li class="{{ Request::is('/nego-chat') ? 'colorlib-active' : '' }}">
+                        <a target="blank" href="/nego-chat">Negosiasi & Chat</a>
                     </li>
                 @endif
             @elseif (auth()->user()->role == 'Pembeli')

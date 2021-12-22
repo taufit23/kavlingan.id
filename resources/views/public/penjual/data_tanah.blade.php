@@ -8,8 +8,19 @@
         <section class="ftco-section ftco-no-pt ftco-no-pb">
             <div class="col-md-10 my-auto mx-auto">
                 <div class="row my-2">
-                    <a href="{{ route('penjual.data_tanah.jual') }}" class="btn btn-sm btn-block btn-info my-2">Tambah
-                        Tanah</a>
+                    <div class="col-md-6">
+                        <a href="{{ route('penjual.data_tanah.jual') }}"
+                            class="btn btn-sm btn-info my-2 btn-block @if (auth()->user()->id_rekening == null)
+                            disabled
+                        @endif">Tambah
+                            Tanah</a>
+                    </div>
+                    @if (auth()->user()->id_rekening == null)
+                        <div class="col-md-6">
+                            <a href="{{ route('profil') }}" class="btn btn-sm btn-warning my-2 btn-block">Profil</a>
+                            <small class="text-danger">Nomor rekening wajib diisi</small>
+                        </div>
+                    @endif
                     @include('vendor.flash_message')
                     <!-- Gallery item -->
                     @foreach ($data_tanah as $tanah)

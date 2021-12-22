@@ -50,20 +50,35 @@
                                     {{ $tanah->alamat_tanah->no_rw }}, {{ $tanah->alamat_tanah->desa_kelurahan }},
                                     {{ $tanah->alamat_tanah->kecamatan }},
                                     {{ $tanah->alamat_tanah->kota_kabupaten }}, {{ $tanah->alamat_tanah->provinsi }}
-
                                 </span>
                             </li>
                             <li>Fasilitas tanah<span class="float-right">{{ $tanah->fasilitas_tanah }}</span>
                             </li>
                             <li>Harga jual tanah<span class="float-right">Rp.
                                     {{ number_format($tanah->harga_tanah), 2 }}</span></li>
-                            <a href="/messanger" target="blank"
-                                class="mt-2 float-right btn btn-block btn-outline-info">Negosiasi &
-                                chat</a>
                             <button type="button" class="mt-2 mx-1 float-right btn btn-block btn-outline-secondary"
                                 data-toggle="modal" data-target="#exampleModalCenter">
                                 Rekomendasi bank kredit
                             </button>
+                            <a href="{{ route('nego-chat') }}" target="blank"
+                                class="mt-2 float-right btn btn-block btn-outline-info @auth
+                                    enabled
+                                    @else
+                                    disabled
+                                @endauth">Negosiasi
+                                &
+                                chat</a>
+                            <a href="@auth /{{ auth()->user()->id }}/{{ $tanah->id }}/checkout @else # @endauth "
+                                class="mt-2 float-right btn btn-block btn-outline-success @auth
+                                    enabled
+                                    @else
+                                    disabled
+                                @endauth">Beli
+                                tanah</a>
+                            @auth
+                            @else
+                                <small class="text-danger">Harus login terlebih dahulu</small>
+                            @endauth
                         </ul>
                     </div>
                 </div>

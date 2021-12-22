@@ -41,16 +41,13 @@
                                         target="blank">{{ __('negosiai & Chat') }}</a>
                                 </li>
                             @endif
-
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
                                 <img src="{{ auth()->user()->avatar }}" width="40" height="40" class="rounded-circle">
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
                                     @if (auth()->user()->role == 1)
                                         @if (auth()->user()->status != null)
                                             <a class="dropdown-item" href="{{ route('penjual.index') }}">

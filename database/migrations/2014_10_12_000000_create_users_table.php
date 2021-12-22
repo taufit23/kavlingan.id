@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('id_ktp_user');
             $table->bigInteger('id_alamat_user')->nullable();
             $table->bigInteger('id_pekerjaan_user')->nullable();
+            $table->bigInteger('id_rekening')->nullable();
             $table->string('email')->unique();
             $table->string('no_hp');
             $table->bigInteger('role')->nullable();

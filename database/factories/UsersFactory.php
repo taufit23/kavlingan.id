@@ -35,7 +35,7 @@ class UsersFactory extends Factory
             'email' => $this->faker->freeEmail,
             'no_hp' => $this->faker->phoneNumber,
             'password' => 123,
-            'role' => 'Penjual' or 'Pembeli',
+            'role' => 1,
             'avatar' => '/images/user_profil/dummyavatar.jpg',
             'foto_ktp' => '/images/ktp_profil/dummyktp.jpg',
             'bio' => null,

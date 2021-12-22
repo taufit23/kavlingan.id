@@ -11,6 +11,7 @@ use App\Http\Controllers\PenjualController;
 use App\Http\Controllers\privat\AdminController;
 use App\Http\Controllers\privat\TanahController;
 use App\Http\Controllers\privat\UsersController;
+use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -56,6 +57,9 @@ Route::group(['middleware' => 'auth'], function () {
     // pembeli
     Route::get('/{id_pembeli}/beli_tanah/{id_penjual}/{id_tanah}', [HomeController::class, 'ajukan_beli_cash']);
     Route::get('/{id_pembeli}/ajukan_kredit_tanah/{id_penjual}/{id_tanah}', [HomeController::class, 'ajukan_kredit_tanah']);
+    // transaksi tanah
+    Route::get('/{id_tanah}/{id_user}/checkout', [TransaksiController::class, 'index']);
+
     Route::get('/berita', [HomeController::class, 'berita'])->name('home.berita');
     Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');
     // penjual dashboard
@@ -94,9 +98,13 @@ Route::group(['middleware' => 'auth'], function () {
     // add alamat
     Route::get('/profile/addalamat', [ProfileController::class, 'addalamat'])->name('profil.addalamat');
     Route::post('/profile/addtalamat/store', [ProfileController::class, 'addalamat_store'])->name('profil.addalamat.store');
-    // pekerjaan
+    // add pekerjaan
     Route::get('/profile/addpekerjaan', [ProfileController::class, 'addpekerjaan'])->name('profil.addpekerjaan');
     Route::post('/profile/addpekerjaan/store', [ProfileController::class, 'addpekerjaan_store'])->name('profil.addpekerjaan.store');
+    // add rekening
+    Route::get('/profile/addrekening', [ProfileController::class, 'addrekening'])->name('profil.addrekening');
+    Route::post('/profile/addrekening/store', [ProfileController::class, 'addrekening_store'])->name('profil.addrekening.store');
+
 
     Route::get('/profile/addalamat/provinces', [ProfileController::class, 'provincessearcha']);
     Route::PUT('/profile/edit{id}', [ProfileController::class, 'update'])->name('profil.update');
