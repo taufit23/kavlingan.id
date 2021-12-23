@@ -58,7 +58,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/{id_pembeli}/beli_tanah/{id_penjual}/{id_tanah}', [HomeController::class, 'ajukan_beli_cash']);
     Route::get('/{id_pembeli}/ajukan_kredit_tanah/{id_penjual}/{id_tanah}', [HomeController::class, 'ajukan_kredit_tanah']);
     // transaksi tanah
-    Route::get('/{id_tanah}/{id_user}/checkout', [TransaksiController::class, 'index']);
+    Route::post('/checkout', [TransaksiController::class, 'index']);
+    Route::get('/transaksi', [TransaksiController::class, 'data_transaksi'])->name('transaksi');
+    Route::get('/transaksi/batal/{$id}', [TransaksiController::class, 'batal_tranasksi']);
+    Route::post('/kirimbuktitransfer/{$id}', [TransaksiController::class, 'postbuktitransfer']);
 
     Route::get('/berita', [HomeController::class, 'berita'])->name('home.berita');
     Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');

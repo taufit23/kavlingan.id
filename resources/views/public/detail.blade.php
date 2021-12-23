@@ -68,13 +68,27 @@
                                 @endauth">Negosiasi
                                 &
                                 chat</a>
-                            <a href="@auth /{{ auth()->user()->id }}/{{ $tanah->id }}/checkout @else # @endauth "
+                            <form action="/checkout" method="post">
+                                @csrf
+                                <input type="hidden" name="id_pembeli" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="id_penjual" value="{{ $tanah->user->id }}">
+                                <input type="hidden" name="id_tanah" value="{{ $tanah->id }}">
+                                <button type="submit"
+                                    class="mt-2 float-right btn btn-block btn-outline-success @auth
+                                    enabled
+                                    @else
+                                    disabled
+                                @endauth">
+                                    Beli tanah
+                                </button>
+                            </form>
+                            {{-- <a href="@auth /{{ auth()->user()->id }}/{{ $tanah->id }}/checkout @else # @endauth "
                                 class="mt-2 float-right btn btn-block btn-outline-success @auth
                                     enabled
                                     @else
                                     disabled
                                 @endauth">Beli
-                                tanah</a>
+                                tanah</a> --}}
                             @auth
                             @else
                                 <small class="text-danger">Harus login terlebih dahulu</small>

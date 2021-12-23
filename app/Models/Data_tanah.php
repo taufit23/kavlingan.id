@@ -49,4 +49,8 @@ class Data_tanah extends Model
     {
         return $this->belongsTo(Tabel_jenis_surat::class, 'id_jenis_surat');
     }
+    public function transaksi()
+    {
+        return $this->hasOne(Transaksi::class);
+    }
 }

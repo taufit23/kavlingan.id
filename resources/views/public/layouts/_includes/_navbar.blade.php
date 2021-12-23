@@ -50,6 +50,8 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @if (auth()->user()->role == 1)
                                         @if (auth()->user()->status != null)
+                                            <a class="dropdown-item"
+                                                href="{{ route('transaksi') }}">{{ __('Data transaksi') }}</a>
                                             <a class="dropdown-item" href="{{ route('penjual.index') }}">
                                                 {{ __('Jual tanah') }}
                                             </a>

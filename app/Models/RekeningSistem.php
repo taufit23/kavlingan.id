@@ -5,13 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rekening extends Model
+class RekeningSistem extends Model
 {
     use HasFactory;
-    protected $table = 'rekening';
+    protected $table = 'rekening_sistem';
     protected $guarded = [];
-    public function User()
-    {
-        return $this->hasOne(User::class);
-    }
 }
