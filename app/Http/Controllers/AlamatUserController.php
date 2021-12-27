@@ -16,7 +16,6 @@ class AlamatUserController extends Controller
 
     public function cities(Request $request)
     {
-        dd();
         return City::find($request->id)->pluck('name', 'id');
     }
 

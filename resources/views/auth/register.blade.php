@@ -75,7 +75,6 @@
                                                         class="form-control @error('tanggal_lahir') is-invalid @enderror"
                                                         name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required
                                                         autocomplete="tanggal_lahir" max="{{ $max_date_lahir }}">
-
                                                     @error('tanggal_lahir')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -114,7 +113,6 @@
                                                         name="no_ktp" value="{{ old('no_ktp') }}" required
                                                         autocomplete="off" maxlength="16"
                                                         placeholder="Contoh : 3576447103910003">
-
                                                     @error('no_ktp')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

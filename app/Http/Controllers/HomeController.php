@@ -77,7 +77,7 @@ class HomeController extends Controller
             'pesan' => '--'
         ];
         Mail::to("$penjual->email")->send(new Pengajuan_beli_cashMail($details));
-        return redirect()->back()->with('sucess', 'Pengajuan pembelian cash anda sudah disampaikan ke penjual, mohon tunggu infomasi berikutnya melalui chat');
+        return redirect()->back()->with('success', 'Pengajuan pembelian cash anda sudah disampaikan ke penjual, mohon tunggu infomasi berikutnya melalui chat');
     }
     public function ajukan_kredit_tanah($id_pembeli, $id_penjual, $id_tanah)
     {
@@ -92,6 +92,6 @@ class HomeController extends Controller
             'pesan' => '--'
         ];
         Mail::to("$admin->email")->send(new Pengajuan_beli_cashMail($details));
-        return redirect()->back()->with('sucess', 'Pengajuan kredit anda sudah disampaikan kepada admin, silahkan menunggu balasan admin melalui chat.');
+        return redirect()->back()->with('success', 'Pengajuan kredit anda sudah disampaikan kepada admin, silahkan menunggu balasan admin melalui chat.');
     }
 }

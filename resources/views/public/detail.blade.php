@@ -15,7 +15,7 @@
                                     @foreach ($tanah->Gambarbidangtanah as $key => $gambartanah)
                                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                             <img src="{{ asset($gambartanah->gambar_bidang_tanah) }}"
-                                                class="d-block w-100" alt="...">
+                                                class="d-block w-100" alt="..." height="250px">
                                         </div>
                                     @endforeach
                                 </div>
@@ -62,34 +62,44 @@
                             </button>
                             <a href="{{ route('nego-chat') }}" target="blank"
                                 class="mt-2 float-right btn btn-block btn-outline-info @auth
-                                    enabled
-                                    @else
+                                    @if (auth()->user()->status == 1)
+                                        enabled
+                                        @else
+                                        disabled
+                                    @endif
+                                @else
                                     disabled
                                 @endauth">Negosiasi
                                 &
                                 chat</a>
                             <form action="/checkout" method="post">
                                 @csrf
-                                <input type="hidden" name="id_pembeli" value="{{ auth()->user()->id }}">
-                                <input type="hidden" name="id_penjual" value="{{ $tanah->user->id }}">
-                                <input type="hidden" name="id_tanah" value="{{ $tanah->id }}">
+                                @auth
+                                    @if (auth()->user()->status == 1)
+                                        <input type="hidden" name="id_pembeli" value="{{ auth()->user()->id }}">
+                                        <input type="hidden" name="id_penjual" value="{{ $tanah->user->id }}">
+                                        <input type="hidden" name="id_tanah" value="{{ $tanah->id }}">
+                                    @endif
+                                @endauth
                                 <button type="submit"
                                     class="mt-2 float-right btn btn-block btn-outline-success @auth
-                                    enabled
+                                    @if (auth()->user()->status == 1)
+                                        enabled
+                                        @else
+                                        disabled
+                                    @endif
                                     @else
                                     disabled
-                                @endauth">
+                                @endauth"
+                                    onclick="return confirm('Yakin melakukan transaksi??');">
                                     Beli tanah
                                 </button>
                             </form>
-                            {{-- <a href="@auth /{{ auth()->user()->id }}/{{ $tanah->id }}/checkout @else # @endauth "
-                                class="mt-2 float-right btn btn-block btn-outline-success @auth
-                                    enabled
-                                    @else
-                                    disabled
-                                @endauth">Beli
-                                tanah</a> --}}
                             @auth
+                                @if (auth()->user()->status != 1)
+                                    <small class="text-danger">Akun anda belum valid, informasi validasi akan dikirimkan ke
+                                        email anda</small>
+                                @endif
                             @else
                                 <small class="text-danger">Harus login terlebih dahulu</small>
                             @endauth

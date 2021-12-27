@@ -103,9 +103,7 @@
                                         @if (auth()->user()->id_alamat_user == null)
                                             Mohon dilengkapi <strong class="text-danger">*</strong>
                                         @else
-                                            @foreach ($provinsi as $prov)
-                                                {{ $prov }}
-                                            @endforeach
+                                            {{ auth()->user()->alamat_user->provinsi }}
                                         @endif
                                     </span>
                                 </li>
@@ -113,9 +111,7 @@
                                         @if (auth()->user()->id_alamat_user == null)
                                             Mohon dilengkapi <strong class="text-danger">*</strong>
                                         @else
-                                            @foreach ($kota as $kot)
-                                                {{ $kot }}
-                                            @endforeach
+                                            {{ auth()->user()->alamat_user->kota_kabupaten }}
                                         @endif
                                     </span>
                                 </li>
@@ -123,9 +119,7 @@
                                         @if (auth()->user()->id_alamat_user == null)
                                             Mohon dilengkapi <strong class="text-danger">*</strong>
                                         @else
-                                            @foreach ($kecamatan as $kec)
-                                                {{ $kec }}
-                                            @endforeach
+                                            {{ auth()->user()->alamat_user->kecamatan }}
                                         @endif
                                     </span>
                                 </li>
@@ -179,9 +173,7 @@
                                         @if (auth()->user()->id_pekerjaan_user == null)
                                             Mohon dilengkapi <strong class="text-danger">*</strong>
                                         @else
-                                            @foreach ($provinsikerja as $prov)
-                                                {{ $prov }}
-                                            @endforeach
+                                            {{ auth()->user()->pekerjaan_user->provinsi }}
                                         @endif
                                     </span>
                                 </li>
@@ -189,9 +181,7 @@
                                         @if (auth()->user()->id_pekerjaan_user == null)
                                             Mohon dilengkapi <strong class="text-danger">*</strong>
                                         @else
-                                            @foreach ($kotakerja as $kot)
-                                                {{ $kot }}
-                                            @endforeach
+                                            {{ auth()->user()->pekerjaan_user->kota_kabupaten }}
                                         @endif
                                     </span>
                                 </li>
@@ -199,9 +189,7 @@
                                         @if (auth()->user()->id_pekerjaan_user == null)
                                             Mohon dilengkapi <strong class="text-danger">*</strong>
                                         @else
-                                            @foreach ($kecamatankerja as $kec)
-                                                {{ $kec }}
-                                            @endforeach
+                                            {{ auth()->user()->pekerjaan_user->kecamatan }}
                                         @endif
                                     </span>
                                 </li>

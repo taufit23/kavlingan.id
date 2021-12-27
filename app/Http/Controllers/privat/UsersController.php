@@ -40,7 +40,7 @@ class UsersController extends Controller
             'pesan' => $pesan,
         ];
         Mail::to("$pengguna->email")->send(new ValidasiPenggunaMail($details));
-        return redirect()->back()->with('sucess', 'Pengguna berhasil di aktifkan');
+        return redirect()->back()->with('success', 'Pengguna berhasil di aktifkan');
     }
     public function tolak_aktivasi($id)
     {
@@ -69,7 +69,6 @@ class UsersController extends Controller
     }
     public function tambah_role(Request $request)
     {
-        // dd($request);
         $request->validate([
             'nama_role' => 'required|string',
             'deskripsi_role' => 'required|string',
@@ -79,6 +78,6 @@ class UsersController extends Controller
             'deskripsi_role'    => $request->deskripsi_role,
         ]);
 
-        return redirect()->route('private.users.role_users')->with('sucess', 'Role ditambahkan!!');
+        return redirect()->route('private.users.role_users')->with('success', 'Role ditambahkan!!');
     }
 }

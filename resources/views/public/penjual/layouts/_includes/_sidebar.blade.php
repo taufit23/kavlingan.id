@@ -13,13 +13,16 @@
                     <li class="{{ Request::is('/nego-chat') ? 'colorlib-active' : '' }}">
                         <a target="blank" href="/nego-chat">Negosiasi & Chat</a>
                     </li>
+                    <li
+                        class="{{ Request::is('/transaksi/transaksi_penjual/' . auth()->user()->id) ? 'colorlib-active' : '' }}">
+                        <a href="/transaksi/transaksi_penjual/{{ auth()->user()->id }}">Transaksi</a>
+                    </li>
                 @endif
             @elseif (auth()->user()->role == 'Pembeli')
             @endif
             <li class="{{ Request::is('Ndashboard') ? 'colorlib-active' : '' }}">
                 <a href="{{ route('profil') }}">Profil</a>
             </li>
-
         </ul>
     </nav>
 

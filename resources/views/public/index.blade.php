@@ -52,7 +52,7 @@
                                     @foreach ($tanah->Gambarbidangtanah as $key => $gambartanah)
                                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                             <img src="{{ asset($gambartanah->gambar_bidang_tanah) }}"
-                                                class="d-block w-100" alt="...">
+                                                class="d-block w-100" alt="..." height="250px">
                                         </div>
                                     @endforeach
                                 </div>

@@ -12,6 +12,6 @@ class Rekening extends Model
     protected $guarded = [];
     public function User()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id');
     }
 }

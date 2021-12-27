@@ -50,6 +50,13 @@ Route::group(['middleware' => ['auth', 'admin: 0']], function () {
     Route::get('/private_bank/data_bank', [BankController::class, 'data_bank'])->name('private.data_bank');
     Route::post('/private_bank/data_bank/tambah', [BankController::class, 'tambah_bank'])->name('private.data_bank.tambah');
     Route::get('/private_bank/{id}/data_bank_detail', [BankController::class, 'bank_detail'])->name('private.data_bank.detail');
+
+    // transaksi admin
+    Route::get('/private_transaksi', [TransaksiController::class, 'data_transaksi_admin'])->name('private.transaksi');
+    Route::get('/private_transaksi/accbukti/{id}', [TransaksiController::class, 'accbukti']);
+    Route::get('/private_transaksi/refuse/{id}', [TransaksiController::class, 'refusebukti']);
+    // transaksi penjual
+
 });
 // Admin end
 
@@ -57,11 +64,17 @@ Route::group(['middleware' => 'auth'], function () {
     // pembeli
     Route::get('/{id_pembeli}/beli_tanah/{id_penjual}/{id_tanah}', [HomeController::class, 'ajukan_beli_cash']);
     Route::get('/{id_pembeli}/ajukan_kredit_tanah/{id_penjual}/{id_tanah}', [HomeController::class, 'ajukan_kredit_tanah']);
-    // transaksi tanah
+    // transaksi pembeli
     Route::post('/checkout', [TransaksiController::class, 'index']);
     Route::get('/transaksi', [TransaksiController::class, 'data_transaksi'])->name('transaksi');
-    Route::get('/transaksi/batal/{$id}', [TransaksiController::class, 'batal_tranasksi']);
-    Route::post('/kirimbuktitransfer/{$id}', [TransaksiController::class, 'postbuktitransfer']);
+    Route::post('/transaksi/batal/{id}', [TransaksiController::class, 'batal_tranasksi']);
+    Route::post('/kirimbuktitransfer/{id}', [TransaksiController::class, 'postbuktitransfer']);
+    Route::post('/transaksi/selesai/{id}', [TransaksiController::class, 'transaksiselesai']);
+
+
+    // transaksi penjual
+    Route::get('/transaksi/transaksi_penjual/{id}', [TransaksiController::class, 'transaksi_penjual']);
+    Route::post('/kirimresi/{id}', [TransaksiController::class, 'kirimresi']);
 
     Route::get('/berita', [HomeController::class, 'berita'])->name('home.berita');
     Route::get('/blog', [HomeController::class, 'blog'])->name('home.blog');

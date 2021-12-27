@@ -83,7 +83,7 @@
                                             <strong>Desa/Kelurahan : </strong>
                                             <span>{{ $pengguna->pekerjaan_user->desa_kelurahan }}</span><br>
                                             <strong>Kecamatan : </strong>
-                                            <span>{{ $pengguna->pekerjaan_user->keecamatan }}</span><br>
+                                            <span>{{ $pengguna->pekerjaan_user->kecamatan }}</span><br>
                                             <strong>Kabupaten/Kota : </strong>
                                             <span>{{ $pengguna->pekerjaan_user->kota_kabupaten }}</span><br>
                                             <strong>Provinsi : </strong>
@@ -117,7 +117,7 @@
                                             <strong>Desa/Kelurahan : </strong>
                                             <span>{{ $pengguna->alamat_user->desa_kelurahan }}</span><br>
                                             <strong>Kecamatan : </strong>
-                                            <span>{{ $pengguna->alamat_user->keecamatan }}</span><br>
+                                            <span>{{ $pengguna->alamat_user->kecamatan }}</span><br>
                                             <strong>Kabupaten/Kota : </strong>
                                             <span>{{ $pengguna->alamat_user->kota_kabupaten }}</span><br>
                                             <strong>Provinsi : </strong>

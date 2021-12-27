@@ -67,7 +67,7 @@ class User extends Authenticatable
     }
     public function rekening()
     {
-        return $this->belongsTo(Rekening::class);
+        return $this->belongsTo(Rekening::class, 'id_rekening');
     }
     public function transaksi_pembeli()
     {

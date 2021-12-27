@@ -32,7 +32,7 @@ class TanahController extends Controller
             'nama_jenis_surat'          => $request->nama_jenis_surat,
             'keterangan_jenis_surat'    => $request->keterangan_jenis_surat,
         ]);
-        return redirect()->route('private.jenis_surat')->with('sucess', 'Jenis sura ditambahkan!!');
+        return redirect()->route('private.jenis_surat')->with('success', 'Jenis sura ditambahkan!!');
     }
     public function data_tanah()
     {
@@ -113,7 +113,7 @@ class TanahController extends Controller
             'pesan' => 'data tanah anda sudah dikomersialisasikan ke pembeli.'
         ];
         Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
-        return redirect()->back()->with('sucess', 'Validasi diterima');
+        return redirect()->back()->with('success', 'Validasi diterima');
     }
 
 

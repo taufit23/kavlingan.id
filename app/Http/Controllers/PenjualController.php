@@ -178,7 +178,7 @@ class PenjualController extends Controller
             'data' => 'data tanah anda sedang di validasi, Mohon tunggu informasi berikutnya',
         ];
         Mail::to(auth()->user()->email)->send(new TambahtanahMail($details));
-        return redirect()->route('penjual.data_tanah')->with('sucess', 'Data tanah anda sudah di tambahkan, Sedang di validasi oleh Admin, Mohon tunggu inromasi berikutnya');
+        return redirect()->route('penjual.data_tanah')->with('success', 'Data tanah anda sudah di tambahkan, Sedang di validasi oleh Admin, Mohon tunggu inromasi berikutnya');
     }
     public function data_tanah_edit($id)
     {
@@ -247,7 +247,7 @@ class PenjualController extends Controller
             $tanah->save();
         }
 
-        return redirect()->route('penjual.data_tanah')->with('sucess', 'data tanah anda berhasil di edit, silahkan tunggu infomasi berikutnya');
+        return redirect()->route('penjual.data_tanah')->with('success', 'data tanah anda berhasil di edit, silahkan tunggu infomasi berikutnya');
     }
     public function upload_gambar(Request $request, $id)
     {
@@ -274,7 +274,7 @@ class PenjualController extends Controller
             $gambar->move($filepath, $filename);
             $tanah->gambar_bidang_tanah = '/images/gambar_tanah/' . $filename;
             $tanah->save();
-            return redirect()->back()->with('sucess', 'Gambar berhasil di update');
+            return redirect()->back()->with('success', 'Gambar berhasil di update');
         } elseif ($tanah->whereNotNull('gambar_bidang_tanah')) {
             unlink(public_path($tanah->gambar_bidang_tanah));
             $gambar = $request->file('gambar_bidang_tanah');
@@ -283,7 +283,7 @@ class PenjualController extends Controller
             $gambar->move($filepath, $filename);
             $tanah->gambar_bidang_tanah = '/images/gambar_tanah/' . $filename;
             $tanah->save();
-            return redirect()->back()->with('sucess', 'Gambar berhasil di update');
+            return redirect()->back()->with('success', 'Gambar berhasil di update');
         }
     }
     public function upload_gambar_surat(Request $request, $id)
@@ -303,7 +303,6 @@ class PenjualController extends Controller
         }
 
         $tanah = Data_tanah::find($id);
-        // dd($request->all(), $tanah);
         if ($tanah->gambar_surat === null) {
             $gambar = $request->file('gambar_surat');
             $filename = time() . '.' . $gambar->getClientOriginalExtension();
@@ -311,7 +310,7 @@ class PenjualController extends Controller
             $gambar->move($filepath, $filename);
             $tanah->gambar_surat = '/images/gambar_surat/' . $filename;
             $tanah->save();
-            return redirect()->back()->with('sucess', 'Gambar berhasil di update');
+            return redirect()->back()->with('success', 'Gambar berhasil di update');
         }
     }
 }

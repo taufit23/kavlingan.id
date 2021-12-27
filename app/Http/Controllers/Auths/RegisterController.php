@@ -8,16 +8,10 @@ use App\Models\Ktp_user;
 use App\Models\Tabel_role;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Laravolt\Indonesia\Models\City;
-use Laravolt\Indonesia\Models\District;
-use Laravolt\Indonesia\Models\Province;
-use Laravolt\Indonesia\Models\Village;
-use Symfony\Component\VarDumper\Cloner\Data;
 
 use Intervention\Image\Facades\Image;
 
@@ -107,7 +101,7 @@ class RegisterController extends Controller
         ];
         Mail::to("$request->email")->send(new PendaftaranPenggunaMail($details));
         if ($simpan) {
-            return redirect()->route('login')->with('sucess', 'Anda berhasil mendaftar, Silahkan login untuk melengkapi data anda.');
+            return redirect()->route('login')->with('success', 'Anda berhasil mendaftar, Silahkan login untuk melengkapi data anda.');
         } else {
             return redirect()->route('register')->with('errors', 'Pendaftaran gagal, silahkan ulangi');
         }

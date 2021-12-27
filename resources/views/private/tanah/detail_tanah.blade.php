@@ -18,7 +18,7 @@
                                     @foreach ($tana->Gambarbidangtanah as $key => $gambartanah)
                                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                             <img src="{{ asset($gambartanah->gambar_bidang_tanah) }}"
-                                                class="d-block w-100" alt="...">
+                                                class="d-block w-100" alt="..." height="250px">
                                         </div>
                                     @endforeach
                                 </div>
@@ -55,7 +55,7 @@
                                     @foreach ($tana->Gambarsurat as $key => $gambarsurat)
                                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                             <img src="{{ asset($gambarsurat->gambar_surat) }}" class="d-block w-100"
-                                                alt="...">
+                                                alt="..." height="250px">
                                         </div>
                                     @endforeach
                                 </div>

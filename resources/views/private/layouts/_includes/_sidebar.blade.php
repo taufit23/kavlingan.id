@@ -66,6 +66,18 @@
             </div>
         </div>
     </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsetransaksi"
+            aria-expanded="true" aria-controls="collapsetransaksi"><i class="fas fa-search-dollar"></i>
+            <span>Transaksi</span>
+        </a>
+        <div id="collapsetransaksi" class="collapse" aria-labelledby="headingusers"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('private.transaksi') }}">Data transaksi</a>
+            </div>
+        </div>
+    </li>
 
 </ul>
 <!-- End of Sidebar -->

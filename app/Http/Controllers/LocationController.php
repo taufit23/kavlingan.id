@@ -12,7 +12,6 @@ class LocationController extends Controller
     public function getCities($id)
     {
         $cities = City::query()->where('province_id', $id)->pluck('name', 'id');
-        dd($cities);
         return response()->json($cities);
     }
 

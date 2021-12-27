@@ -20,6 +20,8 @@ class CreateTransaksiTable extends Migration
             $table->smallInteger('id_tanah');
             $table->string('bukti_transfer')->nullable();
             $table->string('status_transaksi')->nullable();
+            $table->string('gambar_resi')->nullable();
+            $table->smallInteger('status_penerimaan_barang')->nullable();
             $table->timestamps();
         });
     }

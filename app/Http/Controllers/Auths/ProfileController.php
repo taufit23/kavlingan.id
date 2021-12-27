@@ -76,7 +76,7 @@ class ProfileController extends Controller
             })->save($filepath . '/' . $input['imagename']);
             $user->avatar = '/images/user_profil/' . $input['imagename'];
             $user->save();
-            return redirect()->route('profil')->with('sucess', 'Avatar berhasil di update');
+            return redirect()->route('profil')->with('success', 'Avatar berhasil di update');
         }
     }
     public function upload_ktp(Request $request, $id)
@@ -106,7 +106,7 @@ class ProfileController extends Controller
             $foto_ktp->move($filepath, $filename);
             $user->foto_ktp = '/images/ktp_user/' . $filename;
             $user->save();
-            return redirect()->route('profil')->with('sucess', 'Foto ktp berhasil di update');
+            return redirect()->route('profil')->with('success', 'Foto ktp berhasil di update');
         }
     }
     public function addalamat()
@@ -123,7 +123,6 @@ class ProfileController extends Controller
     }
     public function addalamat_store(Request $request)
     {
-        // dd($request);
         $rules = [
             'desa_kelurahan' => 'required|min:4',
             'no_rt' => 'required|min:1',
@@ -242,6 +241,6 @@ class ProfileController extends Controller
             'status'                => null,
             'bio'                   => $request->bio,
         ]);
-        return redirect()->route('login')->with('sucess', 'Profil berhasil di update, silahkan tunggu validasi berikutnya');
+        return redirect()->route('login')->with('success', 'Profil berhasil di update, silahkan tunggu validasi berikutnya');
     }
 }

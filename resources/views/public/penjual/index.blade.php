@@ -76,6 +76,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        @if (auth()->user()->status != 1)
+                            <strong class="text-danger"> Akun anda belum di validasi, informasi validasi akan dikirim
+                                melalui email anda</strong>
+                        @endif
+
                     </div>
                 </div>
             </div>

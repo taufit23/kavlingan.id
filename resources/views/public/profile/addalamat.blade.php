@@ -27,7 +27,7 @@
                                                     name="provinsi">
                                                     <option>Provinsi</option>
                                                     @foreach ($provinces as $id => $name)
-                                                        <option value="{{ $id }}">
+                                                        <option value="{{ $name }}">
                                                             {{ $name }}
                                                         </option>
                                                     @endforeach
@@ -40,7 +40,7 @@
                                                     name="kota_kabupaten">
                                                     <option>Kota kabupaten</option>
                                                     @foreach ($cityes as $id => $name)
-                                                        <option value="{{ $id }}">
+                                                        <option value="{{ $name }}">
                                                             {{ $name }}
                                                         </option>
                                                     @endforeach
@@ -53,7 +53,7 @@
                                                     name="kecamatan">
                                                     <option>Kecamatan</option>
                                                     @foreach ($district as $id => $name)
-                                                        <option value="{{ $id }}">
+                                                        <option value="{{ $name }}">
                                                             {{ $name }}
                                                         </option>
                                                     @endforeach

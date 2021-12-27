@@ -28,5 +28,6 @@ class TambahtanahMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.tambah_tanah');    }
+        return $this->view('mail.tambah_tanah');
+    }
 }

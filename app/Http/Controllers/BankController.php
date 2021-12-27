@@ -35,6 +35,6 @@ class BankController extends Controller
         $bank->contact_bank = $request->contact_bank;
         $bank->link_maps_bank = $request->link_maps_bank;
         $bank->save();
-        return redirect()->route('private.data_bank')->with('sucess', 'Data tanah anda sudah di tambahkan, Sedang di validasi oleh Admin, Mohon tunggu inromasi berikutnya');
+        return redirect()->route('private.data_bank')->with('success', 'Data tanah anda sudah di tambahkan, Sedang di validasi oleh Admin, Mohon tunggu inromasi berikutnya');
     }
 }
