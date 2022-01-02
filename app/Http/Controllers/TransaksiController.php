@@ -79,7 +79,7 @@ class TransaksiController extends Controller
 
         ];
         Mail::to("$emailpenjual")->send(new TransaksiMail($details));
-        return redirect()->back()->with('gagal', 'Validasi data tanah ditalah dengan variabel informasi tentang surat tanah');
+        return redirect()->back()->with('success', 'Acc bukti transfer berhasil');
     }
     public function refusebukti($id)
     {

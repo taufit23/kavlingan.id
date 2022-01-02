@@ -4,6 +4,7 @@
 @endsection
 @section('content')
     <div class="site-section" id="home-section">
+        @include('vendor.flash_message')
         <div class="container">
             <div class="row align-items-lg-center">
                 <div class="col-md-6 mb-5 mb-lg-0 position-relative">
@@ -41,7 +42,7 @@
 
             </div>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                @include('vendor.flash_message')
+
                 @foreach ($data_tanah as $tanah)
                     <div class="col-md-4 mb-3">
                         <div class="card h-100">
