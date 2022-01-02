@@ -313,4 +313,10 @@ class PenjualController extends Controller
             return redirect()->back()->with('success', 'Gambar berhasil di update');
         }
     }
+    public function terjual($id)
+    {
+        $data_tanah = Data_tanah::find($id);
+        $data_tanah->delete();
+        return redirect()->route('penjual.data_tanah')->with('success', 'Berhasil terjual');
+    }
 }

@@ -147,7 +147,8 @@
                             </p>
                             <hr>
                             <div class="row justify-content-end">
-                                <a href="" class="btn btn-sm btn-outline-danger mx-2">Tandai terjual</a>
+                                <a href="{{ route('terjual', [$data_tanah->id]) }}"
+                                    class="btn btn-sm btn-outline-danger mx-2">Tandai terjual</a>
                                 @if ($data_tanah->status == '0' and $data_tanah->id_surat_tanah == null)
                                     <a href="{{ route('penjual.data_tanah.edit', [$data_tanah->id]) }}"
                                         class="btn btn-sm btn-outline-primary">Edit surat tanah</a>

@@ -83,6 +83,8 @@ Route::group(['middleware' => 'auth'], function () {
     // penjual data tanah
     Route::get('/penjual/data_tanah', [PenjualController::class, 'data_tanah'])->name('penjual.data_tanah');
     Route::get('/penjual/data_tanah/detail/{id}', [PenjualController::class, 'data_tanah_detail'])->name('penjual.data_tanah.detail');
+    Route::get('/penjual/data_tanah/terjual/{id}', [PenjualController::class, 'terjual'])->name('terjual');
+
     // penjual edit tanah
     Route::get('/penjual/data_tanah/edit/{id}', [PenjualController::class, 'data_tanah_edit'])->name('penjual.data_tanah.edit');
     Route::post('/penjual/data_tanah/edit/{id}', [PenjualController::class, 'edit_store'])->name('penjual.data_tanah.edit_store');
