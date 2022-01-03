@@ -84,7 +84,7 @@ class TanahController extends Controller
             'pesan' => '--'
         ];
         Mail::to("$pengguna->email")->send(new Validasi_tanahMail($details));
-        return redirect()->back()->with('gagal', 'Validasi data tanah ditalah dengan variabel informasi tentang surat tanah');
+        return redirect()->back()->with('gagal', 'Validasi data tanah ditolak dengan variabel informasi tentang surat tanah');
     }
     public function tolak_gambar_bidang_tanah($id, $id_pengguna)
     {

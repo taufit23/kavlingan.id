@@ -36,7 +36,7 @@ class HomeController extends Controller
                 'alamat_tanah',
                 'Gambarsurat',
                 'Gambarbidangtanah'
-            )->orderBy('created_at', 'desc')->paginate(6);
+            )->orderBy('created_at', 'desc')->paginate(3);
         }
         return view('public.index', compact('data_tanah'));
     }
