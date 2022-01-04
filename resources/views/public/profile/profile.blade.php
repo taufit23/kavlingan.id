@@ -60,6 +60,14 @@
                                 </form>
                             </div>
                         </div>
+                        <h6>
+                            Note :
+                        </h6>
+                        <h2>
+                            <strong class="text-danger">*</strong> Optional <br>
+                            <strong class="text-danger">*</strong> <strong class="text-danger">*</strong> Wajib ada
+
+                        </h2>
                     </div>
 
                     <div class="col-lg-8 col-md-12">
@@ -101,7 +109,8 @@
                             <div class="body">
                                 <li class="list-unstyled">Provinsi : <span class="float-sm-right">
                                         @if (auth()->user()->id_alamat_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                            Mohon dilengkapi <strong class="text-danger">*</strong> <strong
+                                                class="text-danger">*</strong>
                                         @else
                                             {{ auth()->user()->alamat_user->provinsi }}
                                         @endif
@@ -109,7 +118,8 @@
                                 </li>
                                 <li class="list-unstyled">Kabupaten / Kota : <span class="float-sm-right">
                                         @if (auth()->user()->id_alamat_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                            Mohon dilengkapi <strong class="text-danger">*</strong> <strong
+                                                class="text-danger">*</strong>
                                         @else
                                             {{ auth()->user()->alamat_user->kota_kabupaten }}
                                         @endif
@@ -117,7 +127,8 @@
                                 </li>
                                 <li class="list-unstyled">Kecamatan : <span class="float-sm-right">
                                         @if (auth()->user()->id_alamat_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                            Mohon dilengkapi <strong class="text-danger">*</strong> <strong
+                                                class="text-danger">*</strong>
                                         @else
                                             {{ auth()->user()->alamat_user->kecamatan }}
                                         @endif
@@ -125,7 +136,8 @@
                                 </li>
                                 <li class="list-unstyled">Desa / Kelurahan : <span class="float-sm-right">
                                         @if (auth()->user()->id_alamat_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                            Mohon dilengkapi <strong class="text-danger">*</strong> <strong
+                                                class="text-danger">*</strong>
                                         @else
                                             {{ auth()->user()->alamat_user->desa_kelurahan }}
                                         @endif
@@ -133,7 +145,8 @@
                                 </li>
                                 <li class="list-unstyled">No RT/RW : <span class="float-sm-right">
                                         @if (auth()->user()->id_alamat_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                            Mohon dilengkapi <strong class="text-danger">*</strong> <strong
+                                                class="text-danger">*</strong>
                                         @else
                                             {{ auth()->user()->alamat_user->no_rt . ' / ' . auth()->user()->alamat_user->no_rw }}
                                         @endif
@@ -141,7 +154,8 @@
                                 </li>
                                 <li class="list-unstyled">Nama jalan : <span class="float-sm-right">
                                         @if (auth()->user()->id_alamat_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                            Mohon dilengkapi <strong class="text-danger">*</strong> <strong
+                                                class="text-danger">*</strong>
                                         @else
                                             {{ auth()->user()->alamat_user->jalan }}
                                         @endif
@@ -161,51 +175,10 @@
                             <div class="body">
                                 <li class="list-unstyled">Pekerjaan : <span class="float-sm-right">
                                         @if (auth()->user()->id_pekerjaan_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                            Mohon dilengkapi <strong class="text-danger">*</strong> <strong
+                                                class="text-danger">*</strong>
                                         @else
                                             {{ auth()->user()->pekerjaan_user->nama_pekerjaan }}
-                                        @endif
-                                    </span>
-                                </li>
-                                <hr>
-                                <strong>Alamat tempat kerja</strong>
-                                <li class="list-unstyled">Provinsi : <span class="float-sm-right">
-                                        @if (auth()->user()->id_pekerjaan_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
-                                        @else
-                                            {{ auth()->user()->pekerjaan_user->provinsi }}
-                                        @endif
-                                    </span>
-                                </li>
-                                <li class="list-unstyled">Kabupaten / Kota : <span class="float-sm-right">
-                                        @if (auth()->user()->id_pekerjaan_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
-                                        @else
-                                            {{ auth()->user()->pekerjaan_user->kota_kabupaten }}
-                                        @endif
-                                    </span>
-                                </li>
-                                <li class="list-unstyled">Kecamatan : <span class="float-sm-right">
-                                        @if (auth()->user()->id_pekerjaan_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
-                                        @else
-                                            {{ auth()->user()->pekerjaan_user->kecamatan }}
-                                        @endif
-                                    </span>
-                                </li>
-                                <li class="list-unstyled">Desa / Kelurahan : <span class="float-sm-right">
-                                        @if (auth()->user()->id_pekerjaan_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
-                                        @else
-                                            {{ auth()->user()->pekerjaan_user->desa_kelurahan }}
-                                        @endif
-                                    </span>
-                                </li>
-                                <li class="list-unstyled">Nama jalan : <span class="float-sm-right">
-                                        @if (auth()->user()->id_pekerjaan_user == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
-                                        @else
-                                            {{ auth()->user()->pekerjaan_user->jalan }}
                                         @endif
                                     </span>
                                 </li>
@@ -224,7 +197,7 @@
                             <div class="body">
                                 <li class="list-unstyled">Nama bank : <span class="float-sm-right">
                                         @if (auth()->user()->id_rekening == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                            Lengkapi <strong class="text-danger">*</strong>
                                         @else
                                             {{ auth()->user()->rekening->nama_bank }}
                                         @endif
@@ -232,7 +205,7 @@
                                 </li>
                                 <li class="list-unstyled">Nama di rekening : <span class="float-sm-right">
                                         @if (auth()->user()->id_rekening == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                            Lengkapi <strong class="text-danger">*</strong>
                                         @else
                                             {{ auth()->user()->rekening->nama_rekening }}
                                         @endif
@@ -240,7 +213,7 @@
                                 </li>
                                 <li class="list-unstyled">Nomor rekening : <span class="float-sm-right">
                                         @if (auth()->user()->id_rekening == null)
-                                            Mohon dilengkapi <strong class="text-danger">*</strong>
+                                            Lengkapi <strong class="text-danger">*</strong>
                                         @else
                                             {{ auth()->user()->rekening->nomor_rekening }}
                                         @endif

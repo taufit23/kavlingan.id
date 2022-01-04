@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\JadwalserahterimaMail;
 use App\Mail\TransaksiMail;
 use App\Models\Data_tanah;
 use App\Models\RekeningSistem;
@@ -26,7 +27,7 @@ class TransaksiController extends Controller
     }
     public function data_transaksi()
     {
-        $data_transaksi = Transaksi::with('user_pembeli', 'user_penjual', 'data_tanah')->where('id_pembeli', auth()->user()->id)->get();
+        $data_transaksi = Transaksi::with('user_pembeli', 'user_penjual', 'data_tanah')->where('id_penjual', auth()->user()->id)->orWhere('id_pembeli', auth()->user()->id)->get();
         return view('public.transaksi.data_transaksi', compact('data_transaksi'));
     }
     public function batal_tranasksi($id)
@@ -133,5 +134,44 @@ class TransaksiController extends Controller
         $transaksi->update([
             'status_transaksi' => 4
         ]);
+    }
+    public function addjadwalserahterima(Request $request, $id)
+    {
+        $transaksi = Transaksi::with('user_pembeli', 'data_tanah', 'user_penjual')->find($id);
+        $transaksi->update([
+            'jadwal_serah_terima' => $request->jadwal_serah_terima,
+            'jam_serah_terima' => $request->jam_serah_terima,
+        ]);
+        $details = [
+            'title' => 'Jadwal serah terima anda sudah di atur',
+            'body' => 'Berikut jadwal yang harus anda penuhi untuk menyelesaikan proses transaksi anda',
+            'img_bukti_tf' => '',
+            'data' => $transaksi->jadwal_serah_terima,
+            'pesan' => 'Mohon dipenuhi, agar transaksi anda bisa diselesaikan',
+            'img_surat_tanah' => ''
+        ];
+        $email_pembeli = $transaksi->user_pembeli->email;
+        $email_penjual = $transaksi->user_penjual->email;
+        Mail::to("$email_pembeli", "$email_penjual")->send(new JadwalserahterimaMail($details));
+        return redirect()->back()->with('success', 'Jadwal serah terima berhasil ditambahkan');
+    }
+    public function selesai_transaksi($id)
+    {
+        $transaksi = Transaksi::with('user_pembeli', 'data_tanah', 'user_penjual')->find($id);
+        $transaksi->update([
+            'status_transaksi' => 3
+        ]);
+        $details = [
+            'title' => 'Transaksi anda selesai',
+            'body' => '-',
+            'img_bukti_tf' => '',
+            'data' => '-',
+            'pesan' => '-',
+            'img_surat_tanah' => ''
+        ];
+        $email_pembeli = $transaksi->user_pembeli->email;
+        $email_penjual = $transaksi->user_penjual->email;
+        Mail::to("$email_pembeli", "$email_penjual")->send(new JadwalserahterimaMail($details));
+        return redirect()->back()->with('success', 'Transaksi selesai');
     }
 }

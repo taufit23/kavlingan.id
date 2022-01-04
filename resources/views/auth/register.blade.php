@@ -28,13 +28,13 @@
                                 @endif
                                 <!-- SECTION 1 -->
                                 <h2>
-                                    <span class="step-text">Informasi personal <strong class="text-danger">
+                                    <span class="step-text">Step 1 <strong class="text-danger">
                                             *</strong></span>
                                 </h2>
                                 <section>
                                     <div class="inner">
                                         <div class="wizard-header">
-                                            <h3 class="heading">Informasi personal<strong class="text-danger">
+                                            <h3 class="heading">Step 1<strong class="text-danger">
                                                     *</strong></h3>
                                         </div>
                                         <div class="form-row">
@@ -140,14 +140,14 @@
                                     </div>
                                 </section>
                                 <h2>
-                                    <span class="step-text">Informasi akun <strong class="text-danger">
+                                    <span class="step-text">Step 2 <strong class="text-danger">
                                             *</strong></span>
                                 </h2>
                                 <!-- SECTION 2 -->
                                 <section>
                                     <div class="inner">
                                         <div class="wizard-header">
-                                            <h3 class="heading">Informasi akun <strong class="text-danger">
+                                            <h3 class="heading">Step 2 <strong class="text-danger">
                                                     *</strong></h3>
                                         </div>
                                         <div class="form-row">

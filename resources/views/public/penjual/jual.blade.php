@@ -205,7 +205,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row form-group">
                                 <div class="col-md-6 mb-3 mb-md-0">
                                     <label class="text-black" for="fasilitas_tanah">Fasilitas Tanah</label>

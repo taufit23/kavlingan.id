@@ -26,8 +26,7 @@ class RegisterController extends Controller
     {
         $role = Tabel_role::where('nama_role', '!=', 'Admin')->pluck('nama_role', 'deskripsi_role');
         $age = 17;
-        $max_date_lahir =
-            $max = Carbon::today()->subYears($age)->toDateString();
+        $max_date_lahir = $max = Carbon::today()->subYears($age)->toDateString();
         return view('auth.register', compact('role', 'max_date_lahir'));
     }
 

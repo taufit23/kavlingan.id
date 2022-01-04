@@ -16,11 +16,6 @@ class CreatePekerjaanUserTable extends Migration
         Schema::create('pekerjaan_user', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pekerjaan');
-            $table->string('jalan');
-            $table->string('desa_kelurahan');
-            $table->string('kecamatan');
-            $table->string('kota_kabupaten');
-            $table->string('provinsi');
             $table->timestamps();
         });
     }

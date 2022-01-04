@@ -55,6 +55,8 @@ Route::group(['middleware' => ['auth', 'admin: 0']], function () {
     Route::get('/private_transaksi', [TransaksiController::class, 'data_transaksi_admin'])->name('private.transaksi');
     Route::get('/private_transaksi/accbukti/{id}', [TransaksiController::class, 'accbukti']);
     Route::get('/private_transaksi/refuse/{id}', [TransaksiController::class, 'refusebukti']);
+    Route::post('/private_transaksi/addjadwalserahterima/{id}', [TransaksiController::class, 'addjadwalserahterima']);
+    Route::get('/private_transaksi/selesai_transaksi/{id}', [TransaksiController::class, 'selesai_transaksi']);
     // transaksi penjual
 
 });
@@ -73,7 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // transaksi penjual
-    Route::get('/transaksi/transaksi_penjual/{id}', [TransaksiController::class, 'transaksi_penjual']);
+    Route::get('/transaksi/transaksi_penjual/{id}', [TransaksiController::class, 'data_transaksi']);
     Route::post('/kirimresi/{id}', [TransaksiController::class, 'kirimresi']);
 
     Route::get('/berita', [HomeController::class, 'berita'])->name('home.berita');

@@ -82,8 +82,13 @@
                                 @endif
                             </p>
                             <hr>
-                            <p>Jenis surat: <b
-                                    class="float-right">{{ $data_tanah->tabel_jenis_surat->nama_jenis_surat }}</b>
+                            <p>Jenis surat: <b class="float-right">
+                                    @if ($data_tanah->id_jenis_surat != null)
+                                        {{ $data_tanah->tabel_jenis_surat->nama_jenis_surat }}
+                                    @else
+                                        Variabel ini ditolak
+                                    @endif
+                                </b>
                             </p>
                             <hr>
                             <p>Nomor surat: <b class="float-right">

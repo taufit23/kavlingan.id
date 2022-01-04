@@ -148,25 +148,12 @@ class ProfileController extends Controller
     }
     public function addpekerjaan()
     {
-        $provinces =
-            Province::pluck('name', 'id');
-        $cityes =
-            City::pluck('name', 'id');
-        $district =
-            District::pluck('name', 'id');
-        $villages =
-            Village::pluck('name', 'id');
-        return view('public.profile.addpekerjaan', compact('provinces', 'cityes', 'district', 'villages'));
+        return view('public.profile.addpekerjaan');
     }
     public function addpekerjaan_store(Request $request)
     {
         $pekerjaan = new Pekerjaan_user;
         $pekerjaan->nama_pekerjaan = $request->nama_pekerjaan;
-        $pekerjaan->jalan = $request->jalan;
-        $pekerjaan->desa_kelurahan = $request->desa;
-        $pekerjaan->kecamatan = $request->kecamatan;
-        $pekerjaan->kota_kabupaten = $request->kota_kabupaten;
-        $pekerjaan->provinsi = $request->provinsi;
         $pekerjaan->save();
         $user =  User::find(auth()->user()->id);
         $user->update(['id_pekerjaan_user' => $pekerjaan->id]);

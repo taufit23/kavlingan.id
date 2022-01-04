@@ -58,7 +58,7 @@ class LoginController extends Controller
                 return redirect()->route('profil')->with('gagal', 'Validasi akun anda ditolak, silahkan edit akun anda!!!');
             } else {
                 if (Auth::user()->role == 1) {
-                    return redirect()->route('home.index')->with('success', 'Login berhasil');
+                    return redirect()->route('penjual.index')->with('success', 'Login berhasil');
                 } elseif (Auth::user()->role == 0) {
                     return redirect()->route('private.dashboard');
                 } else {

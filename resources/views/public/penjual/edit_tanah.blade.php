@@ -119,8 +119,9 @@
                                     <label class="text-black" for="harga_tanah">Harga Tanah</label>
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Rp. </span>
-                                        <input class="form-control" value="{{ old('harga_tanah', $data->harga_tanah) }}"
-                                            type="number" name="harga_tanah" id="harga_tanah">
+                                        <input class="form-control"
+                                            value="{{ old('harga_tanah', $data->harga_tanah) }}" type="number"
+                                            name="harga_tanah" id="harga_tanah">
                                         @error('harga_tanah')
                                             <span class="invalid-feedback">
                                                 <div class="alert alert-danger">
@@ -131,92 +132,93 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <h4>Alamat : {{ $data->alamat }}</h4>
-                            <p>Alamat yang didukung saat ini hanya di Kabupaten Kampar, Provinsi Riau</p>
-                            <input type="hidden" value="{{ $data->alamat }}" name="alamat">
-                            @if ($data->alamat == null)
-                                <div class="row form-group">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <label class="text-black" for="provinsi">Provinsi</label>
-                                        <select name="provinsi" id="provinsi" class="form-control">
-                                            <option value="">== Select provinsi ==</option>
-                                            @foreach ($provinsi as $id => $name)
-                                                <option value="{{ $name }}">{{ $name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('provinsi')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
+                            @if ($data->id_alamat_tanah == null)
+                                <h4>Alamat : {{ $data->alamat }}</h4>
+                                <p>Alamat yang didukung saat ini hanya di Kabupaten Kampar, Provinsi Riau</p>
+                                <input type="hidden" value="{{ $data->alamat }}" name="alamat">
+                                @if ($data->alamat == null)
+                                    <div class="row form-group">
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <label class="text-black" for="provinsi">Provinsi</label>
+                                            <select name="provinsi" id="provinsi" class="form-control">
+                                                <option value="">== Select provinsi ==</option>
+                                                @foreach ($provinsi as $id => $name)
+                                                    <option value="{{ $name }}">{{ $name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('provinsi')
+                                                <span class="invalid-feedback">
+                                                    <div class="alert alert-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="text-black" for="kabupaten">Kabupaten / Kota</label>
+                                            <select name="kabupaten" id="kabupaten" class="form-control">
+                                                <option value="">== Select kabupaten ==</option>
+                                                @foreach ($kabupaten as $id => $name)
+                                                    <option value="{{ $name }}">{{ $name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('kabupaten')
+                                                <span class="invalid-feedback">
+                                                    <div class="alert alert-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="text-black" for="kabupaten">Kabupaten / Kota</label>
-                                        <select name="kabupaten" id="kabupaten" class="form-control">
-                                            <option value="">== Select kabupaten ==</option>
-                                            @foreach ($kabupaten as $id => $name)
-                                                <option value="{{ $name }}">{{ $name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('kabupaten')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
+                                    <div class="row form-group">
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <label class="text-black" for="districts">Kecamatan</label>
+                                            <select name="districts" id="districts" class="form-control">
+                                                <option value="">== Select Districts ==</option>
+                                                @foreach ($districts as $id => $name)
+                                                    <option value="{{ $id }}">{{ $name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('districts')
+                                                <span class="invalid-feedback">
+                                                    <div class="alert alert-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="text-black" for="villages">Desa</label>
+                                            <select name="villages" id="villages" class="form-control">
+                                                <option value="">== Select Villages ==</option>
+                                            </select>
+                                            @error('villages')
+                                                <span class="invalid-feedback">
+                                                    <div class="alert alert-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <label class="text-black" for="districts">Kecamatan</label>
-                                        <select name="districts" id="districts" class="form-control">
-                                            <option value="">== Select Districts ==</option>
-                                            @foreach ($districts as $id => $name)
-                                                <option value="{{ $id }}">{{ $name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('districts')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
+                                    <div class="row form-group">
+                                        <div class="col-md-12">
+                                            <label class="text-black" for="nama_jln">Nama jalan</label>
+                                            <input value="{{ old('nama_jln') }}" type="text" id="nama_jln"
+                                                name="nama_jln" class="form-control">
+                                            <span>Masukan nama jalan yang jelas</span>
+                                            @error('nama_jln')
+                                                <span class="invalid-feedback">
+                                                    <div class="alert alert-danger">
+                                                        {{ $message }}
+                                                    </div>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="text-black" for="villages">Desa</label>
-                                        <select name="villages" id="villages" class="form-control">
-                                            <option value="">== Select Villages ==</option>
-                                        </select>
-                                        @error('villages')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <label class="text-black" for="nama_jln">Nama jalan</label>
-                                        <input value="{{ old('nama_jln') }}" type="text" id="nama_jln" name="nama_jln"
-                                            class="form-control">
-                                        <span>Masukan nama jalan yang jelas</span>
-                                        @error('nama_jln')
-                                            <span class="invalid-feedback">
-                                                <div class="alert alert-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
+                                @endif
                             @endif
                             <div class="form-group">
                                 <textarea name="deskripsi_tanah" id="deskripsi_tanah" cols="30" rows="7"
@@ -249,7 +251,8 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6 mb-3 mb-md-0">
-                                    <label class="text-black" for="gambar_bidang_tanah_old">Foto bagian bidang tanah</label>
+                                    <label class="text-black" for="gambar_bidang_tanah_old">Foto bagian bidang
+                                        tanah</label>
                                     <div class="row justify-content-center">
                                         @if ($data->gambar_bidang_tanah != null)
                                             <img class="img img-thumbnail w-25"

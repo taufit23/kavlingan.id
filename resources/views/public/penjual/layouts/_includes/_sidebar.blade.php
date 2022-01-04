@@ -7,8 +7,14 @@
                     <li class="{{ Request::is('penjual') ? 'colorlib-active' : '' }}">
                         <a href="{{ route('penjual.index') }}">Dashboard</a>
                     </li>
+                    <li>
+                        <a href="/#home-section">Home</a>
+                    </li>
+                    <li>
+                        <a href="/#beli-section">Beli tanah</a>
+                    </li>
                     <li class="{{ Request::is('penjual/data_tanah') ? 'colorlib-active' : '' }}">
-                        <a href="{{ route('penjual.data_tanah') }}">Data Tanah</a>
+                        <a href="{{ route('penjual.data_tanah') }}">Jual tanah</a>
                     </li>
                     <li class="{{ Request::is('/nego-chat') ? 'colorlib-active' : '' }}">
                         <a target="blank" href="/nego-chat">Negosiasi & Chat</a>

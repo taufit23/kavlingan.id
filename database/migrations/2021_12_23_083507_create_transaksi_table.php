@@ -19,9 +19,9 @@ class CreateTransaksiTable extends Migration
             $table->smallInteger('id_penjual');
             $table->smallInteger('id_tanah');
             $table->string('bukti_transfer')->nullable();
-            $table->string('status_transaksi')->nullable();
-            $table->string('gambar_resi')->nullable();
-            $table->smallInteger('status_penerimaan_barang')->nullable();
+            $table->smallInteger('status_transaksi')->nullable();
+            $table->dateTime('jadwal_serah_terima')->nullable();
+            $table->dateTime('jam_serah_terima')->nullable();
             $table->timestamps();
         });
     }
