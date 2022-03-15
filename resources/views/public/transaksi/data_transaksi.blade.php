@@ -32,18 +32,21 @@
                                         data-target="#modalpenjual{{ $transaksi->user_penjual->id }}">
                                         {{ $transaksi->user_penjual->name }}
                                     </a>
+                                    <small>Lihat detail</small>
                                 </th>
                                 <th>
                                     <a type="button" data-toggle="modal"
                                         data-target="#modalpembeli{{ $transaksi->user_pembeli->id }}">
                                         {{ $transaksi->user_pembeli->name }}
                                     </a>
+                                    <small>Lihat detail</small>
                                 </th>
                                 <td>
                                     <a type="button" data-toggle="modal"
                                         data-target="#modaltanah{{ $transaksi->data_tanah->id }}">
                                         {{ $transaksi->data_tanah->harga_tanah }}
                                     </a>
+                                    <small>Lihat detail</small>
                                 </td>
                                 <td>
                                     @if ($transaksi->bukti_transfer == null)
@@ -55,8 +58,10 @@
                                         </form>
                                         Bukti transfer belum ada
                                     @else
-                                        <img class="img img-fluid image-file" src="{{ asset($transaksi->bukti_transfer) }}"
-                                            alt="">
+                                        <a type="button" data-toggle="modal"
+                                            data-target="#modalbuktitransfer{{ $transaksi->user_pembeli->id }}">
+                                            Lihat detail
+                                        </a>
                                     @endif
                                 </td>
                                 <td>
@@ -75,7 +80,8 @@
                                     @elseif ($transaksi->status_transaksi == 2)
                                         <span class="text-info">
                                             @if ($transaksi->user_pembeli->id == auth()->user()->id)
-                                                Pertemuan anda dengan Penjual : {{ $transaksi->user_penjual->name }} sudah
+                                                Pertemuan anda dengan Penjual : {{ $transaksi->user_penjual->name }}
+                                                sudah
                                                 di atur admin.
                                             @elseif ($transaksi->user_penjual->id == auth()->user()->id)
                                                 Pertemuan anda dengan Pembeli: {{ $transaksi->user_pembeli->name }} sudah
@@ -101,7 +107,6 @@
                                         {{ $transaksi->jadwal_serah_terima }}
                                     </td>
                                 @endif
-
                             </tr>
                         @endforeach
                     </tbody>
@@ -365,6 +370,31 @@
                                 </ul>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- modal bukti transfer --}}
+        <div class="modal fade" id="modalbuktitransfer{{ $transaksi->user_pembeli->id }}" tabindex="-1"
+            role="dialog" aria-labelledby="modalbuktitransfer{{ $transaksi->user_pembeli->id }}Title" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Bukti transfer</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="body text-center">
+                                <img src="{{ asset($transaksi->bukti_transfer) }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

@@ -16,9 +16,6 @@
 
     <h3>{{ $details['data'] }}</h3>
     <h3>{{ $details['pesan'] }}</h3>
-    @foreach ($details['img_surat_tanah'] as $imgsurat)
-        <img src="{{ public_path($imgsurat->gambar_surat) }}" alt="">
-    @endforeach
 
     <a href="http://127.0.0.1:8000/login">Tekan untuk masuk</a>
 </body>

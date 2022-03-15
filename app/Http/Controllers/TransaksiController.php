@@ -34,7 +34,7 @@ class TransaksiController extends Controller
     {
         $transaksi = Transaksi::find($id);
         $transaksi->delete();
-        return redirect()->back()->with('success', 'Transaksi dibvatalkan');
+        return redirect()->back()->with('success', 'Transaksi dibatalkan');
     }
     public function postbuktitransfer(Request $request, $id)
     {
