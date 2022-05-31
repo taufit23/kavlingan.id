@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RekeningSistemFactory extends Factory
+class TableRoleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,9 +14,10 @@ class RekeningSistemFactory extends Factory
     public function definition()
     {
         return [
-            'nama_bank' => 'BRI',
-            'nama_rekening' => 'Kavlingan.id',
-            'nomor_rekening' => 87967865983467
+            [
+                'nama_role' => 'Admin',
+                'deskripsi_role' => 'Admin',
+            ],
         ];
     }
 }
